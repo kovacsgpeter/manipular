@@ -1,0 +1,576 @@
+<div id="cynos-game-wireframe" aria-label="A künoszkephalai hadjárat kattintható játékfelületének vázlata">
+  <style>
+    #cynos-game-wireframe {
+      --cg-ink: light-dark(#201b14, #f3ead8);
+      --cg-muted: light-dark(#685d4d, #bdb09d);
+      --cg-shell: light-dark(#d9c49b, #1c211d);
+      --cg-shell-deep: light-dark(#3d4934, #111713);
+      --cg-panel: light-dark(#f1e3c2, #283029);
+      --cg-panel-strong: light-dark(#fff4d6, #343e35);
+      --cg-border: light-dark(#736044, #657060);
+      --cg-gold: light-dark(#986d18, #e6b84a);
+      --cg-red: light-dark(#8d3024, #dc675a);
+      --cg-green: light-dark(#41623e, #88b47d);
+      --cg-blue: light-dark(#416878, #78a9bd);
+      --cg-map: light-dark(#b9a66d, #313b30);
+      --cg-map-deep: light-dark(#8f8b5b, #222b24);
+      --cg-water: light-dark(#5b8991, #477b89);
+      --cg-road: light-dark(#6f4f2f, #c2a074);
+      --cg-shadow: light-dark(#4d3c2780, #00000080);
+      color-scheme: light dark;
+      width: 100%;
+      color: var(--cg-ink);
+      font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    }
+
+    #cynos-game-wireframe * { box-sizing: border-box; }
+    #cynos-game-wireframe button { font: inherit; }
+    #cynos-game-wireframe [hidden] { display: none !important; }
+
+    #cynos-game-wireframe .cg-app {
+      width: 100%;
+      overflow: hidden;
+      background: var(--cg-shell);
+      border: 2px solid var(--cg-border);
+      box-shadow: 8px 8px 0 var(--cg-shadow);
+    }
+
+    #cynos-game-wireframe .cg-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      color: var(--cg-panel-strong);
+      background: var(--cg-shell-deep);
+      border-bottom: 2px solid var(--cg-border);
+    }
+
+    #cynos-game-wireframe .cg-brand { min-width: 0; }
+    #cynos-game-wireframe .cg-kicker {
+      color: var(--cg-gold);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    #cynos-game-wireframe .cg-title {
+      margin-top: 3px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(18px, 3vw, 27px);
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+
+    #cynos-game-wireframe .cg-top-actions,
+    #cynos-game-wireframe .cg-nav,
+    #cynos-game-wireframe .cg-drawer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #cynos-game-wireframe .cg-button,
+    #cynos-game-wireframe .cg-nav-button {
+      min-height: 38px;
+      padding: 8px 12px;
+      color: var(--cg-ink);
+      background: var(--cg-panel);
+      border: 2px solid var(--cg-border);
+      cursor: pointer;
+    }
+
+    #cynos-game-wireframe .cg-button:hover,
+    #cynos-game-wireframe .cg-nav-button:hover { background: var(--cg-panel-strong); }
+    #cynos-game-wireframe .cg-button-primary {
+      color: var(--cg-panel-strong);
+      background: var(--cg-red);
+      border-color: var(--cg-red);
+    }
+    #cynos-game-wireframe .cg-button-primary:hover { background: var(--cg-red); filter: brightness(1.08); }
+    #cynos-game-wireframe .cg-button:disabled { cursor: default; opacity: .62; }
+
+    #cynos-game-wireframe .cg-commandbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      background: var(--cg-panel);
+      border-bottom: 2px solid var(--cg-border);
+    }
+
+    #cynos-game-wireframe .cg-nav-button[aria-pressed="true"] {
+      color: var(--cg-panel-strong);
+      background: var(--cg-green);
+      border-color: var(--cg-green);
+    }
+
+    #cynos-game-wireframe .cg-week {
+      color: var(--cg-muted);
+      text-align: right;
+      font-size: 12px;
+    }
+
+    #cynos-game-wireframe .cg-resources {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      background: var(--cg-shell-deep);
+      border-bottom: 2px solid var(--cg-border);
+    }
+
+    #cynos-game-wireframe .cg-resource {
+      padding: 9px 12px;
+      color: var(--cg-panel-strong);
+      border-right: 1px solid var(--cg-border);
+    }
+    #cynos-game-wireframe .cg-resource:last-child { border-right: 0; }
+    #cynos-game-wireframe .cg-resource-label { color: var(--cg-muted); font-size: 11px; text-transform: uppercase; }
+    #cynos-game-wireframe .cg-resource-value { margin-top: 2px; color: var(--cg-gold); font-size: 17px; }
+
+    #cynos-game-wireframe .cg-stage-wrap {
+      position: relative;
+      min-height: 500px;
+      background: var(--cg-map);
+    }
+
+    #cynos-game-wireframe .cg-stage {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+    }
+
+    #cynos-game-wireframe .cg-map-art,
+    #cynos-game-wireframe .cg-camp-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #cynos-game-wireframe .cg-map-art text,
+    #cynos-game-wireframe .cg-camp-art text {
+      fill: var(--cg-ink);
+      font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+    }
+
+    #cynos-game-wireframe .cg-map-art .cg-terrain { fill: var(--cg-map-deep); opacity: .5; }
+    #cynos-game-wireframe .cg-map-art .cg-river { fill: none; stroke: var(--cg-water); stroke-width: 10; opacity: .85; }
+    #cynos-game-wireframe .cg-map-art .cg-road { fill: none; stroke: var(--cg-road); stroke-width: 5; stroke-dasharray: 10 8; }
+    #cynos-game-wireframe .cg-map-art .cg-road-future { opacity: .4; }
+
+    #cynos-game-wireframe .cg-hotspot {
+      position: absolute;
+      z-index: 3;
+      width: 52px;
+      height: 52px;
+      padding: 0;
+      color: var(--cg-panel-strong);
+      background: var(--cg-red);
+      border: 3px solid var(--cg-panel-strong);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px var(--cg-shadow);
+      cursor: pointer;
+    }
+
+    #cynos-game-wireframe .cg-hotspot::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      top: 57px;
+      width: max-content;
+      max-width: 140px;
+      transform: translateX(-50%);
+      padding: 4px 6px;
+      color: var(--cg-ink);
+      background: var(--cg-panel-strong);
+      border: 1px solid var(--cg-border);
+      font-size: 11px;
+      line-height: 1.25;
+      pointer-events: none;
+    }
+
+    #cynos-game-wireframe .cg-hotspot:hover,
+    #cynos-game-wireframe .cg-hotspot:focus-visible {
+      filter: brightness(1.18);
+      box-shadow: 0 0 0 5px var(--cg-gold), 0 0 22px var(--cg-gold);
+    }
+
+    #cynos-game-wireframe .cg-hotspot.cg-complete { background: var(--cg-green); }
+    #cynos-game-wireframe .cg-hotspot.cg-locked { background: var(--cg-muted); opacity: .72; }
+    #cynos-game-wireframe .cg-hotspot.cg-small { width: 44px; height: 44px; }
+
+    #cynos-game-wireframe .cg-larisa { left: 19%; top: 24%; }
+    #cynos-game-wireframe .cg-pass { left: 44%; top: 42%; }
+    #cynos-game-wireframe .cg-pherai { left: 67%; top: 25%; }
+    #cynos-game-wireframe .cg-cynos { left: 73%; top: 68%; }
+    #cynos-game-wireframe .cg-scout { left: 35%; top: 68%; }
+
+    #cynos-game-wireframe .cg-map-caption {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+      z-index: 2;
+      max-width: 330px;
+      padding: 10px 12px;
+      color: var(--cg-panel-strong);
+      background: var(--cg-shell-deep);
+      border: 2px solid var(--cg-border);
+    }
+    #cynos-game-wireframe .cg-map-caption strong { display: block; margin-bottom: 4px; color: var(--cg-gold); }
+    #cynos-game-wireframe .cg-map-caption span { font-size: 12px; }
+
+    #cynos-game-wireframe .cg-camp-stage { background: var(--cg-map-deep); }
+    #cynos-game-wireframe .cg-camp-art .cg-sky { fill: var(--cg-map); }
+    #cynos-game-wireframe .cg-camp-art .cg-ground { fill: var(--cg-map-deep); }
+    #cynos-game-wireframe .cg-camp-art .cg-tent { fill: var(--cg-panel); stroke: var(--cg-border); stroke-width: 3; }
+    #cynos-game-wireframe .cg-camp-art .cg-tent-red { fill: var(--cg-red); }
+    #cynos-game-wireframe .cg-camp-art .cg-fire { fill: var(--cg-gold); }
+    #cynos-game-wireframe .cg-camp-command { left: 44%; top: 31%; }
+    #cynos-game-wireframe .cg-camp-store { left: 18%; top: 57%; }
+    #cynos-game-wireframe .cg-camp-train { left: 70%; top: 56%; }
+    #cynos-game-wireframe .cg-camp-scribe { left: 43%; top: 69%; }
+
+    #cynos-game-wireframe .cg-drawer-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 9;
+      background: color-mix(in srgb, var(--cg-shell-deep) 64%, transparent);
+    }
+
+    #cynos-game-wireframe .cg-drawer {
+      position: absolute;
+      z-index: 10;
+      top: 18px;
+      right: 18px;
+      bottom: 18px;
+      width: min(390px, calc(100% - 36px));
+      overflow: auto;
+      padding: 18px;
+      color: var(--cg-ink);
+      background: var(--cg-panel-strong);
+      border: 3px solid var(--cg-border);
+      box-shadow: 8px 8px 0 var(--cg-shadow);
+    }
+
+    #cynos-game-wireframe .cg-drawer-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    #cynos-game-wireframe .cg-drawer h2 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 22px; font-weight: 500; }
+    #cynos-game-wireframe .cg-close { min-width: 38px; padding: 7px; }
+    #cynos-game-wireframe .cg-eyebrow { margin-bottom: 5px; color: var(--cg-red); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+    #cynos-game-wireframe .cg-copy { margin: 0 0 14px; line-height: 1.55; }
+
+    #cynos-game-wireframe .cg-objective,
+    #cynos-game-wireframe .cg-reward,
+    #cynos-game-wireframe .cg-sync-row,
+    #cynos-game-wireframe .cg-team-row {
+      margin: 0 0 10px;
+      padding: 10px;
+      background: var(--cg-panel);
+      border-left: 4px solid var(--cg-gold);
+    }
+    #cynos-game-wireframe .cg-objective strong,
+    #cynos-game-wireframe .cg-reward strong { display: block; margin-bottom: 4px; }
+
+    #cynos-game-wireframe .cg-sync-list { margin: 0 0 16px; padding: 0; list-style: none; }
+    #cynos-game-wireframe .cg-sync-row {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 10px;
+      border-left-color: var(--cg-green);
+      font-size: 12px;
+    }
+    #cynos-game-wireframe .cg-sync-row span:first-child { color: var(--cg-muted); }
+    #cynos-game-wireframe .cg-team-row { border-left-color: var(--cg-blue); }
+    #cynos-game-wireframe .cg-team-row strong { display: flex; justify-content: space-between; gap: 12px; }
+    #cynos-game-wireframe .cg-meter { height: 7px; margin-top: 7px; background: var(--cg-map); }
+    #cynos-game-wireframe .cg-meter span { display: block; height: 100%; background: var(--cg-blue); }
+
+    #cynos-game-wireframe .cg-toast {
+      position: absolute;
+      z-index: 12;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 32px);
+      padding: 10px 14px;
+      color: var(--cg-panel-strong);
+      background: var(--cg-green);
+      border: 2px solid var(--cg-panel-strong);
+      box-shadow: 5px 5px 0 var(--cg-shadow);
+      text-align: center;
+    }
+
+    #cynos-game-wireframe .cg-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 14px;
+      color: var(--cg-muted);
+      background: var(--cg-panel);
+      border-top: 2px solid var(--cg-border);
+      font-size: 11px;
+    }
+
+    @media (max-width: 650px) {
+      #cynos-game-wireframe .cg-topbar,
+      #cynos-game-wireframe .cg-commandbar { align-items: stretch; flex-direction: column; }
+      #cynos-game-wireframe .cg-top-actions { width: 100%; }
+      #cynos-game-wireframe .cg-top-actions .cg-button { flex: 1; }
+      #cynos-game-wireframe .cg-week { text-align: left; }
+      #cynos-game-wireframe .cg-resources { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #cynos-game-wireframe .cg-resource:nth-child(2) { border-right: 0; }
+      #cynos-game-wireframe .cg-resource:nth-child(-n+2) { border-bottom: 1px solid var(--cg-border); }
+      #cynos-game-wireframe .cg-stage-wrap,
+      #cynos-game-wireframe .cg-stage { min-height: 560px; }
+      #cynos-game-wireframe .cg-map-art text,
+      #cynos-game-wireframe .cg-camp-art text { display: none; }
+      #cynos-game-wireframe .cg-hotspot::after { max-width: 105px; white-space: normal; }
+      #cynos-game-wireframe .cg-larisa { left: 12%; }
+      #cynos-game-wireframe .cg-pherai { left: 70%; }
+      #cynos-game-wireframe .cg-cynos { left: 68%; top: 70%; }
+      #cynos-game-wireframe .cg-scout { left: 24%; top: 69%; }
+      #cynos-game-wireframe .cg-map-caption { right: 16px; max-width: none; }
+      #cynos-game-wireframe .cg-sync-row { grid-template-columns: 1fr; gap: 3px; }
+      #cynos-game-wireframe .cg-footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #cynos-game-wireframe * { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+
+  <section class="cg-app" aria-labelledby="cg-game-title">
+    <header class="cg-topbar">
+      <div class="cg-brand">
+        <div class="cg-kicker">Legio III · Thesszália · I. hét</div>
+        <div class="cg-title" id="cg-game-title">A köd a hágók fölött</div>
+      </div>
+      <div class="cg-top-actions">
+        <button type="button" class="cg-button cg-status-button">Sereg állapota</button>
+        <button type="button" class="cg-button cg-button-primary cg-sync-button">Szinkronizálás</button>
+      </div>
+    </header>
+
+    <div class="cg-commandbar">
+      <nav class="cg-nav" aria-label="Fő nézetek">
+        <button type="button" class="cg-nav-button" data-view="map" aria-pressed="true">Térkép</button>
+        <button type="button" class="cg-nav-button" data-view="camp" aria-pressed="false">Tábor</button>
+      </nav>
+      <div class="cg-week">Marcus · 1/7. hét · következő esemény: Hágófelderítés</div>
+    </div>
+
+    <div class="cg-resources" aria-label="A sereg erőforrásai">
+      <div class="cg-resource"><div class="cg-resource-label">Disciplina</div><div class="cg-resource-value" data-resource="disciplina">5</div></div>
+      <div class="cg-resource"><div class="cg-resource-label">Virtus</div><div class="cg-resource-value">4</div></div>
+      <div class="cg-resource"><div class="cg-resource-label">Exploratio</div><div class="cg-resource-value">3</div></div>
+      <div class="cg-resource"><div class="cg-resource-label">Commeatus</div><div class="cg-resource-value">6</div></div>
+    </div>
+
+    <div class="cg-stage-wrap">
+      <section class="cg-stage cg-map-stage" data-panel="map" aria-label="Thesszália hadjárati térképe">
+        <svg class="cg-map-art" viewBox="0 0 900 500" role="img" aria-labelledby="cg-map-title cg-map-desc" preserveAspectRatio="none">
+          <title id="cg-map-title">Thesszália sematikus hadjárati térképe</title>
+          <desc id="cg-map-desc">Hegyek, folyó, városok és a Larisa felől Künoszkephalai felé vezető hadjárati útvonal.</desc>
+          <rect width="900" height="500" fill="var(--cg-map)"/>
+          <path class="cg-terrain" d="M0 72 L80 18 145 76 220 24 305 88 360 34 430 96 430 0 0 0Z"/>
+          <path class="cg-terrain" d="M565 500 L620 423 690 468 758 390 828 455 900 402 900 500Z"/>
+          <path class="cg-terrain" d="M0 330 L58 282 120 328 190 276 252 346 210 500 0 500Z" opacity=".36"/>
+          <path class="cg-river" d="M820 -15 C745 86 762 174 666 236 C585 290 595 387 520 520"/>
+          <path class="cg-road" d="M190 145 C265 185 330 215 423 236 C515 256 583 194 650 145"/>
+          <path class="cg-road cg-road-future" d="M650 145 C705 210 680 290 702 360 C725 410 770 418 800 445"/>
+          <text x="76" y="52">OLYMPOS</text>
+          <text x="714" y="104">PHERAI</text>
+          <text x="730" y="444">KÜNOSZKEPHALAI</text>
+          <text x="40" y="438">PINDOS</text>
+          <text x="642" y="275" transform="rotate(64 642 275)">PENEIOS</text>
+        </svg>
+
+        <button type="button" class="cg-hotspot cg-larisa" data-action="task" data-label="Larisa · napi vállalás" aria-label="Larisa – napi vállalás megnyitása">I</button>
+        <button type="button" class="cg-hotspot cg-small cg-pass" data-action="story" data-label="Hágó · eligazítás" aria-label="A hágó eligazításának megnyitása">II</button>
+        <button type="button" class="cg-hotspot cg-small cg-pherai" data-action="story" data-label="Pherai · közelgő" aria-label="Pherai közelgő eseményének megtekintése">III</button>
+        <button type="button" class="cg-hotspot cg-small cg-scout" data-action="scout" data-label="Felderítők" aria-label="Felderítőjelentés megnyitása">?</button>
+        <button type="button" class="cg-hotspot cg-locked cg-cynos" data-action="locked" data-label="Döntő csata · lezárva" aria-label="A lezárt döntő csata megtekintése">VII</button>
+
+        <div class="cg-map-caption">
+          <strong>Aktuális parancs</strong>
+          <span>Erősítsd meg a napi vállalást Larisánál, majd térj vissza a táborba.</span>
+        </div>
+      </section>
+
+      <section class="cg-stage cg-camp-stage" data-panel="camp" aria-label="Római tábor" hidden>
+        <svg class="cg-camp-art" viewBox="0 0 900 500" role="img" aria-labelledby="cg-camp-title cg-camp-desc" preserveAspectRatio="none">
+          <title id="cg-camp-title">A római tábor sematikus képe</title>
+          <desc id="cg-camp-desc">Parancsnoki sátor, raktár, gyakorlótér, írnok és tábortűz interaktív pontokkal.</desc>
+          <rect class="cg-sky" width="900" height="245"/>
+          <rect class="cg-ground" y="245" width="900" height="255"/>
+          <path class="cg-tent cg-tent-red" d="M335 300 L450 105 570 300Z"/>
+          <rect class="cg-tent" x="374" y="257" width="155" height="104"/>
+          <path class="cg-tent" d="M75 350 L170 215 265 350Z"/>
+          <path class="cg-tent" d="M635 350 L730 215 825 350Z"/>
+          <rect x="0" y="390" width="900" height="7" fill="var(--cg-road)" opacity=".7"/>
+          <circle class="cg-fire" cx="450" cy="427" r="31"/>
+          <text x="384" y="88">PRINCIPIA</text>
+          <text x="103" y="202">RAKTÁR</text>
+          <text x="677" y="202">GYAKORLÓTÉR</text>
+        </svg>
+
+        <button type="button" class="cg-hotspot cg-camp-command" data-action="command" data-label="Parancsnoki sátor" aria-label="Parancsnoki sátor megnyitása">⌂</button>
+        <button type="button" class="cg-hotspot cg-small cg-camp-store" data-action="store" data-label="Raktár" aria-label="Raktár megnyitása">▣</button>
+        <button type="button" class="cg-hotspot cg-small cg-camp-train" data-action="task" data-label="Gyakorlótér" aria-label="Gyakorlótér feladatának megnyitása">⚔</button>
+        <button type="button" class="cg-hotspot cg-small cg-camp-scribe" data-action="scribe" data-label="Írnok" aria-label="Írnok és igazolások megnyitása">✎</button>
+      </section>
+
+      <div class="cg-drawer-backdrop" hidden></div>
+      <aside class="cg-drawer" aria-label="Részletek" hidden>
+        <div class="cg-drawer-content"></div>
+      </aside>
+      <div class="cg-toast" role="status" aria-live="polite" hidden></div>
+    </div>
+
+    <footer class="cg-footer">
+      <span class="cg-local-state">Helyi állapot: minden változás mentve</span>
+      <span>Távoli állapot: ellenőrzésre vár · Sync dry-run elérhető</span>
+    </footer>
+  </section>
+
+  <script>
+    (() => {
+      const root = document.getElementById('cynos-game-wireframe');
+      const panels = root.querySelectorAll('[data-panel]');
+      const navButtons = root.querySelectorAll('[data-view]');
+      const drawer = root.querySelector('.cg-drawer');
+      const drawerBackdrop = root.querySelector('.cg-drawer-backdrop');
+      const drawerContent = root.querySelector('.cg-drawer-content');
+      const toast = root.querySelector('.cg-toast');
+      const disciplina = root.querySelector('[data-resource="disciplina"]');
+      const taskHotspots = root.querySelectorAll('[data-action="task"]');
+      const localState = root.querySelector('.cg-local-state');
+      let taskCompleted = false;
+      let toastTimer;
+
+      const closeDrawer = () => {
+        drawer.hidden = true;
+        drawerBackdrop.hidden = true;
+        drawerContent.innerHTML = '';
+      };
+
+      const showToast = (message) => {
+        clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.hidden = false;
+        toastTimer = setTimeout(() => { toast.hidden = true; }, 3200);
+      };
+
+      const drawerShell = (eyebrow, title, body) => `
+        <div class="cg-drawer-header">
+          <div><div class="cg-eyebrow">${eyebrow}</div><h2>${title}</h2></div>
+          <button type="button" class="cg-button cg-close" aria-label="Panel bezárása">×</button>
+        </div>
+        ${body}`;
+
+      const openDrawer = (markup) => {
+        drawerContent.innerHTML = markup;
+        drawer.hidden = false;
+        drawerBackdrop.hidden = false;
+        const close = drawerContent.querySelector('.cg-close');
+        close.addEventListener('click', closeDrawer);
+        close.focus();
+      };
+
+      const openTask = () => {
+        const stateText = taskCompleted ? 'A vállalás teljesítve, a jutalom jóváírva.' : 'Jelöld készre, amikor valóban teljesítetted.';
+        const action = taskCompleted
+          ? '<button type="button" class="cg-button cg-button-primary" disabled>Teljesítve</button>'
+          : '<button type="button" class="cg-button cg-button-primary cg-complete-task">Kész, teljesítettem</button>';
+        openDrawer(drawerShell('Napi vállalás · one_off', 'Rendezd a mai haditervet', `
+          <p class="cg-copy">A menetoszlop csak akkor indul, ha a parancsnok kijelölte a nap egyetlen fontos vállalását.</p>
+          <div class="cg-objective"><strong>Feladat</strong>Írd le magadnak a mai legfontosabb vállalást, és készítsd elő az első lépést.</div>
+          <div class="cg-reward"><strong>Jutalom</strong>+1 Disciplina · a hágó útvonala megerősödik</div>
+          <p class="cg-copy">${stateText}</p>
+          <div class="cg-drawer-actions">${action}<button type="button" class="cg-button cg-go-camp">Irány a tábor</button></div>`));
+        const completeButton = drawerContent.querySelector('.cg-complete-task');
+        if (completeButton) {
+          completeButton.addEventListener('click', () => {
+            taskCompleted = true;
+            disciplina.textContent = '6';
+            taskHotspots.forEach((hotspot) => hotspot.classList.add('cg-complete'));
+            localState.textContent = 'Helyi állapot: task_completed esemény mentve';
+            closeDrawer();
+            showToast('+1 Disciplina · A vállalás rögzítve');
+          });
+        }
+        drawerContent.querySelector('.cg-go-camp').addEventListener('click', () => {
+          closeDrawer();
+          setView('camp');
+        });
+      };
+
+      const openSync = () => {
+        const changed = taskCompleted ? 'data/events/marcus/week-01.jsonl' : 'Nincs engedélyezett helyi változás';
+        openDrawer(drawerShell('Szinkronizálás · dry-run', 'Git-műveleti előnézet', `
+          <p class="cg-copy">Ez az előnézet nem módosítja a Git állapotát.</p>
+          <ul class="cg-sync-list">
+            <li class="cg-sync-row"><span>Engedélyezett fájl</span><strong>${changed}</strong></li>
+            <li class="cg-sync-row"><span>Validáció</span><strong>${taskCompleted ? 'Rendben' : 'Nincs teendő'}</strong></li>
+            <li class="cg-sync-row"><span>Fetch / rebase</span><strong>${taskCompleted ? 'Fetch szükséges · rebase nem várható' : 'Nem szükséges'}</strong></li>
+            <li class="cg-sync-row"><span>Commit</span><strong>${taskCompleted ? 'game(marcus): record week-01 progress' : 'Nem készül commit'}</strong></li>
+            <li class="cg-sync-row"><span>Push cél</span><strong>origin/main</strong></li>
+            <li class="cg-sync-row"><span>Blokkolók</span><strong>Nincs</strong></li>
+          </ul>
+          <div class="cg-drawer-actions"><button type="button" class="cg-button cg-button-primary cg-dryrun-close">Rendben</button></div>`));
+        drawerContent.querySelector('.cg-dryrun-close').addEventListener('click', closeDrawer);
+      };
+
+      const openTeam = () => {
+        openDrawer(drawerShell('Legio III · közös állapot', 'A sereg ereje', `
+          <p class="cg-copy">A három parancsnok hozzájárulása együtt alakítja a következő összecsapás helyzetét.</p>
+          <div class="cg-team-row"><strong><span>Marcus</span><span>${taskCompleted ? '6' : '5'} pont</span></strong><div class="cg-meter"><span style="width:${taskCompleted ? '72' : '60'}%"></span></div></div>
+          <div class="cg-team-row"><strong><span>Livia</span><span>4 pont</span></strong><div class="cg-meter"><span style="width:48%"></span></div></div>
+          <div class="cg-team-row"><strong><span>Titus</span><span>5 pont</span></strong><div class="cg-meter"><span style="width:60%"></span></div></div>
+          <div class="cg-reward"><strong>Következő mérföldkő</strong>12/18 közös pont · Hágófelderítés</div>`));
+      };
+
+      const openInfo = (kind) => {
+        const content = {
+          story: ['Hadjárati jelentés', 'A köd miatt a felderítők lassan haladnak. Egy teljesített napi vállalás felfedi a biztonságos ösvényt.'],
+          scout: ['Felderítőjelentés', 'A keleti út gyorsabb, de több készletet igényel. Az útvonal a következő heti döntésnél válik aktívvá.'],
+          locked: ['Künoszkephalai', 'A döntő csata a hetedik héten nyílik meg. A sereg állapotát az addig gyűjtött erőforrások határozzák meg.'],
+          command: ['Heti eligazítás', 'Cél: érjétek el együtt a 18 pontot, hogy a hágófelderítés kedvező ágon induljon.'],
+          store: ['Raktár', 'Commeatus: 6 · A készletek jelenleg elegendők. A következő fejlesztés 8 közös pontba kerül.'],
+          scribe: ['Írnok', 'Nincs függőben lévő csapattársi vagy e-mailes igazolás. A helyi eseménynapló érvényes.']
+        };
+        const selected = content[kind];
+        openDrawer(drawerShell('Tábori feljegyzés', selected[0], `<p class="cg-copy">${selected[1]}</p>`));
+      };
+
+      const setView = (view) => {
+        panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== view; });
+        navButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
+      };
+
+      navButtons.forEach((button) => button.addEventListener('click', () => {
+        closeDrawer();
+        setView(button.dataset.view);
+      }));
+      root.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => {
+        if (button.dataset.action === 'task') openTask();
+        else openInfo(button.dataset.action);
+      }));
+      root.querySelector('.cg-sync-button').addEventListener('click', openSync);
+      root.querySelector('.cg-status-button').addEventListener('click', openTeam);
+      drawerBackdrop.addEventListener('click', closeDrawer);
+      root.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !drawer.hidden) closeDrawer();
+      });
+    })();
+  </script>
+</div>
