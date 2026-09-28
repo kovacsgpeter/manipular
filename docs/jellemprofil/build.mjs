@@ -219,7 +219,7 @@ function challengeDoc(resolved) {
     '',
     GENERATED.replace('kerdesbank.json', 'kihivasbank.json'),
     '',
-    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít.',
+    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: alapból azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A súlyozás, a nézőpont, az irányfókusz és az erősségekre jutó napi kihívások száma a Kérdésműhely › Kihívás-beállítások fülön állítható. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít.',
     '',
   ];
   for (const type of Object.keys(CH_TYPES)) {
