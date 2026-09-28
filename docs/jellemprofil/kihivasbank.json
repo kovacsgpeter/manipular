@@ -11,7 +11,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "A héten napi szinten nem passzolok le 5 feladatot amit máskor mindig leszoktam - verifikálható",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -23,7 +23,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Minden kanapéhasználat után ellenőrzöm, hogy úgy hagytam-e el a terepet, ahogy találtam. Rendezettebben ér elhagyni!",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -35,7 +35,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "1 hétig sehonnan nem kések el, előre kalkulálok az esetleges forgalmi, technikai akadályokkal is.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -47,7 +47,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Randit szervezek kettesben a feleségemmel. Kitűzöm az idejét, leszervezem a programot előre.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -59,7 +59,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Egy héten keresztül minden nap sétálj nap felkelte alatt 20-30 percet Használd ezt az időt elcsendesedésre.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 7
     },
@@ -71,7 +71,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Egy teljes napon keresztül vállalj át minden felelősséget,amit máskor a feleséged csinál. Ez ne egy \"előkészített\" nap legyen, hanem erre a napra a felkészülés is a tied. Egyedül hozd meg azokat a döntéseket,. amik a nap működéséhez szükségesek ( a gyerekek jussanak el mindenhova ahova kell, az étkezésekért te felelsz, az esedékes elintézni valókat te vedd észre és tervezed meg) - ennek a célja, hogy jobban megértsd az ő minden napi terheit, jobban àtlásd neki milyen minden napos nehézségei vannak",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -83,7 +83,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy héten keresztül kelj fel az első alkalomra amikor megszólal az ébresztő órád és rögtön vegyél egy 2 perces jéghideg zuhanyt",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 7
     },
@@ -95,7 +95,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy napon keresztül kelj fel az első alkalomra amikor megszólal az ébresztő órád és rögtön vegyél egy 2 perces jéghideg zuhanyt",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -107,7 +107,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "A hét minden napján vedd fel valakivel a kapcsolatot akivel régen nem beszéltél ( hanyagságból vagy mert rendezni valód van vele)",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 7
     },
@@ -119,7 +119,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Figyelj egy hétig arra, hogy tényleg csak a szükségleteid kielégítése céljából egyél. Ne egyél mennyiségre sem többet a szükségesnél illetve ne nassolj a főétkezések között ( üdítőt se fogyassz)",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 7
     },
@@ -131,7 +131,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy héten keresztül ne használd a telefonod, kizárólag hívásra és hívásfogadásra. Amikor hazaérsz, otthon tedd le egy kijelölt helyre és ne vedd elő szükségtelenül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -143,7 +143,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy nap keresztül ne használd a telefonod, kizárólag hívásra és hívásfogadásra. Amikor hazaérsz, otthon tedd le egy kijelölt helyre és ne vedd elő szükségtelenül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -155,7 +155,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy héten keresztül minden este írj le 10'dolgot amiért aznap hálás lehetsz",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 7
     },
@@ -167,7 +167,7 @@
       "mature": "Reménység",
       "distorted": "Ábrándozás",
       "description": "Hivd el egy férfi társas egy kávéra. Ne olyan valakit akivel amúgy is van már kialakult és rendszeres kapcsolódás.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -179,7 +179,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Írj egy listát minden gyermekedre hogy a következő 1 évben milyen konkrét dolgokért fogsz imádkozni velük kapcsolatban",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -191,7 +191,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Ha van valaki akivel kapcsolatban szükséged van megbocsátásra bocsáss meg neki - lehetőség szerint rendezd a kapcsolatot és szükség esetén változtasd is meg a jövőbeli hozzá állasod ehhez a személyhez +",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -203,7 +203,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Gondold végig mi a legnagyobb elakadásod és hogy ki tudna segíteni benne. Kérd meg.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -215,7 +215,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Írj egy imát a házasságodért",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -227,7 +227,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Vidd el a lányod egy számára kedves helyre és adj neki osztatlan figyelmet. Bánj úgy vele, hogy tudja milyen bánásmódot érdemel a jövőben egyszer majd.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -239,7 +239,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Egy héten keresztül figyelj nagyon, hogy mi hagyja el szád. Ne mondj ki szükségtelen zsörtölődést, panaszkodást vagy nem építő kritikát, szurkáló megjegyzést stb",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 7
     },
@@ -251,7 +251,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy héten keresztül figyelj, hogy ne megszokásból működj. Vizsgáld meg a helyzeteket és jegyezd fel azokat az alkalmakat amikor más döntést hoztál mint megszokásból tetted volna ( mert pl észrevetted a családod igényét )",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -263,7 +263,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Kérj meg 10 embert, hogy mondjon legalább 3 dolgot amit szeret benned ( ne csak család tagokat)",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -275,7 +275,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Írj egy listát legalább 10 erősegeddel ( vagy területtel amiben jó vagy). Írj gondolatokat, arról hogy melyiket hogyan tudnád felhasználni/ kamatoztatni ezeket",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -287,7 +287,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Aznap meg kell jelentetned valamyilen (de nem aznap regisztrált 0 ismerősű!) közösségi médiafelületeden egy bejegyzést amit mindenki láthat, és vagy egy bizonyság vagy valamilyen saját vélemény valami fontos dologról.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -299,7 +299,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Ezen a napon nem használhatsz autót, ill liftet.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -311,7 +311,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "3 napig minden egyes alkalommal amikor döntést kell hozni hogy magadat vagy valaki mást helyzet előtérbe válaszd azt, hogy mást. ( pl te is szomjas vagy és valaki más is vizet kér - pl gyerek, feleség- először adj neki, valamiből amit te is szeretnél már csak egy van, add oda a másiknak aki szeretné, hallod hogy a a gyereknek szüksége van valamire, legyél te a gyorsabb aki megy hozzá)",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 3
     },
@@ -323,7 +323,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "3 napig nem fogalmazhatsz meg kritikát a feleséged felé. Építő jellegűt sem.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 3
     },
@@ -335,7 +335,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Csinálj 150 fekvőtámaszt - nem kell egybe, de a nap folyamán legyen meg",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -347,7 +347,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Van az a bizonyos dolog ami ha eszedbe jut, hogy még mindig nem csináltad meg talán még a gyomrom is görcsbe rándul és azonnal próbálod újra elfelejteni. Na! Nézz szembe ezzel a feladattal, ha tudod a nap folymán csináld meg, ha ez nem lehetséges tedd meg az első képest és keszitsd egy pontos tervez hogyan lesz befejezve. - ha több ilyen feladat is van, akkor tégy így annyival amennyivel csak lehet.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -359,7 +359,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "A következő egy héten belül szólíts meg valakit és imádkozz érte. Ne tesót! Egy kollégát akiről tudod esteleg szüksége van rá, a postást, valakit a boltban/ utcán stb. Olyat nem ér akiről tudod hogy keresztyén.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 7
     },
@@ -371,7 +371,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Gondold végig kitől kell neked bocsánatot kérned! Lehet az egy rég megszakad kapcsolat de akár a feleséged/ jó barátod is valami olyan dolog mkatt amivel tudós hogy bántod/ megbántottad, de sosem mondtad ki.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -383,7 +383,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Böjtölj 3 napot az elhívásodért és az identitásod formálódásáért",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 3
     },
@@ -395,7 +395,7 @@
       "mature": "Elhívástudat",
       "distorted": "Messiáskomplexus",
       "description": "Adj a családod minden tagjának 30-30 perc osztatlan figyelmet ( vidd ki sétálni - játszani a gyereket ha csak úgy megoldható hogy zavartalanul együtt tudj vele lenni ) ha ránézel a telefonodra vagy valami elvonja a figyelmed az óra újra indul!",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -407,7 +407,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Szervezz meg egy családi programot! Gondolj a körülményekre ( pl időjárás ) és mindenkinek a szükségleteire és igényeire)",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -419,7 +419,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Egy hétig minden nap fogalmazz meg egy kedves üzenetet a feleségednek írásban. Kézzel írva papírra.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 7
     },
@@ -431,7 +431,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Írj minden gyermekednek kézzel papírra 1-1 levelet a 18. szülinapjára.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -443,7 +443,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Adj a feleségednek egy szabad délutánt / estét. Ha otthon szeretne maradni akkor vidd el a gyerekeket ( napirendjüknek megfelelően) ha pedig elmenne valahová tedd lehetővé.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -455,7 +455,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Készíts reggelt az egész családnak ( olyat, amiből mindenki tényleg eszik is )",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -467,7 +467,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Írd le milyen férfi szeretnél lenni 10 év múlva.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -479,7 +479,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Írd le milyen apának szeretnéd hogy a gyerekeid lássanak. Ha ez megvan, vizsgáld meg milyen vagy valójában ehhez képest",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -491,7 +491,7 @@
       "mature": "Elhívástudat",
       "distorted": "Messiáskomplexus",
       "description": "Fogalmazd meg, hogy milyen tulajdonságokkal rendelkező férjet képzelnél el a lányodnak 10 pontban, majd jelöld, hogy te hány pontot teljesítesz jelenleg.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -503,7 +503,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Teljesíts egy feleséged által választott, általad halogatott ház körüli munkát.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -515,7 +515,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "A következő egy héten minden ígéretet tarts meg ( az \"1 perc és jövök / megcsinálom\" jellegűeket is - tényleg egy perc legyen)",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -527,7 +527,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Egy rég halogatott (ertelmes?) célodat csakazért is kezdd el ma, foglalkozz a dologgal legalább 1 órát és számolj be róla (feleségednek,barátodnak)",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -539,7 +539,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Imádkozz egy hétig napi 3x a gyülekezeti vezetőidért.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 7
     },
@@ -551,7 +551,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Ezen a héten vegyél részt a hajnali imán a gyüliben.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 7
     },
@@ -563,7 +563,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Ezen a napon sportolj legalább egy órát",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -575,7 +575,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Ezen a napon adj 2-3 órát az anyának a nagyobbik lányával kettesben töltött időre, te addig vidd el/foglalkozz külön helyszínen a kisebbikkel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -587,7 +587,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Vegyél egy szép csokrot a feleségednek és írd mellé le egy papírra 4 jó tulajdonságát, amit 2-3 mondatban ki is fejted.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -599,7 +599,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Minden alkalommal, amikor a feleséged vezet és te is az autóban ülsz, ha eszedbe jutna egy kritikát megfogalmazni, helyette fejezd ki a háládat felé.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -611,7 +611,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Válassz egy rég halogatott fizikai feladatot, és még ma dolgozz rajta megszakítás nélkül 30 percet. Készíts előtte és utána képet.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -623,7 +623,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Öt napon át a telefon megnyitása előtt végezz legalább 15 perc átmozgatást vagy tempós sétát; naponta rögzítsd a teljesítést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -635,7 +635,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Indíts el ma egy kerülgetett szellemi feladatot egy 25 perces, értesítésmentes fókuszblokkal, és írd le az elkészült eredményt.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -647,7 +647,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Hétfőn válassz egy halogatott döntést, majd öt napon át tegyél egy dokumentálható lépést a megvalósítása felé.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -659,7 +659,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Kezdeményezz ma legalább tíz perc közös imát a házastársaddal, családtagoddal vagy csapattársaddal.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -671,7 +671,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Öt napon át naponta kezdeményezz egy konkrét segítséget anélkül, hogy megvárnád, míg megkérnek rá; jegyezd fel röviden.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -683,7 +683,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Válassz egy biztonságos, de szokatlanul nehéz mozgásformát, és teljesíts belőle húsz percet a saját állapotodhoz igazítva.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -695,7 +695,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Öt napon át végezz legalább húsz perc tempós sétát, lépcsőzést vagy más pulzusemelő mozgást; fájdalom esetén válts kímélőbbre.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -707,7 +707,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Kezdeményezz ma egy régóta kerülgetett, őszinte beszélgetést. Mondd el tisztán a lényeget, majd hallgasd végig a másikat.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -719,7 +719,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Öt napon át tegyél fel naponta egy őszinte kérdést olyan helyzetben, ahol máskor inkább csendben maradnál.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -731,7 +731,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Fogalmazd meg egy percben, mit tett Isten az életedben, és oszd meg ma egy olyan emberrel, akivel erről ritkán beszélsz.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -743,7 +743,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Öt napon át imádkozz hangosan egy konkrét személyért vagy ügyért, és minden nap jegyezd fel egy mondatban, miért imádkoztál.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -755,7 +755,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Teljesíts összesen száz, a szintedhez illő saját testsúlyos ismétlést több sorozatban. A szabályos végrehajtás fontosabb a sebességnél.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -767,7 +767,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Készíts előre ötnapos mozgástervet, majd minden nap teljesítsd a kijelölt edzést vagy sétát, és rögzítsd az időtartamot.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -779,7 +779,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Válassz egy legalább egy hete félbehagyott feladatot, és ma fejezd be teljesen vagy vidd el egy egyértelmű átadási pontig.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -791,7 +791,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Öt napon át zárj le naponta egy régóta halogatott, mérhető feladatot; a hét elején írd össze mind az öt célpontot.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -803,7 +803,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Nevezz meg egy visszatérő kísértést vagy rossz szokást, távolíts el ma egy kiváltó okot, és válassz helyette egy konkrét jó gyakorlatot.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -815,7 +815,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Öt napon át cserélj le naponta egy rossz beidegződést imára, igére vagy szolgáló tettre, és számolj be róla egy társadnak.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -827,7 +827,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Jelölj ki mára egy pontos edzés- vagy sétaidőt, és kezdd el legfeljebb öt perc eltéréssel; ne tárgyald újra magaddal.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -839,7 +839,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Öt napon át tarts egy előre kijelölt lefekvési vagy mozgásidőt harminc perces sávon belül, és jelöld a teljesítést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -851,7 +851,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Hozz meg ma egy függőben lévő döntést előre leírt szempontok alapján, és közöld világosan az érintettekkel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -863,7 +863,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Öt napon át hozz meg naponta egy kisebb, halogatott döntést; írd le a döntést, az okát és a következő lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -875,7 +875,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Írj le egy biblikus meggyőződést, amelyben már tudod a helyes következő lépést, és még ma tedd is meg.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -887,7 +887,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Öt napon át végezz el naponta egy olyan helyes dolgot, amelyről tudod, hogy meg kell tenned, még aznap este előtt.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -899,7 +899,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Mérj fel ma egy biztonságos fizikai mutatót: sétaidő, plank, guggolás vagy fekvőtámasz. Rögzítsd a pontos kiinduló értéket.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -911,7 +911,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Öt napon át ismételd ugyanazt a biztonságos gyakorlatot, és csak kis lépéssel javíts az időn, távon vagy ismétlésszámon.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -923,7 +923,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Fogalmazz meg egy mérhető, kilencven napos fejlődési célt, bontsd három mérföldkőre, és tedd naptárba az első munkablokkot.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -935,7 +935,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Öt napon át tölts legalább harminc percet egy választott készség fejlesztésével, és naponta készíts háromsoros jegyzetet.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -947,7 +947,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Írj össze három erősséget vagy Istentől kapott ajándékot, és válassz egy konkrét embert, akit az egyikkel még ma szolgálsz.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -959,7 +959,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Öt napon át fordíts legalább húsz percet egy ajándékod fejlesztésére vagy mások javára használására; rögzítsd az eredményt.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -971,7 +971,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Teljesítsd a mára tervezett mozgást akkor is, ha csökkentened kell az intenzitást; a biztonságos befejezés számít, nem a rekord.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -983,7 +983,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Öt napon át sétálj legalább húsz percet. Rossz idő vagy sűrű nap esetén válassz beltéri útvonalat, de ne szakítsd meg a sort.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -995,7 +995,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Dolgozz ma negyvenöt percet egyetlen fontos feladaton ablakváltás, telefon és melléktevékenység nélkül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1007,7 +1007,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Öt napon át válassz reggel egy kicsi, befejezhető feladatot, és ne kezdj másikba, amíg azt le nem zártad.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1019,7 +1019,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Tarts ma legalább tizenöt perc imaidőt akkor is, ha nincs hozzá kedved vagy különleges élményed; a jelenlét legyen a teljesítés.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1031,7 +1031,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Öt napon át ugyanabban az időablakban olvass igét és imádkozz legalább tizenöt percet; minden nap jelöld a teljesítést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1043,7 +1043,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Járd végig az otthonod vagy munkahelyed egy részét, és szüntess meg ma három konkrét baleseti vagy rendetlenségi kockázatot.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1055,7 +1055,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Öt estén át kapcsold ki a képernyőket lefekvés előtt legalább negyvenöt perccel, és készülj el előre a nyugodt alváshoz.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1067,7 +1067,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Nevezz meg egy helyzetet, ahol túl sokat vállalsz vagy engedsz, és ma közöld tisztelettel a világos határodat.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1079,7 +1079,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Öt napon át azonosíts naponta egy közelgő kockázatot a családban vagy munkában, és tegyél egy megelőző lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1091,7 +1091,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Imádkozz ma név szerint minden közeli családtagodért, külön megnevezve egy szükségét és egy erősségét.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1103,7 +1103,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Öt napon át figyeld, milyen tartalmat engedsz be a gondolataidba; naponta zárj ki egy romboló forrást, és válassz építőt helyette.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1115,7 +1115,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Végezz húsz perc kontrollált, lassú saját testsúlyos mozgást úgy, hogy minden ismétlés technikailag pontos legyen.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1127,7 +1127,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Öt napon át mozogj mérsékelt, fenntartható intenzitással legalább húsz percet; ne hajszolj rekordot, de ne is hagyd ki.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1139,7 +1139,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Öt feszült vagy sürgető helyzetben tarts tíz másodperc szünetet válaszadás előtt, majd válaszolj röviden és tisztán.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1151,7 +1151,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Öt napon át adj valakinek legalább tíz perc osztatlan figyelmet tanácsadás, félbeszakítás és saját történet nélkül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1163,7 +1163,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Mondd el Istennek egy kérésedet, majd maradj tíz perc csendben anélkül, hogy azonnali választ vagy érzést követelnél.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1175,7 +1175,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Öt napon át minden kimondani készült panaszt cserélj le egy valós hálaadásra vagy konstruktív kérésre; naponta írj le egy példát.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1187,7 +1187,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy visszatérő testi késztetésnél vagy nassolási ingernél várj húsz percet, igyál vizet és sétálj röviden, mielőtt döntesz.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1199,7 +1199,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Öt napon át válassz egy testi kényelmet vagy élvezeti szokást, és tarts előre meghatározott, ésszerű korlátot.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1211,7 +1211,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Kapcsold ki négy órára a nem létfontosságú értesítéseket, és dolgozz csak az előre kijelölt feladatokon.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1223,7 +1223,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Öt napon át teljesíts naponta két huszonöt perces blokkot egyetlen feladattal, párhuzamos csevegés és böngészés nélkül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1235,7 +1235,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Egy teljes napon át ne mondj ki pletykát, gúnyt vagy indulatos minősítést; ha hibázol, azonnal kérj bocsánatot.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1247,7 +1247,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Öt napon át mondj le egy választott kényelemről vagy szórakozásról, és a felszabaduló időből legalább tíz percet fordíts imára.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1259,7 +1259,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Teljesítsd ma azt a mozgást, amelyet valakinek vagy magadnak megígértél; csak egészségügyi okból módosítsd biztonságos változatra.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1271,7 +1271,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Öt napon át tartsd meg az előre egyeztetett sétát vagy edzést, és időben jelezd, ha valódi akadály miatt módosítani kell.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1283,7 +1283,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Írd össze a még nyitott ígéreteidet, válassz ki egyet, és ma teljesítsd vagy egyeztess új, valós határidőt az érintettel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1295,7 +1295,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Öt napon át minden vállalásodhoz és találkozódhoz készülj úgy, hogy legalább öt perccel a kezdés előtt készen állj.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1307,7 +1307,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Tegyél ma egy konkrét, áldozattal járó gesztust a házastársadért, családodért vagy közösségedért, amely kifejezi a hűségedet.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1319,7 +1319,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Öt napon át imádkozz ugyanazért a rád bízott személyért, és küldj neki naponta egy rövid, őszinte bátorítást.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1331,7 +1331,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Ha a tervezett mozgás ma nem megoldható, válassz azonos célt szolgáló biztonságos alternatívát, és teljesíts legalább húsz percet.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1343,7 +1343,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Öt napon át próbálj ki naponta más, biztonságos mozgásformát úgy, hogy mindegyik legalább húsz percig tartson.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1355,7 +1355,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Egy aktuális problémára írj három valóban különböző megoldási utat, válaszd ki a legéletképesebbet, és tedd meg az első lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1367,7 +1367,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Öt napon át fogalmazd meg naponta egy vitás kérdésben a másik fél álláspontját úgy, hogy ő is korrektnek tartaná.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1379,7 +1379,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Igazíts ma egy szolgáló tettedet a másik ember valódi szükségéhez és időzítéséhez, ne a saját kényelmedhez.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1391,7 +1391,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Öt napon át fogadj el naponta egy ésszerű tervváltozást sértődés nélkül, és keresd meg benne a szolgálat lehetőségét.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1403,7 +1403,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Állíts össze három-öt saját testsúlyos gyakorlatból húszperces edzést kizárólag azzal, ami éppen rendelkezésedre áll.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1415,7 +1415,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Öt napon át találj új módot legalább húsz perc mozgásra a környezeted eszközeivel; minden nap legyen eltérő megoldás.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1427,7 +1427,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Írj tíz megoldásötletet egy valós problémára értékelés nélkül, majd jelöld meg azt a kettőt, amelyet érdemes kipróbálni.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1439,7 +1439,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Öt napon át végezz el naponta egy visszatérő feladatot tudatosan új módszerrel, majd jegyezd fel, mi működött jobban.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1451,7 +1451,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Fejezd ki ma a háládat valakinek nem megszokott formában: levéllel, képpel, hangüzenettel vagy saját készítésű aprósággal.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1463,7 +1463,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Öt napon át válassz egy hétköznapi tárgyat vagy helyzetet, és írj róla rövid lelki tanulságot egy bibliai igazsághoz kapcsolva.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1475,7 +1475,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Ha egy tervezett mozgás fájdalmat okoz, válts ma biztonságos, fájdalommentes változatra úgy, hogy a mozgás célját ne add fel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1487,7 +1487,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Öt napon át oldd meg a napi húsz perc mozgást az időjárás, utazás vagy időhiány ellenére előre kigondolt alternatív útvonallal.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1499,7 +1499,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Egy elakadt feladatot bonts három kisebb, egymástól függetlenül indítható lépésre, majd még ma végezd el az elsőt.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1511,7 +1511,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Öt napon át minden komolyabb akadálynál írd le a célt, az akadályt és egy másik legitim útvonalat, majd próbáld ki.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1523,7 +1523,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Nevezd meg egy visszatérő kísértésed tipikus helyzetét, és ma változtasd meg előre a környezetet, hogy ne kelljen belelépned.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1535,7 +1535,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Öt napon át alkalmazz előre megtervezett menekülési útvonalat egy visszatérő kísértésnél, és naponta számolj be egy társadnak.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1547,7 +1547,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Végezz ma közös sétát vagy fizikai feladatot valakivel úgy, hogy a tempót a gyengébb vagy fáradtabb félhez igazítod.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1559,7 +1559,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Ezen a héten tervezz és valósíts meg közös családi programot úgy, hogy legalább két eltérő igény valódi helyet kapjon benne.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1571,7 +1571,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Egy panaszt vagy vádat fogalmazz át tényszerű én-üzenetté: mi történt, mit érzel, mire van szükséged, és mit kérsz.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1583,7 +1583,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Öt napon át egy nézeteltérésben előbb tegyél fel egy tisztázó kérdést, és csak a válasz összefoglalása után mondd el a véleményed.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1595,7 +1595,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Kezdeményezz ma rendezést valakivel, akivel feszültség van: vállald a saját részedet, és ne követelj azonnali viszonzást.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1607,7 +1607,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Öt napon át imádkozz egy konfliktus mindkét oldaláért, és a hét során tegyél legalább egy pártatlan, békességet szolgáló lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1619,7 +1619,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Igazítsd a mai edzést az idődhöz, energiaszintedhez és eszközeidhez úgy, hogy a lényegi mozgáscél mégis teljesüljön.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1631,7 +1631,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Öt napon át mozogj legalább húsz percet; előre legyen szabadtéri és beltéri változatod, és mindig az aznapi helyzethez illőt válaszd.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1643,7 +1643,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Egy váratlan változás után tizenöt perc alatt rendezd újra a napod három prioritásra, majd kezdd el a legfontosabbat.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1655,7 +1655,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Öt napon át készíts reggel prioritási sorrendet, majd napközben egyszer tudatosan frissítsd az új helyzet alapján.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1667,7 +1667,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Tarts ma legalább tíz perc igét és imát akkor is, ha felborult a megszokott helyed vagy időpontod.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1679,7 +1679,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Öt napon át vállalj naponta egy olyan szükséges szerepet, amely nem a kedvenced, de nem sérti az értékeidet és valóban segít.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1691,7 +1691,7 @@
       "mature": "Engedelmesség",
       "distorted": "Vak engedelmesség vagy legalizmus",
       "description": "Nevezz meg egy világos, helyes és biblikus kötelességet, amelyet halogatsz, és egy órán belül tedd meg az első engedelmes lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1703,7 +1703,7 @@
       "mature": "Engedelmesség",
       "distorted": "Vak engedelmesség vagy legalizmus",
       "description": "Öt napon át teljesíts egy előre vállalt testi fegyelmet – időben kelés, mozgás vagy házimunka – kifogás és önbüntetés nélkül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1715,7 +1715,7 @@
       "mature": "Hit",
       "distorted": "Valóságtagadás",
       "description": "Írj le három aggodalmat, melléjük egy-egy valós tényt vagy bibliai ígéretet, majd válassz egy felelős lépést mára.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1727,7 +1727,7 @@
       "mature": "Hit",
       "distorted": "Valóságtagadás",
       "description": "Öt napon át tegyél naponta egy konkrét, felelős lépést egy olyan ügyben, amelyért imádkozol; ne csak várj a változásra.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1739,7 +1739,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Állíts be tíz percet, tedd félre a telefont, és imádkozz név szerint három emberért és egy aktuális döntésedért.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1751,7 +1751,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Öt napon át sétálj legalább húsz percet, és az út előre kijelölt részein adj hálát, kérj vezetést és járj közben másokért.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1763,7 +1763,7 @@
       "mature": "Istenfélelem",
       "distorted": "Emberektől vagy büntetéstől való félelem",
       "description": "Egy mai döntésednél írd le külön, mit tennél emberek elismeréséért, és mit tartasz helyesnek Isten előtt; válaszd az utóbbit.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1775,7 +1775,7 @@
       "mature": "Istenfélelem",
       "distorted": "Emberektől vagy büntetéstől való félelem",
       "description": "Öt napon át tegyél naponta egy helyes dolgot úgy, hogy ne keresd mások elismerését, és ne meséld el szükségtelenül.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1787,7 +1787,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Kérj ma őszinte tanácsot valakitől egy olyan területen, ahol hajlamos vagy úgy tenni, mintha már mindent tudnál.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1799,7 +1799,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Öt napon át végezz naponta egy gyakorlati szolgálatot vagy házimunkát anélkül, hogy dicséretet vagy viszonzást várnál.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1811,7 +1811,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Írd le egy oldalon, milyen emberré, házastárssá, szülővé vagy szolgálóvá szeretnél válni három év alatt, konkrét jelekkel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1823,7 +1823,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Öt napon át imádkozz tíz percet a jövőképedért, és minden nap pontosíts rajta egy mondatot a valósághoz és igéhez igazítva.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1835,7 +1835,7 @@
       "mature": "Elhívástudat",
       "distorted": "Messiáskomplexus",
       "description": "Párosíts három erősségedet három körülötted lévő valós szükséggel, majd válassz egyet, amelyben ezen a héten szolgálni fogsz.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1847,7 +1847,7 @@
       "mature": "Elhívástudat",
       "distorted": "Messiáskomplexus",
       "description": "Öt napon át gyakorold napi húsz percben azt a készséget, amely az elhívásodhoz kapcsolódik, és a hét végén kérj visszajelzést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1859,7 +1859,7 @@
       "mature": "Reménység",
       "distorted": "Ábrándozás",
       "description": "Írj le öt okot a reménységre egy nehéz ügyben: valós erőforrást, korábbi hűséget, ígéretet vagy segítségül hívható embert.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1871,7 +1871,7 @@
       "mature": "Reménység",
       "distorted": "Ábrándozás",
       "description": "Öt napon át kapd el naponta egy reménytelen kijelentésedet, fogalmazd át igaz és reményteljes mondattá, majd tegyél hozzá egy lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1883,7 +1883,7 @@
       "mature": "Céltudatosság",
       "distorted": "Megszállottság",
       "description": "Válassz egyetlen mai fő célt, írd le a kész állapotát és a három szükséges lépést, majd kezdd a legnehezebbel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1895,7 +1895,7 @@
       "mature": "Céltudatosság",
       "distorted": "Megszállottság",
       "description": "Öt napon át a nap első harminc telefonmentes percében dolgozz a legfontosabb célodon vagy készülj fel rá.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1907,7 +1907,7 @@
       "mature": "Küldetéstudat",
       "distorted": "Önigazolás",
       "description": "Fogalmazd meg egy mondatban, kik felé, milyen jóért és milyen eszközökkel érzed magad küldöttnek; mutasd meg egy érett embernek.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1919,7 +1919,7 @@
       "mature": "Küldetéstudat",
       "distorted": "Önigazolás",
       "description": "Válassz öt embert, imádkozz értük öt napon át, és minden nap lépj kapcsolatba eggyel úgy, hogy előbb az ő szükségére figyelsz.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -1931,7 +1931,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Bátoríts ma három embert konkrét megfigyeléssel: nevezd meg, milyen valódi erőt, hűséget vagy fejlődést látsz bennük.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Lelki",
       "days": 1
     },
@@ -1943,7 +1943,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Öt napon át kapcsolj a bátorító szavaidhoz egy konkrét gyakorlati segítséget; ne ígérj olyat, amit nem teljesítesz.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -1955,7 +1955,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Vállald el ma a közösség vagy család egyik legkevésbé látványos, fizikailag is elvégzendő feladatát, és fejezd be panasz nélkül.",
-      "audience": "Férfi",
+      "gender": "male",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -1967,7 +1967,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Öt napon át kérdezd meg naponta valakitől, mire van szüksége a jó teljesítéshez; segíts, de ne vedd át tőle a felelősséget.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -1979,7 +1979,7 @@
       "mature": "Inspirálás",
       "distorted": "Érzelmi manipuláció",
       "description": "Ossz meg ma valakivel egy rövid, igaz történetet egy kudarcról és tanulságról úgy, hogy ne magadat emeld fel, hanem reményt adj.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -1991,7 +1991,7 @@
       "mature": "Inspirálás",
       "distorted": "Érzelmi manipuláció",
       "description": "Öt napon át adj tovább naponta egy igét, gondolatot vagy példát, és kapcsold egy szabadon választható, konkrét következő lépéshez.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2003,7 +2003,7 @@
       "mature": "Tanítás",
       "distorted": "Kioktatás",
       "description": "Taníts meg ma valakinek öt percben egy hasznos készséget; mutasd be, hagyd kipróbálni, majd kérdezd meg, mi nem volt világos.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2015,7 +2015,7 @@
       "mature": "Tanítás",
       "distorted": "Kioktatás",
       "description": "Öt napon át adj át naponta egy kis, alkalmazható tudást, és minden alkalommal kérj egy mondat visszajelzést az érthetőségről.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2027,7 +2027,7 @@
       "mature": "Felhatalmazás",
       "distorted": "Felelősség áthárítása",
       "description": "Bízz rá ma valakire egy valódi feladatot a szükséges eszközzel és döntési térrel; maradj elérhető, de ne vedd vissza közben.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2039,7 +2039,7 @@
       "mature": "Felhatalmazás",
       "distorted": "Felelősség áthárítása",
       "description": "Öt napon át adj valakinek fokozatosan nagyobb döntési teret világos céllal, erőforrással és rövid utólagos áttekintéssel.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2051,7 +2051,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Szervezz meg ma egy kettesben töltött estét a férjeddel a következő két hétre: te intézd a gyerekvigyázót, az időpontot és a programot is, ne várd, hogy ő kezdeményezzen.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2063,7 +2063,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "A héten szólíts meg egy anyukát a játszótéren, az oviban vagy a gyülekezetben, akit még alig ismersz, és kezdeményezz vele egy második találkozót is (séta, kávé, közös játszótér).",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2075,7 +2075,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Ma te kezdeményezz közös mozgást a családdal: séta, biciklizés, labdázás vagy kirándulás. Legalább 45 perc legyen, a telefon pedig maradjon zsebben.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2087,7 +2087,7 @@
       "mature": "Kezdeményezés",
       "distorted": "Impulzivitás",
       "description": "Van egy ötleted a családod vagy a közösséged számára, amit régóta dédelgetsz? Írd le ma egy oldalon a célt és az első három lépést, és még ma szólj annak, akire az elsőhöz szükséged van.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2099,7 +2099,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Mondd el ma a férjednek egy kérésedet vagy érzésedet, amit régóta magadban tartasz. Egyszerűen, szemrehányás nélkül: „Szükségem lenne arra, hogy…”",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2111,7 +2111,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Vállalj el ma egy olyan fizikai feladatot, amivel eddig mindig mást vártál (bútor összeszerelése, polc felfúrása, gumi ellenőrzése, kerti munka). Biztonságosan, szükség esetén videós útmutatóval.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2123,7 +2123,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "Öt napon át oszd meg naponta egy nőtársaddal (élőben, üzenetben vagy hangüzenetben), mit tett Isten érted aznap vagy az utóbbi időben.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2135,7 +2135,7 @@
       "mature": "Bátorság",
       "distorted": "Vakmerőség",
       "description": "A héten tegyél meg valamit, amitől tartasz, de tudod, hogy jó lenne: jelentkezz egy szolgálatba, vállald egy beszélgetés vezetését a kiscsoportban, vagy iratkozz be egy tanfolyamra.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -2147,7 +2147,7 @@
       "mature": "Hódítás",
       "distorted": "Agresszió vagy uralkodás",
       "description": "Öt napon át foglalj vissza naponta 20 perc alatt egy „elveszett” területet az otthonodban (fiók, kamra, gyerekruhás szekrény). Nem a tökéletesség a cél, hanem hogy a hét végére könnyebb legyen élni.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -2159,7 +2159,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Ma minden kérést egyszer, nyugodt hangon és szemkontaktussal mondj el a gyerekeknek. Ha nem teljesül, cselekedj: menj oda és segíts elindulni, ismételgetés és kiabálás helyett.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2171,7 +2171,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Egy héten át ne emeld fel a hangodat a gyerekeidre vagy a férjedre. Ha mégis megtörténik, kérj bocsánatot, és jegyezd fel, mi előzte meg.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2183,7 +2183,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Mondj ma nemet egy olyan felkérésre, amit csak megfelelési kényszerből vállalnál el: egy mondatban, kedvesen, magyarázkodás és bűntudat nélkül.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2195,7 +2195,7 @@
       "mature": "Határozottság",
       "distorted": "Erőszakosság",
       "description": "Öt estén át vezesd végig következetesen a gyerekek esti rutinját egy előre kitűzött időpontra (fürdés, mese, ima, lámpaoltás), alkudozás nélkül, de szeretettel.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -2207,7 +2207,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "A héten tölts legalább 3 × 30 percet egy olyan készség fejlesztésével, ami a tiéd (nyelv, hangszer, szakmai tudás, kézművesség), a gyerekek alvásidejében vagy a férjeddel egyeztetett időben.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -2219,7 +2219,7 @@
       "mature": "Ambíció",
       "distorted": "Törtetés",
       "description": "Írd le, mit szeretnél még megvalósítani az életedben, az anyaságon túl is. Válassz ki egyet, és írd mellé a legkisebb első lépést, amit még idén megtehetsz.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2231,7 +2231,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Öt napon át olvass el naponta egy zsoltárt vagy egy fejezetet a Példabeszédekből akkor is, ha csak 5 perced van. Mindegyikből írj ki magadnak egy mondatot.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2243,7 +2243,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Válassz egy háztartási feladatot, amit rendszeresen félbehagysz (teregetés, mosogatógép kipakolása, vasalnivaló), és ma vidd végig az elejétől a végéig.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2255,7 +2255,7 @@
       "mature": "Kitartás",
       "distorted": "Makacsság",
       "description": "Egy mai vitában, ahol ragaszkodnál a saját megoldásodhoz, kérdezd meg magadtól: elvi kérdés ez, vagy csak megszokás? Ha megszokás, engedd a másik útját.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2267,7 +2267,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Hagyd ma, hogy a férjed a saját módján végezzen el egy feladatot a gyerekekkel (öltöztetés, fürdetés, pakolás), javítás, utólagos rendbetétel és megjegyzés nélkül.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2279,7 +2279,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Adj ki a kezedből egy délutánt: a férjed legyen a gyerekekkel, te pedig menj el otthonról. Ne hagyj részletes utasításlistát, és ne telefonálj haza ellenőrizni.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2291,7 +2291,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Járd végig guggolva, gyerekszemmel a lakást, és szüntess meg ma három veszélyforrást: szabad konnektor, éles sarok, elérhető gyógyszer vagy tisztítószer.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2303,7 +2303,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Írd le, mi miatt aggódsz ma a gyerekeid vagy a családod kapcsán. Mindegyik mellé írd oda, mit tehetsz te, és mit adsz át Istennek. Az átadottakért imádkozz, majd húzd át őket.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2315,7 +2315,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Egy héten át tudatosan őrizd a gyerekek és a saját képernyőidődet: előre döntsd el a keretet, és tartsd be. A cél a védelem, nem a büntetés, ezért adj helyette közös alternatívát.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -2327,7 +2327,7 @@
       "mature": "Védelem",
       "distorted": "Kontrollálás",
       "description": "Öt napon át ne ellenőrizd utólag, hogy a férjed vagy a nagyobb gyereked elvégezte-e, amit vállalt: ne kérdezz rá és ne nézd meg. Bízd rájuk, és figyeld meg, mi történik benned.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2339,7 +2339,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Öt reggelen át kelj fel 20 perccel a gyerekek előtt, hogy a nap ne rohanással induljon. Ha közben valami csúszik, mondd ki magadban: „Van időnk.”",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -2351,7 +2351,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Ma minden alkalommal, amikor egy hiszti vagy egy megjegyzés felhúz, vegyél tíz lassú levegőt, mielőtt megszólalsz. Este írd fel, hányszor sikerült.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2363,7 +2363,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Sétálj ma a gyerekeddel úgy, hogy ő diktálja a tempót és az irányt (biztonságos keretek között). Ne siettesd, csak kísérd, és figyeld, mit fedez fel.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2375,7 +2375,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Öt napon át, ha valami zavar a családban vagy a közösségben, ne nyeld le, és ne várd, hogy magától megoldódjon: még aznap fogalmazd meg nyugodtan, egy mondatban.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2387,7 +2387,7 @@
       "mature": "Türelem",
       "distorted": "Passzivitás",
       "description": "Van egy ügy, amiben türelmetlenül várod a változást (a férjed, egy gyerek, egy helyzet)? Egy héten át naponta imádkozz érte, és írd le, mit tehetsz addig hűségesen, sürgetés és nyomásgyakorlás nélkül.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2399,7 +2399,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Öt estén át írd le a nap három legerősebb érzését (düh, szomorúság, öröm, félelem), és hogy mi váltotta ki őket. Ne ítélkezz, csak nevezd meg őket. A hét végén vidd mindezt Isten elé.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2411,7 +2411,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Öt napon át ne görgesd a közösségi médiát (Instagram, Facebook, TikTok). A felszabaduló időben olvass, pihenj vagy beszélgess.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2423,7 +2423,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Nevezz meg ma egy saját szükségletedet (alvás, csend, mozgás, beszélgetés), és kérj segítséget a férjedtől vagy mástól, hogy teljesülhessen.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2435,7 +2435,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Ha ma sírni, dühöngeni vagy panaszkodni volna kedved, előbb mondd el Istennek hangosan vagy írásban, szépítés nélkül, és csak utána beszélj róla emberekkel.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2447,7 +2447,7 @@
       "mature": "Önuralom",
       "distorted": "Elfojtás",
       "description": "Öt estén át feküdj le legkésőbb egy előre kijelölt időpontban (például 22:30-kor) akkor is, ha lenne még mit elpakolni. Ami kimaradt, ráér holnap.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -2459,7 +2459,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Írj kézzel levelet a férjednek arról, miért választanád újra. Idézz fel benne egy konkrét emléket a kapcsolatotok elejéről.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2471,7 +2471,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Egy héten át minden nap imádkozz a férjedért egy-egy konkrét területen (munka, hit, egészség, apaság, barátságok). A hét végén mondd el neki, miért imádkoztál.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2483,7 +2483,7 @@
       "mature": "Hűség",
       "distorted": "Változásképtelenség",
       "description": "Keress a családotok napirendjében egy szokást, amit csak azért tartotok, mert „mindig így volt”, pedig már nem szolgál. Beszéld meg a férjeddel, és próbáljatok ki helyette valami újat.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2495,7 +2495,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Ha ma felborul a terved (beteg gyerek, elmaradt alvás, váratlan vendég), mondd ki: „Rendben, akkor ez a mai terv”, és válassz ki egyetlen dolgot, ami ma igazán fontos.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2507,7 +2507,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Egy héten át figyeld meg, hol engedsz csak azért, hogy ne legyen konfliktus (gyerek, férj, anyós, kolléga). Válassz ki egy helyzetet, ahol az elv fontos, és ott tarts ki kedvesen, de szilárdan.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -2519,7 +2519,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Öt napon át mozogj legalább 30 percet abban, ami adott: tolj tempósan babakocsit, guggolj, amíg a gyerek játszik, vagy táncolj vele. Ne a tökéletes edzésre várj.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -2531,7 +2531,7 @@
       "mature": "Rugalmasság",
       "distorted": "Megalkuvás",
       "description": "Öt napon át egy családi döntésnél (vacsora, program, vásárlás) kérdezd meg először a házastársad véleményét, és ha nem elvi kérdés, fogadd el az övét.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2543,7 +2543,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Főzz ma egy ételt abból, ami éppen otthon van, külön bevásárlás nélkül. Ha kell, kérdezd meg a gyerekeket, mi legyen belőle.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2555,7 +2555,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Találj ki a gyerekekkel egy új játékot vagy programot otthoni dolgokból (dobozvár, kincskeresés, bábszínház). Te is játssz velük, ne csak felügyelj.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2567,7 +2567,7 @@
       "mature": "Kreativitás",
       "distorted": "Szabálykerülés",
       "description": "Öt napon át írj ki naponta egy igeverset cetlire, és tedd ki oda, ahol sokat vagy (hűtő, tükör, pelenkázó). Minden nap tanuld meg az aznapit.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2579,7 +2579,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Figyeld meg ma, mikor nyúlsz a telefonodért menekülésként (unalom, fáradtság, feszültség). Ilyenkor válassz helyette mást: egy pohár víz, öt perc ima, egy ölelés valakinek.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2591,7 +2591,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Egy héten át, amikor érzed, hogy fogy az erőd, ne húzd tovább egyedül, és ne menekülj sorozatba vagy vásárlásba: kérj segítséget (férj, nagyszülő, barátnő), és pihenj.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2603,7 +2603,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Ha ma feszült helyzet alakul ki otthon, ne vonulj el sértődötten és ne robbanj: jelezd, hogy 15 percre kimész, sétálj vagy állj ki az erkélyre, imádkozz, majd térj vissza, és beszéljétek meg.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2615,7 +2615,7 @@
       "mature": "Bölcs kerülőút",
       "distorted": "Menekülés",
       "description": "Van egy telefonhívás vagy intéznivaló, amit hetek óta tologatsz (orvos, hivatal, óvoda, számla)? Intézd el ma délelőtt, mielőtt bármi mást elkezdenél.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2627,7 +2627,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Ma ne célozgass, ne sóhajts, és ne várd, hogy a férjed kitalálja, mit szeretnél: kérj egyenesen, egy mondatban. („Szeretném, ha ma te fürdetnéd a gyerekeket.”)",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2639,7 +2639,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "A héten tegyél egy kedves, békességet építő lépést az anyósod (vagy apósod, sógornőd) felé: hívd fel, kérj tőle tanácsot valamiben, vagy köszönj meg neki valamit konkrétan.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2651,7 +2651,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Három napon át, ha megbántódsz, ne hallgass és ne éreztesd hűvösséggel: még aznap mondd el nyugodtan, mi esett rosszul, és mire lenne szükséged.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 3
     },
@@ -2663,7 +2663,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Ha ma összevesznek a gyerekeid, ne ítélkezz azonnal: kérdezd meg mindkettőt, mi történt, foglald össze, amit hallottál, és segíts nekik maguknak megtalálni a megoldást.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2675,7 +2675,7 @@
       "mature": "Diplomácia",
       "distorted": "Manipuláció",
       "description": "Öt napon át, mielőtt valakiről beszélsz, aki nincs jelen, kérdezd meg magadtól: igaz, szükséges és építő? Ha nem, hallgass, vagy tereld el kedvesen a beszélgetést.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2687,7 +2687,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Írd le, kiknek akarsz folyamatosan megfelelni (szülők, anyós, más anyukák, közösség). Mindegyik mellé írd oda, mit vár ebben tőled Isten, és döntsd el, miben nem kell tovább megfelelned.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2699,7 +2699,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Szánj ma időt arra, ami a férjednek fontos (hobbi, sport, munka): kérdezz róla, hallgasd meg érdeklődéssel, vagy csináljátok együtt, még ha téged kevésbé érdekel is.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2711,7 +2711,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "A héten ülj le a gyülekezetben vagy egy közösségi alkalmon valaki mellé, akit alig ismersz, és ismerd meg: kérdezz tőle legalább három dolgot, és jegyezd meg a nevét.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2723,7 +2723,7 @@
       "mature": "Alkalmazkodás",
       "distorted": "Elvtelenség",
       "description": "Írd le az öt legfontosabb értéket, amit a családodban képviselni szeretnél. Nézd meg, melyiket adtad fel az utóbbi hónapban mások kedvéért, és tegyél ma egy lépést, hogy visszaállítsd.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2735,7 +2735,7 @@
       "mature": "Engedelmesség",
       "distorted": "Vak engedelmesség vagy legalizmus",
       "description": "Írd le a „jó anya, jó feleség” szabályaidat, amelyeket elvársz magadtól. Húzd át azokat, amelyeket nem Isten, hanem a maximalizmusod vagy mások várnak el, és imádkozz a szabadságért.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2747,7 +2747,7 @@
       "mature": "Engedelmesség",
       "distorted": "Vak engedelmesség vagy legalizmus",
       "description": "Öt napon át, amikor a lelkiismereted egy jó dologra indít (felhívni valakit, bocsánatot kérni, adni), tedd meg még aznap, halogatás nélkül.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2759,7 +2759,7 @@
       "mature": "Engedelmesség",
       "distorted": "Vak engedelmesség vagy legalizmus",
       "description": "Egy héten át kezdd a napot 10 perc igeolvasással és imával, mielőtt megnyitnád a telefonodat, akkor is, ha ehhez szoptatás vagy reggeliztetés közben kell leülnöd.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2771,7 +2771,7 @@
       "mature": "Hit",
       "distorted": "Valóságtagadás",
       "description": "Nézzétek át ma őszintén a házastársaddal a család havi kiadásait. Ne szépítsetek: nevezzétek meg, ami gond, imádkozzatok érte, és döntsetek el egy konkrét lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2783,7 +2783,7 @@
       "mature": "Hit",
       "distorted": "Valóságtagadás",
       "description": "Öt napon át keress egy-egy bibliai ígéretet egy konkrét félelmedre (a gyerekek egészsége, a jövő, az anyagiak). Írd ki, és mondd ki hangosan, amikor előjön a félelem.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2795,7 +2795,7 @@
       "mature": "Hit",
       "distorted": "Valóságtagadás",
       "description": "Van olyan egészségügyi vizsgálat, amit magadnál halogatsz (nőgyógyász, fogorvos, vérvétel, szűrés), mert „most a gyerekek a fontosak”? Foglald le ma az időpontot.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2807,7 +2807,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Öt napon át a napi sétád egy részét (babakocsival, gyerekkel vagy egyedül) fordítsd imára: imádkozz a szomszédokért, az óvodáért, az útba eső házakért és a családodért.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 5
     },
@@ -2819,7 +2819,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Ma este lefekvés előtt tedd a kezed minden gyermeked fejére, és mondj fölötte hangosan egy rövid áldást vagy igét. Ha nincs gyereked, áldd meg így a férjedet.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2831,7 +2831,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Keress egy anyukát vagy barátnőt, akivel a héten minden nap küldtök egymásnak egy imakérést és egy imát (akár hangüzenetben). A hét végén osszátok meg, mi változott.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2843,7 +2843,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Egy rutinmunka (mosogatás, teregetés, főzés) alatt ma ne hallgass semmit, hanem imádkozz végig név szerint azokért, akik eszedbe jutnak.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2855,7 +2855,7 @@
       "mature": "Imádság",
       "distorted": "Passzív várakozás",
       "description": "Egy héten át vezess minden este egy rövid, 3–5 perces családi imát a gyerekekkel: egy hála, egy kérés, egy áldás. Ha a férjed szívesen vezeti, támogasd ebben.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -2867,7 +2867,7 @@
       "mature": "Istenfélelem",
       "distorted": "Emberektől vagy büntetéstől való félelem",
       "description": "Egy héten át figyeld meg, mikor hasonlítod magad más anyukákhoz vagy feleségekhez (közösségi média, játszótér, gyülekezet). Minden ilyen alkalommal adj hálát egy dologért a saját életedben.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -2879,7 +2879,7 @@
       "mature": "Istenfélelem",
       "distorted": "Emberektől vagy büntetéstől való félelem",
       "description": "Hívj meg valakit egy kávéra úgy, hogy előtte nem takarítasz ki különösebben. Gyakorold, hogy a nyitott ajtód fontosabb annál, mit gondolnak a lakásodról.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2891,7 +2891,7 @@
       "mature": "Istenfélelem",
       "distorted": "Emberektől vagy büntetéstől való félelem",
       "description": "Öt napon át ne posztolj semmit a családodról és a gyerekeidről. Figyeld meg, mennyire hiányzik mások visszajelzése, és vidd ezt Isten elé.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -2903,7 +2903,7 @@
       "mature": "Istenfélelem",
       "distorted": "Emberektől vagy büntetéstől való félelem",
       "description": "Egy beszélgetésben (anyukák között, a családban, a kiscsoportban) mondd el ma a véleményed akkor is, ha tudod, hogy a többség mást gondol, szeretettel és tisztelettel.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2915,7 +2915,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Öt napon át, ha valaki megdicsér, ne hárítsd el („ugyan, semmiség”), hanem mondd egyszerűen: „Köszönöm.” Este írd fel, mit dicsértek.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -2927,7 +2927,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Keress öt igeverset arról, mit mond rólad Isten (pl. Zsolt 139, Ef 2:10, Ézs 43:1), írd ki őket, és olvasd fel hangosan.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -2939,7 +2939,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Írj levelet magadnak úgy, ahogy a legjobb barátnődnek írnál, ha ő lenne a helyzetedben: ismerd el a küzdelmeit, és bátorítsd.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2951,7 +2951,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Egy héten át fogadj el minden felajánlott segítséget (főzés, gyerekvigyázás, bevásárlás) a „nem kell, megoldom” helyett. Ha senki nem ajánl, kérj te legalább kétszer.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -2963,7 +2963,7 @@
       "mature": "Alázat",
       "distorted": "Önleértékelés",
       "description": "Szánj ma 30 percet valódi pihenésre (alvás, fürdő, olvasás, egyedül töltött séta), ne hasznos elfoglaltságra. Ne kérj érte bocsánatot, és ne magyarázkodj.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -2975,7 +2975,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Írd le, milyen anyának szeretnéd, hogy a gyerekeid lássanak, amikor felnőnek. Utána vizsgáld meg őszintén, hol tartasz most ehhez képest, és válassz ki egy területet.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2987,7 +2987,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Írd le, milyen nő, feleség és hívő szeretnél lenni 10 év múlva. Válaszd ki a legfontosabb különbséget a mostanihoz képest, és írd mellé az első lépést.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -2999,7 +2999,7 @@
       "mature": "Jövőkép",
       "distorted": "Nagyzolás",
       "description": "Szánjatok a héten egy estét a házastársaddal arra, hogy leírjátok: milyen családot szeretnétek 5 év múlva (hit, kapcsolatok, otthon, anyagiak). Legyen reális, és válasszatok egy közös első lépést.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -3011,7 +3011,7 @@
       "mature": "Elhívástudat",
       "distorted": "Messiáskomplexus",
       "description": "Írd le, milyen feladatokat vállaltál a családban, a gyülekezetben és az óvodában vagy iskolában. Jelöld meg, melyikre hívott Isten, és melyiket csak azért csinálod, mert „nélkülem nem megy”. Egyről mondj le, vagy add át.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -3023,7 +3023,7 @@
       "mature": "Elhívástudat",
       "distorted": "Messiáskomplexus",
       "description": "Egy héten át imádkozz naponta: „Uram, mire hívtál engem ebben az életszakaszban?” Írd le, ami eszedbe jut, és a hét végén beszéld meg egy érett nőtestvérrel.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -3035,7 +3035,7 @@
       "mature": "Reménység",
       "distorted": "Ábrándozás",
       "description": "Hívj el egy nőtársadat egy kávéra vagy sétára. Ne olyasvalakit, akivel amúgy is rendszeresen találkozol.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -3047,7 +3047,7 @@
       "mature": "Reménység",
       "distorted": "Ábrándozás",
       "description": "Van egy vágyad, amiről csak ábrándozol (saját vállalkozás, új szolgálat, egy közös utazás)? Írd le a reális első lépést, beszéld meg a férjeddel, és még a héten tedd meg.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -3059,7 +3059,7 @@
       "mature": "Céltudatosság",
       "distorted": "Megszállottság",
       "description": "Egy héten át esténként csak 15 percig rendezz, időzítővel, és utána hagyd abba akkor is, ha nem tökéletes. A felszabaduló időt töltsd a férjeddel vagy magaddal.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 7
     },
@@ -3071,7 +3071,7 @@
       "mature": "Céltudatosság",
       "distorted": "Megszállottság",
       "description": "Hétfőn írd le a hét egyetlen legfontosabb célját (családi, lelki vagy saját). Minden nap tegyél érte legalább 15 percet, és ne vállalj mellé semmi újat.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 7
     },
@@ -3083,7 +3083,7 @@
       "mature": "Küldetéstudat",
       "distorted": "Önigazolás",
       "description": "Fogalmazzátok meg a házastársaddal egy mondatban, mire hívta Isten a családotokat. Írjátok ki, és tegyétek ki jól látható helyre.",
-      "audience": "Koedukált",
+      "gender": "any",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -3095,7 +3095,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Írj le öt konkrét dolgot, amit tisztelsz a férjedben, és még ma mondd el neki legalább kettőt, nem hízelgésként, hanem konkrét példával.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -3107,7 +3107,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Öt napon át küldj naponta egy bátorító üzenetet egy-egy anyukának, akiről tudod, hogy nehéz időszakban van. Írd meg neki konkrétan, mit csinál jól.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     },
@@ -3119,7 +3119,7 @@
       "mature": "Bátorítás",
       "distorted": "Hízelgés",
       "description": "Ma minden gyerekedet dicsérd meg konkrétan a jelleméért, ne a külsejéért vagy a teljesítményéért. („Láttam, milyen türelmes voltál a húgoddal.”)",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -3131,7 +3131,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Egy héten át bízz rá minden gyerekedre egy új, a korának megfelelő önálló feladatot (öltözés, terítés, pakolás). Ne csináld meg helyette akkor sem, ha lassabb és tökéletlenebb.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 7
     },
@@ -3143,7 +3143,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Tarts egy rövid családi megbeszélést: kérdezd meg a gyerekeket és a férjedet, mi volt jó a héten, mi volt nehéz, és miben segíthetnél nekik.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -3155,7 +3155,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Kérdezd meg a férjedet, mi a legnehezebb most a munkájában vagy a hétköznapjaiban, és még ma tégy valamit, ami ezen könnyít.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -3167,7 +3167,7 @@
       "mature": "Szolgáló vezetés",
       "distorted": "Atyáskodó kontroll",
       "description": "Keress egy fiatalabb anyukát vagy feleséget, és a héten szánj rá időt: hallgasd meg, mondd el, mi segített neked, és imádkozz vele.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 7
     },
@@ -3179,7 +3179,7 @@
       "mature": "Inspirálás",
       "distorted": "Érzelmi manipuláció",
       "description": "Öt napon át figyelj arra, hogy a kéréseidhez ne kapcsolj bűntudatkeltést („bezzeg én…”, „senki nem segít”), sóhajtást vagy könnyeket nyomásként. Kérj tisztán, és fogadd el a választ.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 5
     },
@@ -3191,7 +3191,7 @@
       "mature": "Inspirálás",
       "distorted": "Érzelmi manipuláció",
       "description": "Mesélj ma a gyerekeidnek (vagy egy fiatalabbnak) egy igaz történetet az életedből, amikor Isten segített. Ne tanulsággal zárd, hanem kérdezd meg, ők mit gondolnak róla.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 1
     },
@@ -3203,7 +3203,7 @@
       "mature": "Tanítás",
       "distorted": "Kioktatás",
       "description": "Három napon át, amikor kioktatnád a férjedet vagy a gyerekedet, tegyél fel helyette egy kérdést („Szerinted mi lenne a jó megoldás?”), és hallgasd végig a választ.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 3
     },
@@ -3215,7 +3215,7 @@
       "mature": "Tanítás",
       "distorted": "Kioktatás",
       "description": "Taníts meg ma a gyerekednek egy konyhai vagy háztartási mozdulatot (tojásfeltörés, teregetés, ágyazás). Mutasd meg, hagyd csinálni, és ne vedd ki a kezéből, ha elsőre nem sikerül.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Fizikai",
       "days": 1
     },
@@ -3227,7 +3227,7 @@
       "mature": "Felhatalmazás",
       "distorted": "Felelősség áthárítása",
       "description": "Írd össze, mely otthoni feladatokat végezhetné más is (férj, nagyobb gyerek, segítő). Válassz ki kettőt, és még ma beszéld meg, ki veszi át őket, világos elvárással.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Szellemi",
       "days": 1
     },
@@ -3239,7 +3239,7 @@
       "mature": "Felhatalmazás",
       "distorted": "Felelősség áthárítása",
       "description": "Öt napon át, amikor valami rosszul sül el, ne a férjedet, a gyerekeket vagy a körülményeket hibáztasd először: nevezd meg a saját részedet, és ha kell, kérj bocsánatot.",
-      "audience": "Női",
+      "gender": "female",
       "dimension": "Lelki",
       "days": 5
     }

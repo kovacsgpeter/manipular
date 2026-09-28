@@ -184,8 +184,8 @@ function sjtDoc() {
 }
 
 const CH_TYPES = { weekly: 'Heti', daily: 'Napi' };
+const CH_GENDERS = { any: 'mindenki', male: 'férfi', female: 'női' };
 const CH_DIRS = ['Előre', 'Hátra', 'Oldalra', 'Felfelé'];
-const CH_AUDIENCES = ['Koedukált', 'Női', 'Férfi'];
 
 function resolveChallenges() {
   if (chBank.schema !== 'manipular-kihivasbank/1') fail('kihivasbank.json: ismeretlen séma');
@@ -207,9 +207,8 @@ function resolveChallenges() {
     const pairDir = pair && bank.axes.find((a) => a.id === bank.pairs.find((p) => p.id === pair).axis).direction;
     const direction = c.direction || pairDir;
     if (!CH_DIRS.includes(direction)) fail(`${where}: az irány ${CH_DIRS.join(', ')} lehet`);
-    const audience = c.audience || 'Koedukált';
-    if (!CH_AUDIENCES.includes(audience)) fail(`${where}: a célcsoport ${CH_AUDIENCES.join(', ')} lehet`);
-    return { id: c.id, type: c.type, direction, pair, audience, title: c.title, description: c.description };
+    if (c.gender !== undefined && !CH_GENDERS[c.gender]) fail(`${where}: a gender "any", "male" vagy "female" lehet`);
+    return { id: c.id, type: c.type, direction, pair, gender: c.gender || 'any', title: c.title, description: c.description };
   });
   for (const type of Object.keys(CH_TYPES)) if (!out.some((c) => c.type === type)) fail(`kihivasbank.json: legalább egy ${CH_TYPES[type].toLowerCase()} kihívás kell`);
   if (out.filter((c) => c.type === 'daily').length < 5) fail('kihivasbank.json: legalább 5 napi kihívás kell');
@@ -222,14 +221,14 @@ function challengeDoc(resolved) {
     '',
     GENERATED.replace('kerdesbank.json', 'kihivasbank.json'),
     '',
-    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: alapból azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A súlyozás, a nézőpont, az irányfókusz és az erősségekre jutó napi kihívások száma a Kérdésműhely › Kihívás-beállítások fülön állítható. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít. Generáláskor a kiválasztott célcsoport (Női vagy Férfi) kihívásai és a koedukáltak közül választ. A bank forrása a Google Sheet kihíváskatalógusa: `node docs/jellemprofil/sync-kihivasok.mjs`.',
+    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: alapból azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A súlyozás, a nézőpont, az irányfókusz és az erősségekre jutó napi kihívások száma a Kérdésműhely › Kihívás-beállítások fülön állítható. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít. A „gender” mező (any/male/female) megadja, kinek szól: a kitöltő nemének megfelelő (vagy mindenkinek szóló) kihívás választható. A bank forrása a Google Sheet kihíváskatalógusa: `node docs/jellemprofil/sync-kihivasok.mjs`.',
     '',
   ];
   for (const type of Object.keys(CH_TYPES)) {
-    out.push(`## ${CH_TYPES[type]} kihívások`, '', '| Kód | Célcsoport | Irány | Cím | Célpár | Leírás |', '|---|---|---|---|---|---|');
+    out.push(`## ${CH_TYPES[type]} kihívások`, '', '| Kód | Irány | Kinek | Cím | Célpár | Leírás |', '|---|---|---|---|---|---|');
     for (const c of resolved.challenges.filter((x) => x.type === type)) {
       const p = c.pair && bank.pairs.find((x) => x.id === c.pair);
-      out.push(`| ${c.id} | ${c.audience} | ${c.direction} | ${cell(c.title)} | ${p ? `${p.id} · ${cell(pairTitle(p))}` : '—'} | ${cell(c.description)} |`);
+      out.push(`| ${c.id} | ${c.direction} | ${CH_GENDERS[c.gender]} | ${cell(c.title)} | ${p ? `${p.id} · ${cell(pairTitle(p))}` : '—'} | ${cell(c.description)} |`);
     }
     out.push('');
   }

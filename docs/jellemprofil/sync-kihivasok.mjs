@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const SHEET_CSV = 'https://docs.google.com/spreadsheets/d/1xJG-GlccBAzx7I3SdjSKSA5h-AJvgSJ1GUOEYQ8_IpM/export?format=csv&gid=2100000104';
 const TYPES = { Napi: 'daily', Heti: 'weekly' };
+const GENDERS = { Koedukált: 'any', Női: 'female', Férfi: 'male' };
 const dir = dirname(fileURLToPath(import.meta.url));
 
 function fail(msg) {
@@ -64,7 +65,7 @@ for (const r of rows.slice(headAt + 1)) {
     mature: get('Érett célvonás'),
     distorted: get('Korrigált torzulás'),
     description: get('Leírás'),
-    audience: get('Célcsoport'),
+    gender: GENDERS[get('Célcsoport')] || get('Célcsoport'),
     dimension: get('Dimenzió'),
     days: Number(get('Időtartam')) || null,
   });
