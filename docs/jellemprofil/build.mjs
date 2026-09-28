@@ -243,6 +243,17 @@ function injectIntoHtml(resolved) {
     html = html.replace(re, (_, a, b) => a + json + b);
   }
   writeFileSync(file, html);
+  return html;
+}
+
+// Kitöltői változat: ugyanaz az interjú és mentésformátum, a Kérdésműhely rejtve.
+function writeFillOnly(html) {
+  const re = /(<script id="assessment-config" type="application\/json">)[\s\S]*?(<\/script>)/;
+  if (!re.test(html)) fail('testudo.html: hiányzik az assessment-config script blokk');
+  const out = html
+    .replace(re, (_, a, b) => a + JSON.stringify({ pool: null, form: null, hideWorkshop: true }) + b)
+    .replace(/<title>[^<]*<\/title>/, '<title>Testudo – kitöltés</title>');
+  writeFileSync(join(dir, 'kitoltes.html'), out);
 }
 
 validate();
@@ -251,5 +262,5 @@ writeFileSync(join(dir, '01-kerdesbank.md'), bankDoc());
 writeFileSync(join(dir, '02-melyfuro-interju.md'), interviewDoc());
 writeFileSync(join(dir, '03-szituacios-kerdoiv.md'), sjtDoc());
 writeFileSync(join(dir, '04-kihivasbank.md'), challengeDoc(challenges));
-injectIntoHtml(challenges);
-console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html');
+writeFillOnly(injectIntoHtml(challenges));
+console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html, kitoltes.html');
