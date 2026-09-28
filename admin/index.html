@@ -863,7 +863,14 @@ function pairProfiles(cfg = chSettings) {
 const planReady = () => Object.keys(pairProfiles()).length >= chSettings.readyPairs;
 
 // A kihívás "gender" mezője: hiányzik/"any" = koedukált, "male" = férfi, "female" = női. Csak a kitöltő nemének megfelelő kihívás választható.
-const fitsGender = (c) => !c.gender || c.gender === 'any' || c.gender === $('gender').value;
+// Elfogadja a sheetből jövő magyar és angol értékeket is (mező: gender vagy nem); üres/ismeretlen érték = mindenkinek szól.
+function challengeGender(c) {
+  const v = String(c.gender ?? c.nem ?? '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (['male', 'm', 'ferfi', 'fiu', 'ferfiaknak'].includes(v)) return 'male';
+  if (['female', 'f', 'noi', 'lany', 'noknek'].includes(v)) return 'female';
+  return 'any';
+}
+const fitsGender = (c) => { const g = challengeGender(c); return g === 'any' || g === $('gender').value; };
 
 function pickChallenges(type, mode, count, prof, taken, avoid) {
   const byDir = {};
