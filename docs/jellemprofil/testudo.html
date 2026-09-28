@@ -54,15 +54,19 @@ a { color: var(--mature); }
 footer { font-size: 0.8rem; color: var(--muted); padding-top: 24px; padding-bottom: 32px; }
 [hidden] { display: none !important; }
 
-nav.main { border-bottom: 1px solid var(--border); margin: 12px 0 16px; padding-bottom: 12px; display: grid; gap: 8px; }
-nav.main .group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-nav.main .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); width: 100%; }
+nav.main { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin: 12px 0 28px; padding: 10px 12px 0; display: grid; gap: 4px; }
+nav.main .group { display: flex; flex-wrap: wrap; gap: 2px 4px; align-items: flex-end; border-bottom: 1px solid var(--border); }
+nav.main .group:last-child { border-bottom: 0; }
+nav.main .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); width: 100%; padding-top: 4px; }
+nav.main button { border: 0; border-bottom: 3px solid transparent; border-radius: 6px 6px 0 0; background: transparent; color: var(--text-2); padding: 8px 12px 7px; }
+nav.main button:hover { color: var(--text); background: var(--surface); }
+nav.main button.active { background: var(--surface); color: var(--text); border-bottom-color: var(--text); }
 button, .button {
   font: inherit; font-weight: 600; font-size: 0.95rem; border-radius: 8px; padding: 9px 14px; cursor: pointer;
   border: 1px solid var(--border); background: transparent; color: var(--text);
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
 }
-button.primary, button[aria-pressed="true"], nav.main button.active { background: var(--text); color: var(--surface); border-color: var(--text); }
+button.primary, button[aria-pressed="true"] { background: var(--text); color: var(--surface); border-color: var(--text); }
 button:disabled { opacity: 0.4; cursor: not-allowed; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 input[type="text"], input[type="date"], input[type="number"], select, textarea {
@@ -159,7 +163,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .pair-nav { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
 
 @media (max-width: 560px) {
-  nav.main button { font-size: 0.85rem; padding: 6px 10px; }
+  nav.main button { font-size: 0.85rem; padding: 6px 9px 5px; }
   h1 { font-size: 1.6rem; }
 }
 @media print {
@@ -184,15 +188,17 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
     <button data-view="manual">Mérési kézikönyv</button><button data-view="review">Szakértői ellenőrzés</button><button data-view="builder">Kérdésbuilder</button><button data-view="pool">Pool és véglegesítés</button>
   </div>
 </nav>
-<p id="activeForm" class="notice"></p>
+<p id="activeForm" class="notice" hidden></p>
 
-<section id="data" class="card">
+<section id="data" class="card" hidden>
+  <div id="dataFields">
   <div class="fields">
     <label>Résztvevő kódja<input type="text" id="subject" placeholder="pl. T-01" autocomplete="off"></label>
     <label>Időszak kezdete<input type="date" id="start"></label>
     <label>Időszak vége<input type="date" id="end"></label>
   </div>
   <p class="small">Mindkét értékelő ugyanarról a lezárt, 28 napos időszakról válaszoljon.</p>
+  </div>
   <div class="tools">
     <button id="save" class="primary">Aktív kitöltés mentése (JSON)</button>
     <button id="loadBtn">Mentett kitöltés betöltése</button><input id="load" type="file" accept=".json" hidden>
@@ -1247,6 +1253,9 @@ $('publishForm').onclick = () => {
 function showView(id) {
   document.querySelectorAll('main > section:not(#data)').forEach((s) => { s.hidden = s.id !== id; });
   document.querySelectorAll('nav.main button').forEach((x) => x.classList.toggle('active', x.dataset.view === id));
+  $('activeForm').hidden = id !== 'survey';
+  $('data').hidden = !['survey', 'results', 'interview', 'deep'].includes(id);
+  $('dataFields').hidden = id !== 'survey';
   if (id === 'results') renderResults();
   if (id === 'deep') renderDeep();
 }
