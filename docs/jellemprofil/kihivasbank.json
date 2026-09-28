@@ -1,0 +1,22 @@
+{
+  "schema": "manipular-kihivasbank/1",
+  "version": "2026-09-28a",
+  "note": "Induló minta a kihívástáblázatból. A mature/distorted a kerdesbank.json jellemnevei közül való; a direction elhagyható, ekkor a pár iránya.",
+  "challenges": [
+    { "id": "H01", "type": "weekly", "direction": "Előre", "title": "Ima vezetőkért", "mature": "Kezdeményezés", "distorted": "Impulzivitás", "description": "Imádkozz egy hétig napi 3x a gyülekezeti vezetőidért." },
+    { "id": "H02", "type": "weekly", "direction": "Hátra", "title": "Egy hét nasi nélkül", "mature": "Önuralom", "distorted": "Elfojtás", "description": "Figyelj egy hétig arra, hogy tényleg csak a szükségleteid kielégítése céljából egyél. Ne egyél mennyiségre sem többet a szükségesnél, és ne nassolj a főétkezések között (üdítőt se fogyassz)." },
+    { "id": "H03", "type": "weekly", "direction": "Oldalra", "title": "Békítő kérdések", "mature": "Diplomácia", "distorted": "Manipuláció", "description": "Öt napon át egy nézeteltérésben előbb tegyél fel egy tisztázó kérdést, és csak a válasz összefoglalása után mondd el a véleményed." },
+    { "id": "H04", "type": "weekly", "direction": "Előre", "title": "Böjt", "mature": "Bátorság", "distorted": "Vakmerőség", "description": "Böjtölj 3 napot az elhívásodért és az identitásod formálódásáért." },
+    { "id": "H05", "type": "weekly", "direction": "Hátra", "title": "Hidegzuhany", "mature": "Önuralom", "distorted": "Elfojtás", "description": "Egy héten keresztül kelj fel az első alkalomra, amikor megszólal az ébresztőórád, és rögtön vegyél egy 2 perces jéghideg zuhanyt." },
+    { "id": "H06", "type": "weekly", "direction": "Oldalra", "title": "Kapcsolatrendezés", "mature": "Diplomácia", "distorted": "Manipuláció", "description": "A hét minden napján vedd fel valakivel a kapcsolatot, akivel régen nem beszéltél (hanyagságból, vagy mert rendezni valód van vele)." },
+    { "id": "N01", "type": "daily", "direction": "Felfelé", "title": "Apai identitás", "mature": "Jövőkép", "distorted": "Nagyzolás", "description": "Írd le, milyen apának szeretnéd, hogy a gyerekeid lássanak. Ha ez megvan, vizsgáld meg, milyen vagy valójában ehhez képest." },
+    { "id": "N02", "type": "daily", "direction": "Hátra", "title": "Egy nap telefon nélkül", "mature": "Önuralom", "distorted": "Elfojtás", "description": "Egy napon keresztül ne használd a telefonod, csak hívásra és hívásfogadásra. Amikor hazaérsz, tedd le egy kijelölt helyre, és ne vedd elő szükségtelenül." },
+    { "id": "N03", "type": "daily", "direction": "Oldalra", "title": "Segítségkérés", "mature": "Diplomácia", "distorted": "Manipuláció", "description": "Gondold végig, mi a legnagyobb elakadásod, és ki tudna segíteni benne. Kérd meg." },
+    { "id": "N04", "type": "daily", "direction": "Felfelé", "title": "Jövőkép", "mature": "Szolgáló vezetés", "distorted": "Atyáskodó kontroll", "description": "Írd le, milyen férfi szeretnél lenni 10 év múlva." },
+    { "id": "N05", "type": "daily", "direction": "Hátra", "title": "Kanapészabály", "mature": "Önuralom", "distorted": "Elfojtás", "description": "Minden kanapéhasználat után ellenőrizd, hogy úgy hagytad-e el a terepet, ahogy találtad. Rendezettebben is elhagyhatod!" },
+    { "id": "N06", "type": "daily", "direction": "Oldalra", "title": "Visszajelzés másoktól", "mature": "Alkalmazkodás", "distorted": "Elvtelenség", "description": "Kérj meg 10 embert, hogy mondjon legalább 3 dolgot, amit szeret benned (ne csak családtagokat)." },
+    { "id": "N07", "type": "daily", "direction": "Felfelé", "title": "Kapcsolódás", "mature": "Reménység", "distorted": "Ábrándozás", "description": "Hívj el egy férfitársat egy kávéra. Ne olyasvalakit, akivel amúgy is van már rendszeres kapcsolódásod." },
+    { "id": "N08", "type": "daily", "direction": "Előre", "title": "Alapállapot-mérés", "mature": "Ambíció", "distorted": "Törtetés", "description": "Mérj fel ma egy biztonságos fizikai mutatót: sétaidő, plank, guggolás vagy fekvőtámasz. Rögzítsd a pontos kiinduló értéket." },
+    { "id": "N09", "type": "daily", "direction": "Oldalra", "title": "Három B-terv", "mature": "Rugalmasság", "distorted": "Megalkuvás", "description": "Egy aktuális problémára írj három valóban különböző megoldási utat, válaszd ki a legéletképesebbet, és tedd meg az első lépést." }
+  ]
+}

@@ -5,9 +5,10 @@ import { fileURLToPath } from 'node:url';
 
 const dir = dirname(fileURLToPath(import.meta.url));
 const bank = JSON.parse(readFileSync(join(dir, 'kerdesbank.json'), 'utf8'));
+const chBank = JSON.parse(readFileSync(join(dir, 'kihivasbank.json'), 'utf8'));
 
 function fail(msg) {
-  console.error(`Hibás kérdésbank: ${msg}`);
+  console.error(`Hibás bank: ${msg}`);
   process.exit(1);
 }
 
@@ -182,18 +183,73 @@ function sjtDoc() {
   return out.join('\n');
 }
 
-function injectIntoHtml() {
+const CH_TYPES = { weekly: 'Heti', daily: 'Napi' };
+const CH_DIRS = ['Előre', 'Hátra', 'Oldalra', 'Felfelé'];
+
+function resolveChallenges() {
+  if (chBank.schema !== 'manipular-kihivasbank/1') fail('kihivasbank.json: ismeretlen séma');
+  const byName = Object.fromEntries(bank.traits.map((t) => [t.name, t]));
+  const ids = new Set();
+  const out = chBank.challenges.map((c) => {
+    const where = `kihívás ${c.id || '?'}`;
+    if (!c.id || ids.has(c.id)) fail(`${where}: hiányzó vagy ismétlődő azonosító`);
+    ids.add(c.id);
+    if (!CH_TYPES[c.type]) fail(`${where}: a type "weekly" vagy "daily" lehet`);
+    if (!c.title || !c.description) fail(`${where}: hiányzó cím vagy leírás`);
+    let pair = null;
+    if (c.mature) {
+      const t = byName[c.mature];
+      if (!t || t.kind !== 'E') fail(`${where}: ismeretlen érett jellem: ${c.mature}`);
+      pair = t.pair;
+      if (c.distorted && traitById[bank.pairs.find((p) => p.id === pair).distorted].name !== c.distorted) fail(`${where}: a(z) ${c.distorted} nem a(z) ${c.mature} párja`);
+    } else if (c.distorted) fail(`${where}: torzulás csak érett jellemmel együtt adható meg`);
+    const pairDir = pair && bank.axes.find((a) => a.id === bank.pairs.find((p) => p.id === pair).axis).direction;
+    const direction = c.direction || pairDir;
+    if (!CH_DIRS.includes(direction)) fail(`${where}: az irány ${CH_DIRS.join(', ')} lehet`);
+    return { id: c.id, type: c.type, direction, pair, title: c.title, description: c.description };
+  });
+  for (const type of Object.keys(CH_TYPES)) if (!out.some((c) => c.type === type)) fail(`kihivasbank.json: legalább egy ${CH_TYPES[type].toLowerCase()} kihívás kell`);
+  if (out.filter((c) => c.type === 'daily').length < 5) fail('kihivasbank.json: legalább 5 napi kihívás kell');
+  return { schema: chBank.schema, version: chBank.version, challenges: out };
+}
+
+function challengeDoc(resolved) {
+  const out = [
+    '# Kihívásbank',
+    '',
+    GENERATED.replace('kerdesbank.json', 'kihivasbank.json'),
+    '',
+    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít.',
+    '',
+  ];
+  for (const type of Object.keys(CH_TYPES)) {
+    out.push(`## ${CH_TYPES[type]} kihívások`, '', '| Kód | Irány | Cím | Célpár | Leírás |', '|---|---|---|---|---|');
+    for (const c of resolved.challenges.filter((x) => x.type === type)) {
+      const p = c.pair && bank.pairs.find((x) => x.id === c.pair);
+      out.push(`| ${c.id} | ${c.direction} | ${cell(c.title)} | ${p ? `${p.id} · ${cell(pairTitle(p))}` : '—'} | ${cell(c.description)} |`);
+    }
+    out.push('');
+  }
+  return out.join('\n');
+}
+
+function injectIntoHtml(resolved) {
   const file = join(dir, 'testudo.html');
-  const html = readFileSync(file, 'utf8');
-  const json = JSON.stringify(bank).replace(/</g, '\\u003c');
-  const re = /(<script id="kerdesbank" type="application\/json">)[\s\S]*?(<\/script>)/;
-  if (!re.test(html)) fail('testudo.html: hiányzik a kerdesbank script blokk');
-  writeFileSync(file, html.replace(re, (_, a, b) => a + json + b));
+  let html = readFileSync(file, 'utf8');
+  for (const [id, data] of [['kerdesbank', bank], ['kihivasbank', resolved]]) {
+    const json = JSON.stringify(data).replace(/</g, '\\u003c');
+    const re = new RegExp(`(<script id="${id}" type="application\\/json">)[\\s\\S]*?(<\\/script>)`);
+    if (!re.test(html)) fail(`testudo.html: hiányzik a(z) ${id} script blokk`);
+    html = html.replace(re, (_, a, b) => a + json + b);
+  }
+  writeFileSync(file, html);
 }
 
 validate();
+const challenges = resolveChallenges();
 writeFileSync(join(dir, '01-kerdesbank.md'), bankDoc());
 writeFileSync(join(dir, '02-melyfuro-interju.md'), interviewDoc());
 writeFileSync(join(dir, '03-szituacios-kerdoiv.md'), sjtDoc());
-injectIntoHtml();
-console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, testudo.html');
+writeFileSync(join(dir, '04-kihivasbank.md'), challengeDoc(challenges));
+injectIntoHtml(challenges);
+console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html');
