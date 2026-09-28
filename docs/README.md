@@ -9,6 +9,7 @@ Ebben a könyvtárban található a koncepcióalkotás minden jelenlegi eredmén
 - [Kattintható felületek és szerkeszthető forrásaik](visualizations/README.md)
 - Jellemprofil – Testudo (30 érett jellemvonás és torzult párja, önértékelés + verifikátor, 6 területes radar):
   - [Testudo felmérés és kérdésműhely (HTML)](jellemprofil/testudo.html)
+  - [Admin változat a webre (HTML)](../admin/index.html) – a munkapéldány másolata, a `/admin/` címen; a build generálja, ne kézzel szerkeszd
   - [Testudo kitöltői változat, Kérdésműhely nélkül (HTML)](../interju/index.html) – ezt kapják a kitöltők (a landing oldal „Kezdjük el” gombja ide visz); a build generálja, ne kézzel szerkeszd
   - [Közös kérdésbank: 180 tétel](jellemprofil/01-kerdesbank.md)
   - [Mélyfúrás: páronkénti élő interjú](jellemprofil/02-melyfuro-interju.md)

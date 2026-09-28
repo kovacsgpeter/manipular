@@ -246,6 +246,16 @@ function injectIntoHtml(resolved) {
   return html;
 }
 
+// Admin változat (a repó gyökerében: admin/index.html): a teljes munkapéldány Kérdésműhellyel, keresőknek nem indexelve.
+function writeAdmin(html) {
+  const out = html
+    .replace(/<title>[^<]*<\/title>/, '<title>Testudo – admin</title>')
+    .replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"');
+  const target = join(dir, '..', '..', 'admin');
+  mkdirSync(target, { recursive: true });
+  writeFileSync(join(target, 'index.html'), out);
+}
+
 // Kitöltői változat (a repó gyökerében: interju/index.html): ugyanaz az interjú és mentésformátum, a Kérdésműhely rejtve.
 function writeFillOnly(html) {
   const re = /(<script id="assessment-config" type="application\/json">)[\s\S]*?(<\/script>)/;
@@ -264,5 +274,7 @@ writeFileSync(join(dir, '01-kerdesbank.md'), bankDoc());
 writeFileSync(join(dir, '02-melyfuro-interju.md'), interviewDoc());
 writeFileSync(join(dir, '03-szituacios-kerdoiv.md'), sjtDoc());
 writeFileSync(join(dir, '04-kihivasbank.md'), challengeDoc(challenges));
-writeFillOnly(injectIntoHtml(challenges));
-console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html, ../../interju/index.html');
+const fullHtml = injectIntoHtml(challenges);
+writeFillOnly(fullHtml);
+writeAdmin(fullHtml);
+console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html, ../../interju/index.html, ../../admin/index.html');
