@@ -14,6 +14,7 @@ Ebben a könyvtárban található a koncepcióalkotás minden jelenlegi eredmén
   - [Mélyfúrás: páronkénti élő interjú](jellemprofil/02-melyfuro-interju.md)
   - [Mélyfúrás: szituációs kérdőív](jellemprofil/03-szituacios-kerdoiv.md)
   - [Kihívásbank: heti és napi kihívások a profil alapján](jellemprofil/04-kihivasbank.md)
-  - Minden szöveg forrása a [kerdesbank.json](jellemprofil/kerdesbank.json) és a [kihivasbank.json](jellemprofil/kihivasbank.json); szerkesztés után: `node docs/jellemprofil/build.mjs`
+  - Minden szöveg forrása a [kerdesbank.json](jellemprofil/kerdesbank.json) és a [kihivasbank.json](jellemprofil/kihivasbank.json); szerkesztés után: `node docs/jellemprofil/build.mjs` (ez írja a `testudo.html`-t, az `../admin/index.html`-t és az `../interju/index.html`-t is)
+  - A kihivasbank.json a Google Sheet kihíváskatalógusából jön; a Sheet módosítása után: `node docs/jellemprofil/sync-kihivasok.mjs && node docs/jellemprofil/build.mjs`
 
 A `visualizations` könyvtár önállóan megnyitható HTML-fájlokat is tartalmaz, ezért a wireframe-ek a Codex vizualizációs tárhelyétől függetlenül megmaradnak a repóban.

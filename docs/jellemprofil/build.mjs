@@ -221,7 +221,7 @@ function challengeDoc(resolved) {
     '',
     GENERATED.replace('kerdesbank.json', 'kihivasbank.json'),
     '',
-    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: alapból azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A súlyozás, a nézőpont, az irányfókusz és az erősségekre jutó napi kihívások száma a Kérdésműhely › Kihívás-beállítások fülön állítható. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít. A „gender” mező (any/male/female) megadja, kinek szól: a kitöltő nemének megfelelő (vagy mindenkinek szóló) kihívás választható.',
+    '> A Testudo „Kihívások” menüje ebből a bankból állít össze egy heti és öt napi kihívást a kész profil alapján: alapból azokat a párokat részesíti előnyben, ahol a torzult működés gyakoribb vagy az érett ritkább. A súlyozás, a nézőpont, az irányfókusz és az erősségekre jutó napi kihívások száma a Kérdésműhely › Kihívás-beállítások fülön állítható. A kihívás a megadott érett jellemre és annak torzult párjára céloz; ha nincs megadva jellem, csak az iránya számít. A „gender” mező (any/male/female) megadja, kinek szól: a kitöltő nemének megfelelő (vagy mindenkinek szóló) kihívás választható. A bank forrása a Google Sheet kihíváskatalógusa: `node docs/jellemprofil/sync-kihivasok.mjs`.',
     '',
   ];
   for (const type of Object.keys(CH_TYPES)) {
@@ -266,5 +266,7 @@ writeFileSync(join(dir, '01-kerdesbank.md'), bankDoc());
 writeFileSync(join(dir, '02-melyfuro-interju.md'), interviewDoc());
 writeFileSync(join(dir, '03-szituacios-kerdoiv.md'), sjtDoc());
 writeFileSync(join(dir, '04-kihivasbank.md'), challengeDoc(challenges));
-writeFillOnly(injectIntoHtml(challenges));
-console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html, ../../interju/index.html');
+const html = injectIntoHtml(challenges);
+writeFileSync(join(dir, '..', '..', 'admin', 'index.html'), html);
+writeFillOnly(html);
+console.log('Kész: 01-kerdesbank.md, 02-melyfuro-interju.md, 03-szituacios-kerdoiv.md, 04-kihivasbank.md, testudo.html, ../../admin/index.html, ../../interju/index.html');
