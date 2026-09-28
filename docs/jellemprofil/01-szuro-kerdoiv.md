@@ -39,6 +39,9 @@ Ezeket az állítások tudatosan különválasztják, hogy a tengelyek ne mosód
 
 A sorrend szándékos: a tengelyek váltakoznak, érett és torzult állítás felváltva jön, egy pár két állítása között pedig kb. 30 tétel van. Megjelenítéskor az itemkód nem látszik.
 
+Kitöltés: [kitolto.html](kitolto.html). Az alábbi táblázat a [kerdesbank.json](kerdesbank.json) fájlból generálódik (`node docs/jellemprofil/build.mjs`), ezért a szövegeket ott kell szerkeszteni.
+
+<!-- BEGIN generated: round1-table -->
 | # | Kód | Állítás |
 |---|---|---|
 | 1 | ELO-1É | Ha látom, hogy valamit el kellene kezdeni, nem várok másra, hanem elindítom. |
@@ -107,6 +110,7 @@ A sorrend szándékos: a tengelyek váltakoznak, érett és torzult állítás f
 | 64 | FEL-5É | Szívesen adok át felelősséget és döntési jogot másoknak, és közben mellettük maradok. |
 | 65 | K5 | A kellemetlen beszélgetéseket akkor is felvállalom, ha legszívesebben elkerülném őket. |
 | 66 | K6 | Inkább megvárom, hogy valaki más kezdje el a dolgokat. |
+<!-- END generated: round1-table -->
 
 ## 4. Pontozási kulcs
 
@@ -153,9 +157,11 @@ Legfeljebb 8 pár, az alábbi sorrendben töltve fel:
 1. minden **túlhajtott erősség** (érett ≥ 4 és torzult ≥ 4);
 2. a további **torzult ≥ 4** párok, a legmagasabb torzult értéktől kezdve;
 3. a 2 legerősebb **érett erősség** (érett = 5, torzult ≤ 2), megerősítésre;
-4. ha még van hely: a legalacsonyabb érett értékű párok.
+4. ha még van hely: a **fejletlen** párok (érett ≤ 2), a legalacsonyabb érett értéktől kezdve.
 
-Egyenlőségnél az a pár nyer, amelynek a tengelyéről még kevesebb pár került be, hogy a mélyfúrás lehetőleg több tengelyt érintsen. Ha 6-nál kevesebb pár jön ki, a 2. kör rövidebb lesz.
+Egyenlőségnél az a pár nyer, amelynek a tengelyéről még kevesebb pár került be, hogy a mélyfúrás lehetőleg több tengelyt érintsen. Ha 6-nál kevesebb pár jön ki, a 2. kör rövidebb lesz. A kiválasztás kézzel módosítható (legfeljebb 8 pár), például ha a kérdező vagy a kitöltő egy konkrét területet szeretne mélyebben megnézni.
+
+A 2. kör két formában készülhet, akár mindkettőben: [élő interjú](02-melyfuro-interju.md) vagy [szituációs kérdőív az alkalmazásban](03-szituacios-kerdoiv.md). Az eredmények összevonásának szabálya a [szituációs kérdőív leírásában](03-szituacios-kerdoiv.md#3-összevonás-az-1-körrel) szerepel.
 
 ## 6. Keretezés és adatkezelés
 
