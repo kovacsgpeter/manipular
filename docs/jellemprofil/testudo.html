@@ -1,0 +1,1381 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testudo – Jellem a hétköznapokban</title>
+<style>
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --card: #f3f2ee;
+  --border: #dedcd5;
+  --grid: #d6d4cd;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --muted: #74726c;
+  --mature: #2a78d6;
+  --distorted: #eb6834;
+  --serious: #c2410c;
+  --notice: #fff4e5;
+  --notice-border: #f0c48a;
+  --focus: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #1a1a19; --card: #242422; --border: #3b3a37; --grid: #3d3c39;
+    --text: #ffffff; --text-2: #c3c2b7; --muted: #9c9b93;
+    --mature: #3987e5; --distorted: #d95926; --serious: #ec835a;
+    --notice: #33261a; --notice-border: #7a4b22; --focus: #6da7ec;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1a1a19; --card: #242422; --border: #3b3a37; --grid: #3d3c39;
+  --text: #ffffff; --text-2: #c3c2b7; --muted: #9c9b93;
+  --mature: #3987e5; --distorted: #d95926; --serious: #ec835a;
+  --notice: #33261a; --notice-border: #7a4b22; --focus: #6da7ec;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--surface); color: var(--text); font: 16px/1.55 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; }
+header, main, footer { max-width: 860px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+header { padding-top: 28px; padding-bottom: 8px; }
+header .eyebrow { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: 1.9rem; line-height: 1.2; margin: 4px 0 6px; }
+h2 { font-size: 1.35rem; line-height: 1.25; margin: 28px 0 8px; }
+h3 { font-size: 1.1rem; margin: 20px 0 8px; }
+p { margin: 8px 0; }
+a { color: var(--mature); }
+.lead { color: var(--text-2); margin: 0; }
+.small, small { font-size: 0.875rem; color: var(--text-2); }
+.muted { color: var(--text-2); }
+footer { font-size: 0.8rem; color: var(--muted); padding-top: 24px; padding-bottom: 32px; }
+[hidden] { display: none !important; }
+
+nav.main { border-bottom: 1px solid var(--border); margin: 12px 0 16px; padding-bottom: 12px; display: grid; gap: 8px; }
+nav.main .group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+nav.main .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); width: 100%; }
+button, .button {
+  font: inherit; font-weight: 600; font-size: 0.95rem; border-radius: 8px; padding: 9px 14px; cursor: pointer;
+  border: 1px solid var(--border); background: transparent; color: var(--text);
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none;
+}
+button.primary, button[aria-pressed="true"], nav.main button.active { background: var(--text); color: var(--surface); border-color: var(--text); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+input[type="text"], input[type="date"], input[type="number"], select, textarea {
+  font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 11px; width: 100%; min-width: 0; max-width: 100%;
+}
+textarea { min-height: 110px; resize: vertical; }
+label.block { display: block; font-weight: 600; margin: 12px 0 4px; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 12px 0; }
+.fields label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; font-size: 0.9rem; min-width: 0; }
+.fields label input, .fields label select { font-weight: 400; }
+.row, .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin: 16px 0; }
+.notice { background: var(--notice); border: 1px solid var(--notice-border); border-radius: 12px; padding: 12px 16px; margin: 12px 0; }
+.icon-warn { color: var(--serious); font-weight: 700; }
+.status { min-height: 1.5em; font-size: 0.9rem; color: var(--text-2); }
+.table-scroll { overflow-x: auto; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.875rem; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--text-2); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 4px; }
+.bar span { display: block; height: 100%; border-radius: 2px; }
+.bar.e span { background: var(--mature); }
+.bar.t span { background: var(--distorted); }
+.bar.obs span { opacity: 0.55; }
+details { margin: 12px 0; }
+summary { cursor: pointer; font-weight: 600; }
+ol li, ul li { margin: 6px 0; }
+
+.sticky { position: sticky; top: 0; z-index: 3; background: var(--surface); border-bottom: 1px solid var(--border); padding: 10px 0; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
+.sticky select { width: auto; }
+.progress { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; flex: 1 1 100%; }
+.progress > div { height: 100%; background: var(--text); }
+.item { border-bottom: 1px solid var(--border); padding: 16px 0; }
+.item legend { padding: 0; margin-bottom: 10px; }
+.item .qid { display: block; font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.answers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.answers label, .missing label, .choice { position: relative; }
+.answers input, .missing input, .choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.answers span {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  min-height: 50px; padding: 5px 2px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+  font-size: 0.72rem; color: var(--text-2); line-height: 1.15;
+}
+.answers span b { font-size: 1.05rem; color: var(--text); }
+.missing { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.missing span, .choice span { display: inline-block; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; font-size: 0.78rem; color: var(--text-2); cursor: pointer; }
+.answers input:checked + span, .missing input:checked + span, .choice input:checked + span { background: var(--text); border-color: var(--text); color: var(--surface); }
+.answers input:checked + span b { color: var(--surface); }
+.answers input:focus-visible + span, .missing input:focus-visible + span, .choice input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+.tabs button { padding: 6px 12px; font-size: 0.875rem; }
+.radar-pair { display: grid; gap: 8px; }
+.radar-pair h3 { text-align: center; margin: 12px 0 0; }
+.radar-wrap { position: relative; max-width: 560px; margin: 4px auto; }
+.radar-wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+.grid { fill: none; stroke: var(--grid); stroke-width: 1; }
+.poly { stroke-width: 2; stroke-linejoin: round; fill-opacity: 0.1; }
+.poly.e { stroke: var(--mature); fill: var(--mature); }
+.poly.t { stroke: var(--distorted); fill: var(--distorted); }
+.poly.dash { stroke-dasharray: 6 4; fill-opacity: 0.04; }
+.mk { stroke: var(--surface); stroke-width: 2; }
+.mk.e { fill: var(--mature); }
+.mk.t { fill: var(--distorted); }
+.hit { stroke: transparent; stroke-width: 28; pointer-events: stroke; }
+.tick { fill: var(--muted); }
+.lt { font-weight: 600; fill: var(--text); }
+.ls { fill: var(--text-2); }
+.flag { fill: var(--serious); }
+.lbl.click { cursor: pointer; }
+.lbl.click:hover .lt, .lbl.sel .lt { text-decoration: underline; }
+.lbl:focus { outline: none; }
+.lbl:focus-visible .lt { text-decoration: underline; fill: var(--focus); }
+.tip { position: absolute; pointer-events: none; z-index: 2; background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 0.8125rem; box-shadow: 0 2px 8px rgb(0 0 0 / 15%); white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); }
+.legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; list-style: none; padding: 0; margin: 6px 0; font-size: 0.85rem; color: var(--text-2); }
+.legend li { display: flex; align-items: center; gap: 6px; margin: 0; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 8px 0; }
+.chips li { border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; font-size: 0.875rem; margin: 0; }
+.chips .why { color: var(--muted); }
+.select-grid { columns: 2 260px; column-gap: 24px; }
+.select-grid h4 { margin: 12px 0 4px; font-size: 0.9rem; break-after: avoid; }
+.select-grid label { display: flex; gap: 8px; align-items: flex-start; font-size: 0.875rem; margin: 4px 0; break-inside: avoid; }
+.scenario { border-top: 1px solid var(--border); padding: 14px 0; }
+.scenario .stem { font-weight: 600; }
+.option { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin: 8px 0; }
+.option p { margin: 0 0 8px; }
+.choices { display: flex; gap: 8px; flex-wrap: wrap; }
+.qlist { padding-left: 20px; }
+.qlabel { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.pair-nav { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+
+@media (max-width: 560px) {
+  nav.main button { font-size: 0.85rem; padding: 6px 10px; }
+  h1 { font-size: 1.6rem; }
+}
+@media print {
+  nav.main, .tools, .sticky, #data, .tabs, .pair-nav { display: none !important; }
+  body { background: white; color: black; }
+  .item, tr { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Testudo · felmérés és kérdésműhely 0.3</div>
+  <h1>Jellem a hétköznapokban</h1>
+  <p class="lead" id="subtitle"></p>
+</header>
+<main>
+<nav class="main" aria-label="Fő menü">
+  <div class="group"><span class="label">Felmérés</span>
+    <button data-view="guide" class="active">Útmutató</button><button data-view="survey">Kitöltés</button><button data-view="results">Profil és radarok</button><button data-view="interview">Közös interjú</button><button data-view="deep">Mélyfúrás</button>
+  </div>
+  <div class="group"><span class="label">Kérdésműhely</span>
+    <button data-view="manual">Mérési kézikönyv</button><button data-view="review">Szakértői ellenőrzés</button><button data-view="builder">Kérdésbuilder</button><button data-view="pool">Pool és véglegesítés</button>
+  </div>
+</nav>
+<p id="activeForm" class="notice"></p>
+
+<section id="data" class="card">
+  <div class="fields">
+    <label>Résztvevő kódja<input type="text" id="subject" placeholder="pl. T-01" autocomplete="off"></label>
+    <label>Időszak kezdete<input type="date" id="start"></label>
+    <label>Időszak vége<input type="date" id="end"></label>
+  </div>
+  <p class="small">Mindkét értékelő ugyanarról a lezárt, 28 napos időszakról válaszoljon.</p>
+  <div class="tools">
+    <button id="save" class="primary">Aktív kitöltés mentése (JSON)</button>
+    <button id="loadBtn">Mentett kitöltés betöltése</button><input id="load" type="file" accept=".json" hidden>
+    <button id="csvLong">CSV – részletes</button>
+    <button id="csvWide">CSV – egy sor / nézőpont</button>
+    <button onclick="window.print()">Nyomtatás / PDF</button>
+  </div>
+  <p id="status" class="status" role="status" aria-live="polite"></p>
+  <p class="small">Nincs automatikus mentés vagy adatküldés; bezárás előtt ments. A JSON a válaszokat és a jegyzeteket tartalmazza, csak azzal oszd meg, akivel megállapodtatok. A CSV pontosvesszővel tagolt, tizedesvesszős: Excelben és magyar beállítású Google Táblázatokban közvetlenül megnyitható.</p>
+</section>
+
+<section id="guide">
+  <h2>A felmérés menete</h2>
+  <ol>
+    <li><b>Külön kitöltés:</b> a résztvevő és a verifikátor egymás válaszainak megtekintése nélkül válaszol. Használjatok külön példányt; a mentett fájlok később egy példányba betölthetők.</li>
+    <li><b>Azonos időablak:</b> mindig az elmúlt 28 nap releváns helyzeteit vegyétek alapul. Ne a vágyott önképet vagy egyetlen szélsőséges napot értékeljétek.</li>
+    <li><b>Közös átbeszélés:</b> beleegyezéssel nézzétek meg a két profilt. Az eltéréseket példákkal vizsgáljátok; nem kell közös pontszámot kialkudni.</li>
+    <li><b>Mélyfúrás:</b> a kiemelt 6–8 jellempárra szituációs kérdések (az önértékelő tölti ki) és páronkénti interjúkérdések (a kérdező vezeti).</li>
+    <li><b>Gyakorlás:</b> válasszatok 1–2 konkrét viselkedést. Négyhetente ezekről beszéljetek; körülbelül 12 hetente végezzetek teljes újramérést.</li>
+  </ol>
+  <p id="timeEstimate"></p>
+  <p class="notice"><b>Fejlesztési prototípus.</b> A pont a kiválasztott viselkedések beszámolt gyakoriságát mutatja. Nem diagnózis, nem személyiségtípus-besorolás, nem a hit vagy az emberi érték mértéke. A kérdéssor még nincs pszichometriailag validálva.</p>
+  <h2>Válaszadási szabályok</h2>
+  <p>Az állítások harmadik személyben szerepelnek. Önértékeléskor az alany <b>te vagy</b>; verifikátorként <b>a résztvevő</b>. A gyakoriság a releváns alkalmak arányára vonatkozik, nem puszta esetszámra.</p>
+  <div class="table-scroll"><table>
+    <tr><th>Válasz</th><th>Jelentés</th></tr>
+    <tr><td>0 – Soha</td><td>Volt releváns alkalom, de nem jelent meg a viselkedés.</td></tr>
+    <tr><td>1 – Ritkán</td><td>A releváns alkalmak kis részében.</td></tr>
+    <tr><td>2 – Néha</td><td>Nagyjából az alkalmak felében.</td></tr>
+    <tr><td>3 – Gyakran</td><td>Az alkalmak többségében.</td></tr>
+    <tr><td>4 – Szinte mindig</td><td>Szinte minden releváns alkalommal.</td></tr>
+    <tr><td>N – Nem volt alkalom</td><td>A helyzet vagy szerep nem fordult elő.</td></tr>
+    <tr><td>M – Nem megfigyelhető / nem tudom</td><td>Nincs elég saját tapasztalat vagy hozzáférhető információ.</td></tr>
+    <tr><td>K – Kihagyom</td><td>Nem szeretnék erre válaszolni.</td></tr>
+  </table></div>
+  <p>Az N, M, K és az üres válasz nem nulla pont. Verifikátorként a belső motivációt ne találd ki. A vallásos gyakorlat hiánya vagy ismeretlensége nem automatikusan torzulás.</p>
+  <p>A felmérés ne adjon versenypontot és ne kerüljön ranglistára. A verifikátor visszajelző társ; a válaszokat csak a közösen elfogadott kör lássa.</p>
+</section>
+
+<section id="survey" hidden>
+  <div class="fields">
+    <label>Aktív nézőpont<select id="role"><option value="self">Önértékelés</option><option value="observer">Verifikátor</option></select></label>
+    <label>Értékelő kódja<input type="text" id="rater" placeholder="pl. T-01 / V-01" autocomplete="off"></label>
+    <label>Megfigyelés közege<input type="text" id="context" placeholder="pl. otthon, munka, közösség" autocomplete="off"></label>
+  </div>
+  <p id="roleHelp" class="small"></p>
+  <p class="small">A másik fél válaszai itt nem láthatók. Ez nézeti elkülönítés, nem jelszavas védelem. Független kitöltéshez használjatok külön példányt.</p>
+  <div class="sticky">
+    <label>Blokk <select id="block"></select></label>
+    <span id="completion" class="small"></span>
+    <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+  </div>
+  <p><b>Az elmúlt négy hét releváns alkalmaiban milyen gyakran volt jellemző a résztvevőre?</b></p>
+  <div id="questions"></div>
+  <h3>Példák és ellenpéldák</h3>
+  <p class="small">Írj egy jellemző esetet és egy ellenpéldát. Jelöld a tételazonosítót, a helyzetet, a cselekvést és a következményt. Jelezd, ha csak egy alkalom alapján válaszoltál.</p>
+  <textarea id="blockNote" aria-label="Blokkhoz tartozó példák"></textarea>
+  <div class="pair-nav"><button id="prev">Előző blokk</button><button id="next" class="primary">Következő blokk</button></div>
+</section>
+
+<section id="results" hidden>
+  <h2>Profil</h2>
+  <p class="small">0–4 skála. Érett működésnél a nagyobb, torzult működésnél a kisebb érték a kívánt irány. Nincs közös „jellemérték”; az érett és a torzult működés, illetve a két nézőpont nem vonható össze. Hiányos területre nem rajzolunk becsült pontot, zárt vonal csak teljes adatnál jelenik meg.</p>
+  <div class="tabs" role="group" aria-label="Nézőpont"><button data-persp="self">Önértékelés</button><button data-persp="observer">Verifikátor</button><button data-persp="compare">Összevetés</button></div>
+  <div id="overview"></div>
+  <p class="small" style="text-align:center">Egy területre kattintva megnyílik a részletes nézete.</p>
+  <h2 id="areaTitle"></h2>
+  <div class="tabs" id="areaTabs" role="group" aria-label="Terület"></div>
+  <div id="detail"></div>
+  <h2>Irányok és alcsoportok</h2>
+  <div class="table-scroll" id="summary"></div>
+  <h2>Tulajdonságok részletesen</h2>
+  <p class="small">Egy tulajdonság pontja csak akkor jelenik meg, ha minden tétele számszerű választ kapott. Eltérés = önértékelés − verifikátor; ez beszélgetési téma, nem hibajel.</p>
+  <div class="table-scroll" id="traitResults"></div>
+</section>
+
+<section id="interview" hidden>
+  <h2>1. interjú · Belépő beszélgetés</h2>
+  <p><b>30–45 perc, a két független kitöltés után.</b> Az eredeti válaszokat őrizzétek meg; a beszélgetés nem képez automatikusan új pontszámot. A kiemelt párokhoz páronkénti kérdések a <a href="#" data-goto="deep">Mélyfúrás</a> menüben vannak.</p>
+  <ol>
+    <li><b>Keret – 3 perc.</b> „Milyen volt ez a négy hét? Mi befolyásolta az energiádat, szerepeidet és lehetőségeidet? Mire volt kevés rálátásotok?”</li>
+    <li><b>Erősség – 5 perc.</b> „Válassz egy érett működést, amelyre támaszkodtál. Mesélj konkrét esetet.” Verifikátor: „Mit láttál ebből? Hol jelent meg kevésbé?”</li>
+    <li><b>Első eltérés – 5 perc.</b> „Melyik tulajdonságot látjátok eltérően? Milyen helyzetekre gondoltatok?” Mindketten megszakítás nélkül mondják el a példát.</li>
+    <li><b>Második eltérés vagy hiány – 5 perc.</b> „Más a tapasztalatotok, vagy másképp értettétek a szót? Mit nem lehet most megítélni?”</li>
+    <li><b>Nehéz helyzet – 6 perc.</b> „Válassz egy problémás működést, amelyet te magad is felismersz. Mi történt előtte, mit tettél, és mi lett a következmény?” Kérjetek ellenpéldát is.</li>
+    <li><b>A pár érett oldala – 5 perc.</b> „Ugyanennek a párnak az érett oldala mikor működött? Mi különböztette meg a helyzeteket?”</li>
+    <li><b>Gyakorlási cél – 5 perc.</b> „Melyik 1–2 viselkedés változtatna most legtöbbet? Milyen helyzetben, mit fogsz tenni? Mi fér bele a terhelésedbe?”</li>
+    <li><b>Megállapodás – 3 perc.</b> „Mit láthat ebből a verifikátor? Mikor beszéltek róla? Ki láthatja az eredményt?” A megosztás legyen önkéntes.</li>
+  </ol>
+  <h3>Állandó követő kérdések</h3>
+  <p>„Mikor történt? Mi volt a helyzet? Mit tettél pontosan? Mi lett az eredménye? Hány hasonló alkalom volt? Mikor történt az ellenkezője? Mit láthatott ebből közvetlenül a társad?”</p>
+  <h2>2. interjú · Fejlődés áttekintése</h2>
+  <p><b>20–30 perc.</b> Négyhetes fókuszált követés. A teljes radarhoz külön teljes újramérés szükséges.</p>
+  <ol>
+    <li>„Mi volt a vállalt viselkedés és az időszak?”</li>
+    <li>„Hány releváns alkalom adódott, és ebből hányszor sikerült a választott viselkedés?”</li>
+    <li>„Mutass egy konkrét sikeres és egy nehéz vagy sikertelen esetet.”</li>
+    <li>„Mit tapasztalt ebből külön a verifikátor? Mi maradt számára láthatatlan?”</li>
+    <li>„Más közegben vagy nyomás alatt is megjelent a változás? Mi segített, mi akadályozott?”</li>
+    <li>„Más lett a működésed, vagy most pontosabban érted az állítást? Változott az élethelyzet vagy az értékelő?”</li>
+    <li>„Megjelent-e közben egy másik probléma, például önuralom helyett érzések elhallgatása?”</li>
+    <li>„Mit tartunk meg, min változtatunk, és mi a következő ellenőrizhető lépés?”</li>
+  </ol>
+  <h2>Közös jegyzet és vállalás</h2>
+  <p class="small">Ez a jegyzet mindkét nézőpont exportjába bekerül. Csak a közösen megoszthatónak ítélt tartalmat írjátok ide.</p>
+  <textarea id="joint" style="min-height:220px" placeholder="Dátum; megbeszélt tulajdonságazonosítók; példák és ellenpéldák; eltérő környezet vagy értelmezés; választott 1–2 viselkedés; ha [helyzet], akkor [cselekvés]; megfigyelhető jel; verifikátor szerepe; megosztási kör; következő átbeszélés."></textarea>
+</section>
+
+<section id="deep" hidden>
+  <h2>Mélyfúrás</h2>
+  <p class="small">A kiemelt 6–8 jellempár alaposabb vizsgálata. A szituációs kérdőívet az önértékelő tölti ki, a páronkénti interjút a kérdező vezeti. Mindkettő külön mérésként jelenik meg, nem írja felül és nem vonódik össze a kérdőíves pontokkal.</p>
+  <div class="tabs" role="group" aria-label="Mélyfúrás lépései"><button data-deep="select">1. Párok</button><button data-deep="sjt">2. Szituációk</button><button data-deep="iv">3. Élő interjú</button><button data-deep="sum">4. Összesítés</button></div>
+  <div id="deepBody"></div>
+</section>
+
+<section id="manual" hidden>
+  <h2>Mérési szabályok · 0.3</h2>
+  <p><b>Forrás:</b> a <i>manipular-idea-frame.xlsx</i> „Négy irány” lapjának C–D oszlopai: 5 Előre, 5 Hátra, 5 Oldalra és 15 Felfelé pár. A tételek egyetlen közös kérdésbankból (<code>kerdesbank.json</code>) származnak: vonásonként a Testudo 0.1 pilot két tétele, és egy harmadik, a manipular jellemprofilból Testudo-normára átírt tétel.</p>
+  <p><b>Mérési cél:</b> a megadott viselkedések önbeszámoló vagy megfigyelés szerinti gyakorisága. A terhelést, motivációt és helyzeti eltéréseket az interjú tárja fel. Néhány tétel nem meríti ki egy tág fogalom jelentését.</p>
+  <ol>
+    <li><b>Tulajdonságpont:</b> a vonás összes tételének átlaga (a rögzített formában vonásonként 2 vagy 3 tétel), 0–4. Megjelenítés egy tizedessel, számítás kerekítés nélkül. A torzult tételek nincsenek megfordítva. A builderben külön jelölt fordított tételnél pont = 4 − válasz; ezt a szakértőnek ellenőriznie kell.</li>
+    <li><b>Hiány:</b> N, M, K és üres válasz nem pont. Ha egy tétel hiányzik, a tulajdonság nem kap pontot. A hiány oka az exportban megmarad.</li>
+    <li><b>Irány és terület:</b> Előre, Hátra, Oldalra: az 5 teljes tulajdonság átlaga. A Felfelé irány három területe (Istenhez igazodás, Elhívás és jövőkép, Mások felemelése) külön is átlagolódik; a Felfelé irány ezek egyenlő súlyú átlaga. A radar a 6 területet mutatja, a táblázat a 4 irányt is.</li>
+    <li><b>Elkülönítés:</b> önértékelés és verifikátor külön; érett és torzult nem vonható ki egymásból. Nincs normatív határérték, diagnózis, percentilis vagy automatikus besorolás.</li>
+    <li><b>Beszélgetési jelzés (⚠):</b> ha egy területen valamelyik torzult tulajdonság átlaga legalább 3 („gyakran”), a radar jelzi. Ez nem norma és nem besorolás, csak a közös interjú témajavaslata. Ugyanígy a mélyfúrás párjavaslata is csak segítség, kézzel módosítható.</li>
+    <li><b>Mélyfúrás:</b> a szituációs kérdőív és az interjús benyomás külön 0–4 értéket ad, a kérdőíves pontokkal nem vonódik össze.</li>
+    <li><b>Változás:</b> azonos tételverzió, időablak, lehetőleg ugyanaz az értékelő. Érettnél későbbi − korábbi, torzultnál korábbi − későbbi lehet a kívánt irányú változás leíró mutatója. Nincs igazolt változási küszöb.</li>
+    <li><b>Összehasonlítás:</b> azonos teljes tételek és azonos nézőpont. Jegyezzük fel az értékelőcserét, közeget és rendkívüli terhelést. A fókuszált havi követés nem frissíti a teljes radart.</li>
+  </ol>
+  <h3>Különösen értelmezendő fogalmak</h3>
+  <p>A Felfelé tételei a program keresztény keretét követik, nem általános pszichológiai normát. Nem mérik a hit igazságát vagy mélységét. Belső félelem és elhívás csak saját kimondott beszámoló vagy megfigyelhető cselekvés alapján értékelhető; egyébként M.</p>
+  <p>Az „elfojtás”, „megszállottság” és „messiáskomplexus” a forrás címkéi, itt szűkített viselkedéses munkadefinícióval; nem klinikai megállapítások. Az érett–torzult párok nem igazolt pszichometriai ellentétek.</p>
+  <h3>Pilot és szakmai ellenőrzés</h3>
+  <ol>
+    <li>Első körben 5–8 önkéntes pár érthetőségi próbája: néhány tételnél mondják el, hogyan értették és milyen esetre gondoltak. Ez használhatósági próba, nem validáció.</li>
+    <li>Mérésben jártas pszichológus és a keresztény keretet ismerő tartalmi szakértő vizsgálja át a definíciókat, átfedéseket, megfigyelhetőséget és ítélkező megfogalmazásokat.</li>
+    <li>Rögzítsük az időt, kihagyási okokat, félreértéseket és a mindenkinél azonos válaszokat. Külön vizsgáljuk a verifikátor számára nem hozzáférhető tételeket.</li>
+    <li>Az átdolgozás után fagyasszuk be a követési verziót. Tételváltozáskor új verzió kell; az eredmények nem automatikusan összehasonlíthatók.</li>
+    <li>Nagyobb, szakemberrel méretezett mintán vizsgáljuk a megbízhatóságot, a négy irány összesíthetőségét, az érvényességet és a változásérzékenységet.</li>
+  </ol>
+  <h3>Módszertani támpontok</h3>
+  <p><a href="https://www.opm.gov/policy-data-oversight/assessment-and-selection/structured-interviews/">OPM: Structured Interviews</a> – egységes kérdezés és értékelés. <a href="https://www.intestcom.org/page/15">ITC: Guidelines on Test Use</a> – a felhasználási célhoz illeszkedő érvényességi és megbízhatósági bizonyíték szükségessége. Ezek nem validálják a saját tételeinket.</p>
+  <h2>Tételkulcs és munkadefiníciók</h2>
+  <p class="small">E = érett, T = torzult. Az utolsó szám a tétel sorszáma. Kitöltéskor a címkéket nem mutatjuk az állítás mellett.</p>
+  <div id="dictionary"></div>
+</section>
+
+<section id="review" hidden>
+  <h2>Szakértői ellenőrzés</h2>
+  <p>A pool tételei <b>ellenőrzésre váró</b> állapotból indulnak. A jóváhagyás egy konkrét szövegre és mérési paraméterezésre vonatkozik; szerkesztés után új ellenőrzés kell. Ez tartalmi jóváhagyás, nem empirikus pszichometriai validálás.</p>
+  <div class="fields">
+    <label>Státusz<select id="reviewFilter"><option value="all">Minden státusz</option><option value="draft">Ellenőrzésre vár</option><option value="revise">Javítandó</option><option value="approved">Jóváhagyott</option><option value="rejected">Elvetett</option></select></label>
+    <label>Mért jellemző<select id="reviewTrait"></select></label>
+  </div>
+  <label class="block">Kérdés kiválasztása<select id="reviewQ"></select></label>
+  <div id="reviewDetail"></div>
+  <div id="reviewControls">
+    <h3>Ellenőrzési szempontok</h3>
+    <div id="reviewChecks"></div>
+    <div class="fields">
+      <label>Szakértő neve / azonosítója<input type="text" id="reviewer" autocomplete="off"></label>
+      <label>Döntés<select id="reviewDecision"><option value="revise">Javítandó</option><option value="approved">Jóváhagyott</option><option value="rejected">Elvetett</option></select></label>
+    </div>
+    <label class="block">Indoklás, javítási javaslat<textarea id="reviewNote" placeholder="Miért maradjon vagy miért változzon? Mi lehet félreérthető?"></textarea></label>
+    <div class="tools"><button id="saveReview" class="primary">Szakértői döntés rögzítése</button><button id="reviewEdit">Megnyitás a builderben</button></div>
+  </div>
+  <p id="reviewStatus" class="status" role="status"></p>
+  <h3>Hogyan dolgozzatok együtt?</h3>
+  <p class="small">A fejlesztő exportálja a kérdéspoolt, a szakember betölti, elvégzi az ellenőrzést, majd visszaadja az exportot. A fájl nem biztosít bejelentkezést, hitelesített szakértői aláírást vagy párhuzamos módosítások összeolvasztását. Egyszerre egy példány legyen a mérvadó; a pool importja lecseréli a munkapéldány készletét.</p>
+</section>
+
+<section id="builder" hidden>
+  <h2>Kérdésbuilder</h2>
+  <p>Új kérdést készíthetsz vagy meglévőt módosíthatsz. Egy pontozott tételhez <b>egy elsődleges jellemző</b> tartozik; az irány és az érett/torzult besorolás ebből származik. Másodlagos kapcsolatok megjegyzésként rögzíthetők, nem kapnak külön pontot.</p>
+  <label class="block">Szerkesztendő tétel<select id="editQ"><option value="new">Új kérdés</option></select></label>
+  <div class="fields">
+    <label>Elsődleges jellemző<select id="editTrait"></select></label>
+    <label>Kiválasztási prioritás (1–9)<input type="number" id="editPriority" min="1" max="9" value="5"></label>
+  </div>
+  <p id="editDefinition" class="notice"></p>
+  <label class="block">Állítás / kérdés szövege<textarea id="editText" placeholder="Konkrét viselkedést írj le harmadik személyben, az elmúlt négy hétre értelmezhetően."></textarea></label>
+  <label class="block">Pontosan mit mér? Melyik részjelenséget?<textarea id="editAspect" placeholder="Pl. kitartás: a feladat folytatása az első kudarc után."></textarea></label>
+  <label class="block">Milyen megfigyelés támasztja alá a választ?<textarea id="editEvidence" placeholder="Pl. akadály után ténylegesen folytatta a vállalt feladatot. Belső indítéknál jelöld, hogy csak kimondott beszámoló alapján ítélhető meg."></textarea></label>
+  <div class="fields">
+    <label>Jellemző helyzet<select id="editContext"><option value="általános">Általános</option><option value="otthon">Otthon / párkapcsolat</option><option value="munka">Munka / feladat</option><option value="közösség">Közösség</option><option value="hitgyakorlat">Hitgyakorlat</option><option value="vezetés">Vezetés / szolgálat</option></select></label>
+    <label>Pontozás<select id="editReverse"><option value="direct">Egyenes: magasabb válasz = több a mért működésből</option><option value="reverse">Fordított: pont = 4 − válasz</option></select></label>
+  </div>
+  <p class="small"><b>Rögzített paraméterek:</b> 28 nap; gyakoriság 0–4; N/M/K hiányválaszok; önértékelés és verifikátor azonos szöveggel. A torzult tulajdonság tétele alapértelmezésben szintén egyenes pontozású: gyakoribb torzulás = magasabb pont.</p>
+  <label class="block">Forrás, szerző, egyéb kapcsolódás / megjegyzés<textarea id="editSource"></textarea></label>
+  <div class="tools"><button id="saveQuestion" class="primary">Mentés ellenőrzésre</button><button id="newQuestion">Új kérdés</button></div>
+  <p id="builderStatus" class="status" role="status"></p>
+</section>
+
+<section id="pool" hidden>
+  <h2>Kérdéspool és interjú összeállítása</h2>
+  <p id="poolOrigin" class="small"></p>
+  <p id="poolCounts"></p>
+  <p>A pool bővíthető. A rögzített interjúhoz mind a 60 jellemzőből azonos számú, <b>szakértő által jóváhagyott</b> tételt választunk: vonásonként 2 (120 tétel) vagy 3 (180 tétel). Először a magasabb prioritás számít, azonosságnál a tételazonosító. Nincs kitöltésenként változó sorsolás.</p>
+  <div class="tools"><button id="exportPool">Kérdéspool és szakértői döntések mentése</button><button id="importPoolBtn">Kérdéspool betöltése</button><input type="file" id="importPool" accept=".json" hidden></div>
+  <p class="notice small">A kérdéspool mentése külön művelet a kitöltői válaszok mentésétől. A pool szerkesztése nem módosítja a jelenleg aktív interjút vagy annak válaszait. A véglegesítés letölt egy új, üres HTML-interjút a kiválasztott jóváhagyott tételekkel.</p>
+  <div class="fields">
+    <label>Új interjúverzió neve<input type="text" id="formName" placeholder="pl. Belépő 2026 ősz – 1" autocomplete="off"></label>
+    <label>Tételszám vonásonként<select id="perTrait"><option value="2">2 tétel – 120 állítás (rövidebb)</option><option value="3">3 tétel – 180 állítás (teljes)</option></select></label>
+  </div>
+  <div class="tools"><button id="publishForm" class="primary">Interjú véglegesítése és letöltése</button></div>
+  <p id="publishStatus" class="status" role="status"></p>
+  <p id="poolStatus" class="status" role="status"></p>
+  <div class="table-scroll" id="coverage"></div>
+  <h3>Verzió és ismételt mérés</h3>
+  <p class="small">A véglegesített fájl rögzíti a tételazonosítókat, a szöveget, a céljellemzőt és a pontozást. A résztvevő és a verifikátor ezt azonos verzióban használja. Fejlődéskövetéskor őrizzétek meg ugyanazt a fájlt; új kérdésválasztás már új mérési forma, pontjai nem tekinthetők automatikusan összehasonlíthatónak a régivel. Más verzióból származó válaszfájlt az eszköz nem tölt be.</p>
+</section>
+</main>
+<footer>Testudo · saját fejlődés támogatása, konkrét példákkal. Nem diagnózis.</footer>
+
+<script id="assessment-config" type="application/json">{"pool":null,"form":null}</script>
+<script id="kerdesbank" type="application/json">{"schema":"manipular-kerdesbank/2","version":"2026-09-28b","audience":"hívő kitöltők","norm":{"window":"28 nap","scale":{"0":"Soha","1":"Ritkán","2":"Néha","3":"Gyakran","4":"Szinte mindig"},"missing":{"N":"Nem volt alkalom","M":"Nem megfigyelhető / nem tudom","K":"Kihagyom"},"perspectives":["önértékelés","verifikátor"]},"axes":[{"id":"ELO","name":"Előre","direction":"Előre","meaning":"Elindít, vállal, áttör és teret nyer."},{"id":"HAT","name":"Hátra","direction":"Hátra","meaning":"Megtart, véd, kitart és uralkodik önmagán."},{"id":"OLD","name":"Oldalra","direction":"Oldalra","meaning":"Új nézőpontot, kapcsolatot vagy kerülőutat talál."},{"id":"IST","name":"Istenhez igazodás","direction":"Felfelé","meaning":"Istenhez igazodás: hit, ima és engedelmesség."},{"id":"ELH","name":"Elhívás","direction":"Felfelé","meaning":"Magasabb cél, jövőkép és elhívás felismerése."},{"id":"FEL","name":"Mások felemelése","direction":"Felfelé","meaning":"Mások felemelése, vezetése és felhatalmazása."}],"radarOrder":["IST","ELH","ELO","OLD","HAT","FEL"],"traits":[{"id":"01E","pair":"01","axis":"ELO","direction":"Előre","sub":"—","name":"Kezdeményezés","kind":"E","definition":"Önálló, helyzethez illő első lépés vállalása.","items":[{"id":"01E1","text":"Ha egy szükséges feladatnak nem volt gazdája, megtette az első érdemi lépést.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"01E2","text":"Egy felismert problémára konkrét megoldási javaslattal állt elő.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"01E3","text":"Egy új kezdeményezés felvetése előtt felmérte, mi kell hozzá, és ezzel együtt vitte az érintettek elé.","aspect":"Indítás előkészítéssel.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"01T","pair":"01","axis":"ELO","direction":"Előre","sub":"—","name":"Impulzivitás","kind":"T","definition":"Cselekvés a fontos következmények mérlegelése előtt.","items":[{"id":"01T1","text":"Úgy vállalt el új feladatot, hogy előtte nem nézte meg a meglévő vállalásait.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"01T2","text":"Egy sürgető ötletét az érintettekkel való szükséges egyeztetés előtt végrehajtotta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"01T3","text":"Egy lelkesítő ötlet hatására még aznap bejelentett vagy elindított valamit, amelynek részleteit utólag kellett kitalálni.","aspect":"Bejelentés vagy indítás előkészítés nélkül.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"02E","pair":"02","axis":"ELO","direction":"Előre","sub":"—","name":"Bátorság","kind":"E","definition":"Fontos ügy vállalása félelem vagy társas kockázat mellett.","items":[{"id":"02E1","text":"Kimondott egy fontos, kellemetlen igazságot akkor is, amikor tartott a fogadtatásától.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"02E2","text":"Belevágott egy számára fontos feladatba annak ellenére, hogy félt a kudarctól.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"02E3","text":"Kiállt egy igazságtalanul kezelt ember mellett, bár ez számára kellemetlenséggel járhatott.","aspect":"Kiállás más mellett társas kockázattal.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"02T","pair":"02","axis":"ELO","direction":"Előre","sub":"—","name":"Vakmerőség","kind":"T","definition":"Elkerülhető kockázat vállalása a következmények elégtelen mérlegelésével.","items":[{"id":"02T1","text":"Belevágott valamibe, mielőtt tisztázta volna, milyen kárt okozhat vele.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"02T2","text":"Konkrét veszélyre figyelmeztető jelzés után is folytatta a tervét a veszély ellenőrzése nélkül.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"02T3","text":"Olyan kockázatot vállalt, amely másokat is veszélybe sodorhatott, és ezt utólag maga is felelőtlennek nevezte.","aspect":"Mások biztonságát érintő, utólag felismert felelőtlen kockázat.","context":"általános","evidence":"Az utólagos felismerés a résztvevő kimondott beszámolójából ismerhető meg; ennek hiányában M.","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"03E","pair":"03","axis":"ELO","direction":"Előre","sub":"—","name":"Hódítás","kind":"E","definition":"Hódítás: új lehetőség vagy mozgástér megteremtése mások jogainak tiszteletével.","items":[{"id":"03E1","text":"Egy korábbi akadály felszámolásával új lehetőséget teremtett magának vagy a csapatának.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"03E2","text":"Új feladatkörben szerzett önálló cselekvési lehetőséget az érintettek beleegyezésével.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"03E3","text":"Új közegben (munka, közösség, szolgálat) kapcsolatokat épített, és ezek révén saját feladatot kapott.","aspect":"Térnyerés kapcsolatépítéssel.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"03T","pair":"03","axis":"ELO","direction":"Előre","sub":"—","name":"Agresszió vagy uralkodás","kind":"T","definition":"Mások mozgásterének korlátozása fölény vagy nyomás révén.","items":[{"id":"03T1","text":"Más helyett döntött olyan ügyben, amelyben a másiknak joga lett volna dönteni.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"03T2","text":"Fölényes fellépéssel elérte, hogy más visszavonja a saját, jogos igényét.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"03T3","text":"Új feladat vagy szerep megszerzéséhez háttérbe szorított valakit, aki addig azt betöltötte, anélkül hogy vele egyeztetett volna.","aspect":"Térnyerés mások kiszorításával.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"04E","pair":"04","axis":"ELO","direction":"Előre","sub":"—","name":"Határozottság","kind":"E","definition":"Álláspont és határ világos, tiszteletteljes képviselete.","items":[{"id":"04E1","text":"Világosan megmondta, mire mond igent és mire nemet.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"04E2","text":"Ellenvélemény mellett is érthetően képviselte az álláspontját, személyeskedés nélkül.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"04E3","text":"Egy meghozott döntését ellenvetések után is fenntartotta, és elmondta, mi alapján döntött.","aspect":"Döntés fenntartása indoklással.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"04T","pair":"04","axis":"ELO","direction":"Előre","sub":"—","name":"Erőszakosság","kind":"T","definition":"Akarat érvényesítése megfélemlítéssel vagy kényszerítő nyomással.","items":[{"id":"04T1","text":"Kiabálással vagy fenyegető fellépéssel próbált érvényt szerezni az akaratának.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"04T2","text":"A másik egyértelmű nemet mondása után is nyomást gyakorolt rá, hogy engedjen.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"04T3","text":"Időnyomás alatt úgy döntött el egy közös ügyet, hogy a többiek ellenvetését nem hallgatta meg.","aspect":"Döntés rákényszerítése időnyomásban.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"05E","pair":"05","axis":"ELO","direction":"Előre","sub":"—","name":"Ambíció","kind":"E","definition":"Fejlődésre és értékes teljesítményre irányuló törekvés.","items":[{"id":"05E1","text":"A megszokott teljesítményén túlmutató célt tűzött ki, és tett érte.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"05E2","text":"Visszajelzést kért arról, hogyan fejlődhet a választott területén.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"05E3","text":"Egy számára fontos, nagy célért a kényelmes megoldásnál több munkát vállalt.","aspect":"Erőfeszítés vállalása nagy célért.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"05T","pair":"05","axis":"ELO","direction":"Előre","sub":"—","name":"Törtetés","kind":"T","definition":"Előrejutás mások jogos érdekeinek vagy a tisztességnek a rovására.","items":[{"id":"05T1","text":"Saját előrejutása érdekében más hozzájárulását a valóságosnál kisebbnek mutatta be.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"05T2","text":"Előnyhöz jutás érdekében megkerült egy előre elfogadott tisztességes eljárást.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"05T3","text":"Egy saját céljáért olyan lépést tett, amely egy közeli ember érdekét vagy érzéseit sértette, és ezt nem hozta helyre.","aspect":"Cél elérése kapcsolati kár árán.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"06E","pair":"06","axis":"HAT","direction":"Hátra","sub":"—","name":"Kitartás","kind":"E","definition":"Indokolt vállalás fenntartása akadályok mellett.","items":[{"id":"06E1","text":"Egy vállalt feladatot az első komolyabb akadály után is folytatott.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"06E2","text":"Egy sikertelen próbálkozás után módosított a módszeren, hogy a fontos célt elérje.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"06E3","text":"Egy unalmassá vagy nehézzé vált vállalását lelkesedés nélkül is befejezte.","aspect":"Befejezés csökkenő motiváció mellett.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"06T","pair":"06","axis":"HAT","direction":"Hátra","sub":"—","name":"Makacsság","kind":"T","definition":"Ragaszkodás a megoldáshoz érdemi ellenbizonyíték ellenére.","items":[{"id":"06T1","text":"Az eredménytelenség konkrét jelei ellenére ugyanazt a módszert erőltette.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"06T2","text":"Egy döntése felülvizsgálatát elutasította anélkül, hogy végighallgatta volna az ellenérveket.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"06T3","text":"Végighallgatta az ellenérveket, de kizárólag arra hivatkozva maradt az eredeti elképzelésénél, hogy ő már eldöntötte.","aspect":"Ragaszkodás meghallgatott ellenérvek után.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"07E","pair":"07","axis":"HAT","direction":"Hátra","sub":"—","name":"Védelem","kind":"E","definition":"Mások biztonságának és jogos határainak támogatása.","items":[{"id":"07E1","text":"Kiállt valaki jogos határa mellett, amikor azt megsértették.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"07E2","text":"Egy veszélyeztetett helyzetben az érintett igényeit figyelembe véve ajánlott segítséget.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"07E3","text":"Egy rá bízott dolgot (pénzt, adatot, eszközt, közösségi ügyet) gondosan kezelt, és a felmerülő kockázatot időben jelezte.","aspect":"Gondnoki védelem.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"07T","pair":"07","axis":"HAT","direction":"Hátra","sub":"—","name":"Kontrollálás","kind":"T","definition":"Más önállóságának szükségtelen korlátozása védelemre hivatkozva.","items":[{"id":"07T1","text":"Biztonságra hivatkozva megtiltott másnak olyan döntést, amelyet az önállóan is meghozhatott volna.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"07T2","text":"Előzetes megállapodás nélkül ellenőrizte más tevékenységét, hogy az biztosan az ő elképzelését kövesse.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"07T3","text":"Aggodalmára hivatkozva olyan beszámolót vagy információt kért másoktól, amely a feladat elvégzéséhez nem volt szükséges.","aspect":"Aggodalomból fakadó túlellenőrzés.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"08E","pair":"08","axis":"HAT","direction":"Hátra","sub":"—","name":"Türelem","kind":"E","definition":"A szükséges várakozás és mások tempójának elviselése.","items":[{"id":"08E1","text":"Kivárta, amíg a másik befejezi a mondandóját.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"08E2","text":"Hagyott időt a másik tanulására, amikor a feladat ezt lehetővé tette.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"08E3","text":"Egy lassan alakuló ügyben megtette a rá eső lépést, majd a várakozás alatt nem siettette szükségtelenül a többieket.","aspect":"Aktív várakozás.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"08T","pair":"08","axis":"HAT","direction":"Hátra","sub":"—","name":"Passzivitás","kind":"T","definition":"Indokolt cselekvés elmaradása akkor is, amikor lenne rá lehetőség.","items":[{"id":"08T1","text":"Halogatta a saját szükséges lépését akkor is, amikor már rendelkezett a döntéshez szükséges információval.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"08T2","text":"Egy megoldható problémánál várta, hogy más lépjen, pedig az ő feladata lett volna cselekedni.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"08T3","text":"Egy szükséges beszélgetést vagy lépést a türelemre vagy a „megfelelő időre” hivatkozva tolt el, miközben a helyzet romlott.","aspect":"Türelemmel indokolt halogatás.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"09E","pair":"09","axis":"HAT","direction":"Hátra","sub":"—","name":"Önuralom","kind":"E","definition":"Késztetés mellett is megválasztott viselkedés.","items":[{"id":"09E1","text":"Indulatból adott válasz előtt szünetet tartott, amikor erre szüksége volt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"09E2","text":"Egy erős késztetés ellenére tartotta magát a korábban választott, számára fontos határhoz.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"09E3","text":"Egy bántó megjegyzésre visszavágás helyett nyugodt hangon jelezte, hogy ez rosszul esett neki.","aspect":"Érzelmi reakció megválasztása sértés után.","context":"otthon","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"09T","pair":"09","axis":"HAT","direction":"Hátra","sub":"—","name":"Elfojtás","kind":"T","definition":"Elfojtás: itt az érzések tartós elhallgatásának és kerülésének megfigyelhető jelei; nem tudattalan folyamat diagnózisa.","items":[{"id":"09T1","text":"Amikor később kiderült, hogy bántotta valami, előzőleg azt mondta, hogy nincs semmi baja.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"09T2","text":"Egy megterhelő eseményről többször elterelte a beszélgetést anélkül, hogy későbbi alkalmat jelölt volna meg rá.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"09T3","text":"Egy csalódását vagy haragját azzal hessegette el, hogy hívőként nem szabadna így éreznie.","aspect":"Vallásos indoklású érzéselhárítás.","context":"hitgyakorlat","evidence":"Belső állapotra vagy indítékra csak a résztvevő kimondott beszámolója alapján lehet válaszolni; ennek hiányában M.","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"10E","pair":"10","axis":"HAT","direction":"Hátra","sub":"—","name":"Hűség","kind":"E","definition":"Kapcsolati és feladatbeli vállalások megbízható megtartása.","items":[{"id":"10E1","text":"Megtartotta a másnak tett ígéretét akkor is, amikor az kényelmetlenné vált.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"10E2","text":"Ha nem tudta teljesíteni a vállalását, időben jelezte és új megállapodást kezdeményezett.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"10E3","text":"Egy nehéz időszakban lévő embert vagy közösséget akkor is támogatott, amikor ez neki nem hozott előnyt.","aspect":"Kitartás a kapcsolatban nehéz időben.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"10T","pair":"10","axis":"HAT","direction":"Hátra","sub":"—","name":"Változásképtelenség","kind":"T","definition":"Régi forma fenntartása indokolt, megengedhető változtatás elutasításával.","items":[{"id":"10T1","text":"Egy működésképtelen szokást kizárólag arra hivatkozva tartott fenn, hogy eddig is így volt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"10T2","text":"Elutasított egy elfogadható változtatást, mielőtt kipróbálta vagy érdemben megvizsgálta volna.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"10T3","text":"Egy szerepéhez vagy feladatköréhez az átadás vagy átszervezés megbeszélt ideje után is ragaszkodott.","aspect":"Szerephez ragaszkodás változáskor.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"11E","pair":"11","axis":"OLD","direction":"Oldalra","sub":"—","name":"Rugalmasság","kind":"E","definition":"Módszer módosítása lényeges célok és határok megtartásával.","items":[{"id":"11E1","text":"Új információ hatására módosította a tervét.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"11E2","text":"Más elfogadható megoldását is kipróbálta, amikor a saját terve elakadt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"11E3","text":"Egy váratlan akadály után a célját megtartva rövid időn belül új tervet készített.","aspect":"Gyors átállás akadály után.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"11T","pair":"11","axis":"OLD","direction":"Oldalra","sub":"—","name":"Megalkuvás","kind":"T","definition":"Fontos saját határ feladása egyezségért vagy elfogadásért.","items":[{"id":"11T1","text":"A béke kedvéért igent mondott valamire, amit előzőleg a saját fontos határán túlinak nevezett.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"11T2","text":"Visszavonta egy fontos igényét azért, hogy ne kelljen vállalnia az egyet nem értést.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"11T3","text":"Nyomás hatására olyan kérésre mondott igent, amelyről utólag azt mondta, hogy nem kellett volna elvállalnia.","aspect":"Nyomás alatti engedés, utólag megbánva.","context":"általános","evidence":"Az utólagos megbánás a résztvevő kimondott beszámolójából ismerhető meg; ennek hiányában M.","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"12E","pair":"12","axis":"OLD","direction":"Oldalra","sub":"—","name":"Kreativitás","kind":"E","definition":"Új, használható megoldások kialakítása.","items":[{"id":"12E1","text":"Egy problémára a megszokottól eltérő, kipróbálható megoldást javasolt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"12E2","text":"A rendelkezésre álló eszközöket új módon kombinálta egy feladat megoldására.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"12E3","text":"Egy megszokott, de rosszul működő gyakorlatra új formát javasolt, és azt másokkal közösen kipróbálta.","aspect":"Megújítás közös kipróbálással.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"12T","pair":"12","axis":"OLD","direction":"Oldalra","sub":"—","name":"Szabálykerülés","kind":"T","definition":"Érvényes megállapodások vagy szabályok titkolt megkerülése.","items":[{"id":"12T1","text":"A feladat könnyítése érdekében titokban eltért egy rá is érvényes megállapodástól.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"12T2","text":"Úgy oldott meg egy helyzetet, hogy a megkerült szabályról az érintettek ne szerezzenek tudomást.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"12T3","text":"Egy rá vonatkozó szabály vagy határidő alól kiskaput keresett ahelyett, hogy nyíltan kérte volna a módosítását.","aspect":"Kiskapu keresése nyílt kérés helyett.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"13E","pair":"13","axis":"OLD","direction":"Oldalra","sub":"—","name":"Bölcs kerülőút","kind":"E","definition":"Alternatív út választása a felelősség és a cél megtartásával.","items":[{"id":"13E1","text":"Amikor a közvetlen megoldás elakadt, másik utat keresett ugyanahhoz a fontos célhoz.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"13E2","text":"Egy elfajuló vita megszakításakor konkrét alkalmat egyeztetett a folytatásra.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"13E3","text":"Egy kényes kérést vagy beszélgetést tudatosan alkalmasabb időpontra vagy formára tett át, és azt meg is valósította.","aspect":"Időzítés és forma megválasztása.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"13T","pair":"13","axis":"OLD","direction":"Oldalra","sub":"—","name":"Menekülés","kind":"T","definition":"Nehéz helyzetből kilépés a szükséges rendezés elhagyásával.","items":[{"id":"13T1","text":"Kilépett egy nehéz beszélgetésből, majd a vállalt folytatást elkerülte.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"13T2","text":"Új feladatba kezdett, miközben a korábbi, kényelmetlenné vált ügyét rendezetlenül hagyta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"13T3","text":"Egy szükséges, kellemetlen közlést halogatott abban a reményben, hogy más mondja el, vagy magától kiderül.","aspect":"Kellemetlen közlés elkerülése.","context":"otthon","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"14E","pair":"14","axis":"OLD","direction":"Oldalra","sub":"—","name":"Diplomácia","kind":"E","definition":"Érdekek nyílt, tapintatos egyeztetése.","items":[{"id":"14E1","text":"Vita közben visszakérdezett, hogy pontosan értse a másik szempontját.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"14E2","text":"Olyan javaslatot tett, amely a saját és a másik fél kimondott igényét is figyelembe vette.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"14E3","text":"Két ellentétes álláspontú fél között közvetített, és mindkettőjük érdekét kimondta a másik előtt.","aspect":"Közvetítés felek között.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"14T","pair":"14","axis":"OLD","direction":"Oldalra","sub":"—","name":"Manipuláció","kind":"T","definition":"Más döntésének befolyásolása lényeges szándék vagy információ elrejtésével.","items":[{"id":"14T1","text":"Kérése támogatásához elhallgatott a döntést érdemben befolyásoló információt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"14T2","text":"Másoknak eltérően adta elő ugyanazt az ügyet azért, hogy mindegyikük a számára kedvező döntést hozza.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"14T3","text":"Alku vagy tárgyalás során a saját helyzetét a valóságosnál kedvezőbbnek vagy nehezebbnek mutatta be, hogy jobb eredményt érjen el.","aspect":"Torzított helyzetbemutatás alkuban.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"15E","pair":"15","axis":"OLD","direction":"Oldalra","sub":"—","name":"Alkalmazkodás","kind":"E","definition":"A viselkedés illesztése a helyzethez vállalt értékek megtartásával.","items":[{"id":"15E1","text":"Más közegben úgy változtatott a kommunikációján, hogy a mondanivalója lényege megmaradt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"15E2","text":"Megváltozott körülményekhez igazította a működését a fontos vállalásai megtartásával.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"15E3","text":"Új közeg szokásait úgy vette át, hogy a számára fontos saját gyakorlatait és értékeit is megtartotta.","aspect":"Beilleszkedés az identitás megtartásával.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"15T","pair":"15","axis":"OLD","direction":"Oldalra","sub":"—","name":"Elvtelenség","kind":"T","definition":"Kinyilvánított alapelv feladása pillanatnyi előny vagy jóváhagyás kedvéért.","items":[{"id":"15T1","text":"Az előtte álló társaságtól függően egymásnak ellentmondó alapelveket képviselt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"15T2","text":"Saját előnyéért olyan lépést tett, amelyet korábban egyértelműen elfogadhatatlannak nevezett.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"15T3","text":"Egy társaságban elhallgatta vagy letagadta a meggyőződését, hogy elfogadják, pedig máshol nyíltan vállalja.","aspect":"Meggyőződés eltitkolása elfogadásért.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"16E","pair":"16","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Engedelmesség","kind":"E","definition":"Átgondolt keresztény meggyőződés követése felelős döntésekben.","items":[{"id":"16E1","text":"Egy döntésében akkor is követte a tudatosan vállalt keresztény meggyőződését, amikor annak ára volt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"16E2","text":"Vallási útmutatás alkalmazásakor megvizsgálta, hogyan érinti az a helyzetben lévő embereket.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"16E3","text":"Megtett egy lépést, amelyről azt mondta, hogy Isten kérésének ismerte fel, noha ez nehéz vagy kényelmetlen volt számára.","aspect":"Felismert isteni kérés követése nehézség ellenére.","context":"hitgyakorlat","evidence":"Belső állapotra vagy indítékra csak a résztvevő kimondott beszámolója alapján lehet válaszolni; ennek hiányában M.","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"16T","pair":"16","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Vak engedelmesség vagy legalizmus","kind":"T","definition":"Tekintély vagy előírás követése mérlegelés nélkül, illetve merev szabályítélet.","items":[{"id":"16T1","text":"Vallási tekintélyre hivatkozva elutasította egy utasítás következményeinek megvizsgálását.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"16T2","text":"Egy ember helyzetét kizárólag egy szabály megszegése alapján ítélte meg, a körülmények meghallgatása nélkül.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"16T3","text":"Egy lelki vezető kérését követte, bár elmondása szerint a lelkiismerete vagy józan ítélete mást diktált.","aspect":"Tekintélykövetés a lelkiismerettel szemben.","context":"hitgyakorlat","evidence":"Belső állapotra vagy indítékra csak a résztvevő kimondott beszámolója alapján lehet válaszolni; ennek hiányában M.","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"17E","pair":"17","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Hit","kind":"E","definition":"Hitre támaszkodó cselekvés a valós helyzet elismerésével; nem a hit mélységének mérése.","items":[{"id":"17E1","text":"Bizonytalan helyzetben megnevezte, hogyan támaszkodik a hitére, és megtette a saját felelős lépését.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"17E2","text":"Egy nehéz tényt elismert akkor is, amikor az nem illett a korábbi vallási várakozásához.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"17E3","text":"Egy aggasztó helyzetben (egészség, pénz, kapcsolat) imádkozott, és megtette a szükséges gyakorlati lépést is, például segítséget kért.","aspect":"Hit és felelős gyakorlati lépés együtt.","context":"hitgyakorlat","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"17T","pair":"17","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Valóságtagadás","kind":"T","definition":"Kellemetlen tények elutasítása hitre hivatkozva.","items":[{"id":"17T1","text":"Hitre hivatkozva nem fogadott el egy ellenőrizhető, kellemetlen tényt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"17T2","text":"Egy tényleges probléma rendezését azzal hárította el, hogy hívőként az nem jelenthet gondot.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"17T3","text":"Egy egészségügyi, anyagi vagy kapcsolati figyelmeztető jelet azzal hagyott figyelmen kívül, hogy „Isten majd megoldja”.","aspect":"Figyelmeztető jel figyelmen kívül hagyása hitre hivatkozva.","context":"hitgyakorlat","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"18E","pair":"18","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Imádság","kind":"E","definition":"Imádság tudatos gyakorlása; gyakorlati szokás, nem spirituális rang.","items":[{"id":"18E1","text":"A saját maga által kijelölt alkalmakban időt szánt imádságra.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"18E2","text":"Egy számára fontos döntést imádságban is átgondolt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"18E3","text":"Egy ügyért való imádság után megtette a rá eső első gyakorlati lépést is.","aspect":"Imádság, amely cselekvésbe torkollik.","context":"hitgyakorlat","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"18T","pair":"18","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Passzív várakozás","kind":"T","definition":"Szükséges saját cselekvés helyettesítése vallásos várakozással.","items":[{"id":"18T1","text":"Egy szükséges saját lépést arra hivatkozva halasztott el, hogy csak várnia kell Istenre.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"18T2","text":"Egy megoldható ügyben az imádságra hivatkozva nem vállalta a rá eső gyakorlati feladatot.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"18T3","text":"Egy esedékes döntést arra hivatkozva halasztott tovább, hogy még nem kapott egyértelmű jelet, bár a határidő közeledett vagy lejárt.","aspect":"Jelre várás határidő ellenére.","context":"hitgyakorlat","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"19E","pair":"19","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Istenfélelem","kind":"E","definition":"Isten előtti felelősség tudatos vállalása a keresztény keretben.","items":[{"id":"19E1","text":"Olyan helyzetben is követte a kimondott hitbeli meggyőződését, ahol nem számított emberi ellenőrzésre.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"19E2","text":"Saját hibáját megnevezte akkor is, amikor az rontotta a róla kialakult képet.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"19E3","text":"Vállalta a környezete rosszallását egy olyan döntésért, amelyet a hitbeli meggyőződésével indokolt.","aspect":"Hitbeli döntés vállalása emberi rosszallás mellett.","context":"hitgyakorlat","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"19T","pair":"19","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Emberektől vagy büntetéstől való félelem","kind":"T","definition":"Emberi rosszallásra vagy büntetésre szerveződő döntési minta; belső félelem csak saját beszámolóval hozzáférhető.","items":[{"id":"19T1","text":"Egy döntését kifejezetten azzal indokolta, hogy fél egy vallási vezető rosszallásától.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"19T2","text":"Egy vallási gyakorlatát kizárólag a várható büntetéstől való félelemmel indokolta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"19T3","text":"Egy botlása után azt mondta, hogy a büntetéstől vagy Isten haragjától való félelem miatt nem mer imádkozni vagy a közösségbe menni.","aspect":"Büntetéstől való félelem miatti visszahúzódás.","context":"hitgyakorlat","evidence":"Belső állapotra vagy indítékra csak a résztvevő kimondott beszámolója alapján lehet válaszolni; ennek hiányában M.","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"20E","pair":"20","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Alázat","kind":"E","definition":"Saját korlátok és mások értékének reális elismerése.","items":[{"id":"20E1","text":"Konkrét hibáját mentegetőzés nélkül elismerte.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"20E2","text":"Olyan ember tanácsát is megfontolta, akinek nem volt nála magasabb rangja.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"20E3","text":"Dicséretet kapva megköszönte, és megnevezte azokat is, akik hozzájárultak az eredményhez.","aspect":"Dicséret reális elfogadása.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"20T","pair":"20","axis":"IST","direction":"Felfelé","sub":"1. Istenhez igazodás","name":"Önleértékelés","kind":"T","definition":"Saját érték vagy képesség általános leértékelése.","items":[{"id":"20T1","text":"Egy hibájából azt a következtetést mondta ki, hogy ő általában értéktelen vagy alkalmatlan.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"20T2","text":"Saját valós hozzájárulását akkor is jelentéktelennek nevezte, amikor konkrét pozitív visszajelzést kapott.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"20T3","text":"Egy felkérést azzal utasított el, hogy mások sokkal alkalmasabbak nála, bár a feladat megfelelt a képességeinek.","aspect":"Önleértékelő visszautasítás.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"21E","pair":"21","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Jövőkép","kind":"E","definition":"Értelmes jövőbeli irány összekapcsolása reális lépésekkel.","items":[{"id":"21E1","text":"Egy hosszabb távú célhoz konkrét következő lépést rendelt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"21E2","text":"A jövőbeli terveit a tényleges lehetőségek és korlátok alapján felülvizsgálta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"21E3","text":"Egy beszélgetésben konkrétan megfogalmazta, merre szeretne haladni a következő években, és megnevezte, mit tett ezért eddig.","aspect":"Kimondott jövőkép megtett lépésekkel.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"21T","pair":"21","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Nagyzolás","kind":"T","definition":"Tervek és várható hatás túlzó bemutatása megalapozás nélkül.","items":[{"id":"21T1","text":"Nagy eredményt ígért anélkül, hogy meg tudta volna nevezni a szükséges erőforrásokat.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"21T2","text":"A várható hatását lényegesen nagyobbnak állította be, mint amit az addigi eredményei alátámasztottak.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"21T3","text":"A terveivel igyekezett lenyűgözni másokat, és arra a kérdésre, hogy mit tett eddig értük, kitérő választ adott.","aspect":"Tervekkel való lenyűgözés megalapozás nélkül.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"22E","pair":"22","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Elhívástudat","kind":"E","definition":"Személyes szolgálati irány vállalása a korlátok elismerésével.","items":[{"id":"22E1","text":"Megnevezte, milyen ügyhöz szeretne hozzájárulni, és vállalt benne konkrét feladatot.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"22E2","text":"Szolgálati szerepében is elfogadta, hogy valamely feladatot más tud jobban elvégezni.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"22E3","text":"Egy döntésnél kifejezetten arra hivatkozott, hogy mire érzi elhívottnak magát, és ennek alapján mondott igent vagy nemet.","aspect":"Elhívásra épülő döntés.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"22T","pair":"22","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Messiáskomplexus","kind":"T","definition":"Messiáskomplexus: itt a nélkülözhetetlenség és megmentőszerep túlhangsúlyozása, nem klinikai címke.","items":[{"id":"22T1","text":"Azt állította, hogy nélküle az adott közösség vagy ügy nem maradhat működőképes.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"22T2","text":"Más kérését vagy határát félretette arra hivatkozva, hogy ő tudja, hogyan kell megmenteni a helyzetet.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"22T3","text":"A kimerültség jelei ellenére sem adott át feladatot, arra hivatkozva, hogy nélküle a dolog nem működne.","aspect":"Nélkülözhetetlenség kimerültség mellett.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"23E","pair":"23","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Reménység","kind":"E","definition":"Lehetőségek keresése nehéz valóság mellett.","items":[{"id":"23E1","text":"Kudarc után megnevezett egy továbbra is lehetséges következő lépést.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"23E2","text":"Nehéz helyzetben úgy beszélt a javulás lehetőségéről, hogy a fennálló problémát is elismerte.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"23E3","text":"Egy hosszan fennálló nehézség közepette is megtervezett és megtett egy rövid távú, építő lépést.","aspect":"Remény, amely a jelenben cselekszik.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"23T","pair":"23","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Ábrándozás","kind":"T","definition":"Kedvező jövő ismételt elképzelése szükséges lépések nélkül.","items":[{"id":"23T1","text":"Egy vágyott jövőről ismételten beszélt, de a saját maga által kitűzött első lépést elhagyta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"23T2","text":"Arra számított, hogy a körülmények maguktól kedvezően alakulnak, és emiatt elmulasztott egy szükséges előkészületet.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"23T3","text":"Egy nehéz jelenbeli helyzetről a „majd egyszer” elképzeléseire terelte a szót ahelyett, hogy a mostani lépésekről beszélt volna.","aspect":"Jövőbe menekülő beszéd.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"24E","pair":"24","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Céltudatosság","kind":"E","definition":"Célhoz igazodó prioritások és következetes cselekvés.","items":[{"id":"24E1","text":"A napi teendők közül előre sorolta azt, ami a kijelölt célját szolgálta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"24E2","text":"Ellenőrizte, hogy a tényleges időfelhasználása összhangban van-e a céljával.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"24E3","text":"A céljára hivatkozva nemet mondott egy vonzó, de a célt nem szolgáló felkérésre.","aspect":"Célhoz igazodó nemet mondás.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"24T","pair":"24","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Megszállottság","kind":"T","definition":"Egy cél követése az alapvető szükségletek és kapcsolatok tartós rovására.","items":[{"id":"24T1","text":"Egy cél kedvéért ismételten elhagyott előre fontosnak nevezett pihenési vagy kapcsolati alkalmakat.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"24T2","text":"Egy feladattól akkor sem tudott elszakadni, amikor annak folytatása már más fontos vállalását veszélyeztette.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"24T3","text":"Egy cél miatt betegen vagy kimerülten is tovább dolgozott, bár pihenésre lett volna szüksége.","aspect":"Cél hajszolása az egészség rovására.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"25E","pair":"25","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Küldetéstudat","kind":"E","definition":"Saját kényelmen túlmutató ügy felelős szolgálata.","items":[{"id":"25E1","text":"Egy fontos ügy érdekében olyan feladatot is elvégzett, amely kevés személyes elismeréssel járt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"25E2","text":"Egy ügy szolgálatában vállalta a saját döntésének kellemetlen következményét is.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"25E3","text":"Egy monoton vagy kevéssé látványos feladatot is gondosan elvégzett, és el tudta mondani, milyen nagyobb ügyet szolgál vele.","aspect":"Küldetés a hétköznapi munkában.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"25T","pair":"25","axis":"ELH","direction":"Felfelé","sub":"2. Elhívás és jövőkép","name":"Önigazolás","kind":"T","definition":"Magasabb cél használata hibák vagy károkozás felmentésére.","items":[{"id":"25T1","text":"Egy okozott sérelmet azzal intézett el, hogy a nagyobb cél érdekében szükséges volt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"25T2","text":"Küldetésére hivatkozva elutasította, hogy ugyanazok a felelősségi szabályok vonatkozzanak rá, mint másokra.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"25T3","text":"Egy kritikára azzal reagált, hogy az ő munkája fontos küldetés, ezért a kifogást nem kell komolyan vennie.","aspect":"Küldetés mint pajzs a kritikával szemben.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"26E","pair":"26","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Bátorítás","kind":"E","definition":"Valós erősség és erőfeszítés konkrét megerősítése.","items":[{"id":"26E1","text":"Konkrétan megnevezte, mit értékel a másik erőfeszítésében.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"26E2","text":"Egy elbizonytalanodott embernek a valós képességeire épülő következő lépést javasolt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"26E3","text":"Egy közepes munkáról úgy adott visszajelzést, hogy a valóban jó részeket konkrétan kiemelte, és a javítandót is megnevezte.","aspect":"Őszinte, építő visszajelzés.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"26T","pair":"26","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Hízelgés","kind":"T","definition":"Túlzó dicséret a kapcsolat vagy előny megszerzéséért.","items":[{"id":"26T1","text":"Dicséretét közvetlenül egy saját előnyét szolgáló kérés felvezetéseként használta, konkrét alap nélkül.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"26T2","text":"Valakit olyan tulajdonságáért dicsért, amelyről más helyzetben az ellenkezőjét állította.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"26T3","text":"Megdicsérte egy vezetője döntését, amellyel máshol elmondása szerint nem értett egyet.","aspect":"Felfelé irányuló hízelgés.","context":"munka","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"27E","pair":"27","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Szolgáló vezetés","kind":"E","definition":"Vezetés a másik szükségleteinek és önállóságának támogatásával.","items":[{"id":"27E1","text":"Vezetői helyzetben megkérdezte, mire van szüksége a másiknak a feladata elvégzéséhez.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"27E2","text":"A feladat átadásakor valódi döntési mozgásteret hagyott a másiknak.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"27E3","text":"Egy rá bízott ember fejlődése érdekében olyan feladatot adott át neki, amelyet ő maga gyorsabban megoldott volna.","aspect":"Vezetés a másik fejlődéséért.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"27T","pair":"27","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Atyáskodó kontroll","kind":"T","definition":"Gondoskodásra hivatkozó döntési kontroll.","items":[{"id":"27T1","text":"Segítségnyújtás közben átvette a másik döntését, bár az nem kérte erre.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"27T2","text":"Gondoskodásra hivatkozva felülírta a másik elfogadható önálló megoldását.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"27T3","text":"Egy felnőtt, rá bízott ember magánéleti döntését ismételt rábeszéléssel vagy mások bevonásával próbálta befolyásolni.","aspect":"Magánéleti döntés felülírási kísérlete.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"28E","pair":"28","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Inspirálás","kind":"E","definition":"Értelmes cél és példa felmutatása szabad csatlakozással.","items":[{"id":"28E1","text":"Érthetően megmutatta, miért érdemes egy közös célért tenni.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"28E2","text":"Saját példájával kedvet adott másnak a részvételhez, miközben elfogadta a nemet is.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"28E3","text":"Egy közös célra hívva őszintén beszélt a várható nehézségekről is.","aspect":"Lelkesítés őszinteséggel.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"28T","pair":"28","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Érzelmi manipuláció","kind":"T","definition":"Bűntudat, szégyen vagy érzelmi nyomás használata részvétel kikényszerítésére.","items":[{"id":"28T1","text":"A másik szeretetét vagy hűségét kérdőjelezte meg, amikor az nem csatlakozott a tervéhez.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"28T2","text":"Megszégyenítő összehasonlítással próbálta rávenni a másikat valamire.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"28T3","text":"Adakozásra, szolgálatra vagy részvételre úgy buzdított, hogy a távolmaradókat hitbeli vagy erkölcsi hiányossággal vádolta.","aspect":"Lelki bűntudatkeltés.","context":"közösség","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"29E","pair":"29","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Tanítás","kind":"E","definition":"Tudás átadása a tanuló szintjéhez és visszajelzéséhez igazodva.","items":[{"id":"29E1","text":"Magyarázat előtt tisztázta, mit tud már a másik és miben kér segítséget.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"29E2","text":"Magyarázat után ellenőrizte, hogy a másik a saját szavaival érti-e a lényeget.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"29E3","text":"Tanítás közben kérdésekkel segítette, hogy a másik maga jöjjön rá a megoldásra.","aspect":"Felfedeztető tanítás.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"29T","pair":"29","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Kioktatás","kind":"T","definition":"Fölényes, kéretlen vagy a tanuló szükségleteit figyelmen kívül hagyó oktatás.","items":[{"id":"29T1","text":"A másik kérdésére fölényes minősítéssel válaszolt.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"29T2","text":"A másik jelzése ellenére folytatta az oktatását, bár az nem kért további tanácsot.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"29T3","text":"Kéretlenül kijavított vagy kioktatott valakit mások előtt egy, a beszélgetés szempontjából lényegtelen kérdésben.","aspect":"Kéretlen nyilvános kijavítás.","context":"általános","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"30E","pair":"30","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Felhatalmazás","kind":"E","definition":"Feladat, jogkör és támogatás együttes átadása.","items":[{"id":"30E1","text":"Feladat átadásakor tisztázta, miben dönthet önállóan a másik.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"30E2","text":"Az átadott feladathoz biztosította a szükséges információt vagy hozzáférést.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"30E3","text":"Egy általa átadott feladat sikertelensége után kifelé ő is vállalta a felelősséget, nem csak a feladatot végzőt nevezte meg.","aspect":"Közös felelősségvállalás kudarcnál.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]},{"id":"30T","pair":"30","axis":"FEL","direction":"Felfelé","sub":"3. Mások felemelése","name":"Felelősség áthárítása","kind":"T","definition":"Feladat vagy hibakövetkezmény áttolása megfelelő feltételek és saját felelősség nélkül.","items":[{"id":"30T1","text":"Úgy adott át feladatot, hogy a megoldáshoz szükséges döntési jogot magánál tartotta.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"30T2","text":"Egy átadott feladat kudarcáért kizárólag a másikat hibáztatta, figyelmen kívül hagyva a saját támogatási mulasztását.","base":true,"origin":"Testudo 0.1 pilot"},{"id":"30T3","text":"A legnehezebb vagy legkockázatosabb feladatrészt úgy adta tovább, hogy közben nem biztosított hozzá támogatást vagy elérhetőséget.","aspect":"Teherlerakó feladatátadás.","context":"vezetés","priority":4,"origin":"manipular jellemprofil, Testudo-normára átírva"}]}],"pairs":[{"id":"01","axis":"ELO","mature":"01E","distorted":"01T","interview":{"main":"Mesélj egy helyzetről az elmúlt egy évből, amikor te indítottál el valamit, amit senki más nem kezdett el. Hogyan döntötted el, hogy belevágsz?","stress":"Mesélj egy esetről, amikor lelkesedésből belevágtál valamibe, és utólag kiderült, hogy korai volt. Mi történt?","others":"Ha a közeli munkatársaidat vagy családtagjaidat kérdezném, azt mondanák, hogy inkább túl hamar vagy túl későn vágsz bele a dolgokba?","signsE":["Elindít, de előtte röviden felméri a helyzetet és a szükséges erőforrást.","Másokat is bevon, nem egyedül rohan előre."],"signsT":["Ismétlődő minta: belevágás, majd félbehagyás vagy utólagos kármentés.","A végiggondolást elvesztegetett időnek tartja."]},"sjt":[{"stem":"A gyülekezetben régóta szó van róla, hogy kellene egy ifjúsági alkalom, de senki nem lép.","E":"Felvetem a vezetőknek, hogy szívesen elindítanám, és kérek egy hetet, hogy összeírjam, mi kell hozzá.","T":"Még aznap kiírom a csoportba, hogy jövő pénteken indul, a részleteket majd menet közben kitaláljuk.","H":"Megvárom, amíg valaki felelősként elindítja, és akkor szívesen besegítek."},{"stem":"A munkahelyeden észreveszel egy folyamatot, ami sok időt pazarol. Senki sem kérte, hogy foglalkozz vele.","E":"Kidolgozok egy rövid javaslatot, és megbeszélem a felettesemmel, mielőtt bármit változtatnék.","T":"Holnaptól a saját részemen máshogy csinálom, a többiek majd alkalmazkodnak.","H":"Nem az én feladatom; ha zavarna valakit, már szóvá tette volna."},{"stem":"Egy barátod felveti, hogy induljatok el együtt egy jótékonysági futáson két hónap múlva.","E":"Megnézem a naptáramat és a formámat, és ha belefér, jelentkezem, meg készítünk edzéstervet.","T":"Azonnal benevezek mindkettőnket, meg még két ismerőst is, majd kiderül, hogyan készülünk.","H":"Azt mondom, jó ötlet, de inkább majd jövőre, ha több időm lesz."}]},{"id":"02","axis":"ELO","mature":"02E","distorted":"02T","interview":{"main":"Mesélj egy helyzetről, amikor kiálltál valami mellett, és ez kockázattal vagy kellemetlenséggel járt számodra.","stress":"Volt olyan, hogy utólag beláttad: egy vállalt kockázat felelőtlen volt, és másokat is érintett? Mi vitt bele?","others":"Mit mondanának rólad: inkább óvatos vagy, vagy inkább hajlamos vagy fejjel a falnak menni?","signsE":["A félelmet elismeri, és mégis cselekszik egy fontos érték miatt.","A kockázatot felméri, és vállalja a következményeit."],"signsT":["A kockázat izgalma vonzza, nem az ügy.","Mások biztonságát vagy érdekét nem mérlegeli."]},"sjt":[{"stem":"Egy megbeszélésen a vezető olyan döntést jelent be, amelyről tudod, hogy igazságtalan egy kollégával szemben.","E":"A megbeszélés után négyszemközt jelzem neki a véleményemet, konkrét érvekkel.","T":"Ott helyben, mindenki előtt nekimegyek, hogy ez így nem mehet.","H":"Nem szólok, mert úgysem változtatna semmin, csak magamnak ártanék."},{"stem":"Egy túrán te vezeted a csoportot. Sötétedés előtt a csapat a rövidebb, de nehezen járható úton menne vissza.","E":"Felmérem, mindenki bírja-e, és ha van kétség, a hosszabb, biztos utat választom, akkor is, ha ez morgással jár.","T":"Megyünk a rövidebben, eddig is megoldottuk az ilyet, ne legyünk ennyire gyávák.","H":"Átadom a döntést annak, aki jobban ismeri a terepet, hogy ne rajtam múljon."},{"stem":"Felajánlanak egy új szolgálati lehetőséget egy másik városban, ami bizonytalan anyagi helyzettel jár.","E":"Imádságban és a családommal végiggondolom, beszélek tapasztalt emberekkel, és ha megerősítést kapok, vállalom a bizonytalanságot.","T":"Ha jónak érzem, azonnal igent mondok, az anyagiak majd megoldódnak valahogy.","H":"Megköszönöm, de nemet mondok, mert nem szeretném kockáztatni azt, amit eddig felépítettem."}]},{"id":"03","axis":"ELO","mature":"03E","distorted":"03T","interview":{"main":"Mesélj egy helyzetről, amikor egy új területen (munkában, kapcsolatban, szolgálatban) teret nyertél. Mit csináltál, hogy ott megvesd a lábad?","stress":"Volt olyan, hogy a térnyerésed valakinek a háttérbe szorulásával járt? Hogyan élte meg ő, és hogyan te?","others":"Akik veled dolgoznak, érzik-e úgy néha, hogy melletted nem jut nekik elég hely?","signsE":["Új területet nyit, és közben kapcsolatot épít az ott lévőkkel.","Teret szerez úgy, hogy másoknak is marad hely."],"signsT":["Versenyként éli meg a helyzeteket, ahol másnak vesztenie kell.","Leszorítja vagy kiszorítja azokat, akik előtte ott voltak."]},"sjt":[{"stem":"Új csapatba kerülsz, ahol egy régi tag viszi a legfontosabb projektet, szerinted nem túl jól.","E":"Megismerem a projektet, felajánlom a segítségemet, és apránként olyan részt vállalok, amelyben megmutathatom, mit tudok.","T":"Megmutatom a vezetőnek, hogy én jobban csinálnám, és elérem, hogy rám bízzák.","H":"Hagyom, hogy ő vigye, én csak a kiosztott feladataimat csinálom."},{"stem":"A gyülekezetben elindítanál egy új szolgálati ágat, de egy hasonló kör már működik, kevés sikerrel.","E":"Leülök a kör vezetőjével, és megbeszéljük, hogyan tudnánk együtt vagy egymást kiegészítve továbblépni.","T":"Elindítom a sajátomat, a jobb kör majd magától elszívja az embereket a másiktól.","H":"Leteszek róla, hiszen már van ilyen kör, nem akarok konkurenciát."},{"stem":"Egy vitában érzed, hogy igazad van, és a társaság is feléd hajlik, de a másik fél még érvel.","E":"Még egyszer nyugodtan összefoglalom az érveimet, és meghallgatom az övéit is.","T":"Addig nyomom, amíg a másik fel nem adja, hadd lássa mindenki, ki nyert.","H":"Ráhagyom, nem éri meg vitatkozni."}]},{"id":"04","axis":"ELO","mature":"04E","distorted":"04T","interview":{"main":"Mesélj egy nehéz döntésről, amelyet meghoztál, és akkor is képviseltél, amikor ellenvetések jöttek.","stress":"Mi történik veled, amikor sürget az idő, és a többiek nem értenek egyet a döntéseddel? Mesélj egy konkrét esetet.","others":"Mondták már neked, hogy lehengerlő vagy, vagy hogy nem hagysz teret másoknak a döntésben?","signsE":["Meghallgatja az ellenvetéseket, utána világosan kimondja a döntést.","Akkor is kitart, ha a döntés népszerűtlen, de megindokolja."],"signsT":["Az ellenvetést személyes támadásnak veszi, vagy elhallgattatja.","Nyomás alatt hangerővel, fenyegetéssel, ultimátummal dönt."]},"sjt":[{"stem":"Családi program szervezésekor mindenki mást akar, és fogy az idő a foglalásra.","E":"Még egyszer röviden meghallgatok mindenkit, aztán döntök, és elmondom, miért ez lett.","T":"Szólok, hogy ennyi volt a vita, lefoglalom, amit én jónak látok, és aki nem jön, az nem jön.","H":"Várok, hátha valaki más dönt, és ha lejár a foglalás, majd keresünk mást."},{"stem":"Csoportvezetőként meghoztál egy döntést, de a csoport két tagja nyíltan elégedetlen vele.","E":"Meghallgatom az érveiket; ha nincs új szempont, maradok a döntésnél, és elmondom, mire számíthatnak.","T":"Közlöm, hogy a döntés nem vita tárgya, és aki nem tud vele együtt dolgozni, keressen mást.","H":"Visszavonom a döntést, és megkérem őket, hogy találjanak ki jobbat."},{"stem":"Egy közös projektben a társad lassan dönt, és emiatt csúsztok.","E":"Megbeszélem vele, hogy adjunk magunknak határidőt, és ha addig nincs döntés, én döntök.","T":"Ettől kezdve egyszerűen megkerülöm, és én döntök helyette, előtte szólni sem szólok.","H":"Várok, ő a felelős, én nem akarok beleszólni."}]},{"id":"05","axis":"ELO","mature":"05E","distorted":"05T","interview":{"main":"Mesélj egy nagy célodról, amiért sokat dolgoztál. Mit adtál fel érte, és mit nem voltál hajlandó feladni?","stress":"Volt olyan, hogy a céljaid érdekében átléptél valakinek az érdekein vagy érzésein? Hogyan látod ezt ma?","others":"Akik veled versenyhelyzetben voltak, hogyan jellemeznének?","signsE":["Magas célokat tűz ki, és kitartóan, tisztességesen dolgozik értük.","A siker mellett a kapcsolatai és az értékei is fontosak maradnak."],"signsT":["Az embereket eszközként kezeli a cél elérésében.","Mások sikerét fenyegetésként éli meg."]},"sjt":[{"stem":"Megnyílik egy vezetői pozíció, amelyre egy közeli kollégád is pályázik.","E":"Jelentkezem, ezt nyíltan megmondom neki is, és a legjobb formámat hozom a kiválasztáson.","T":"Jelentkezem, és a vezetőnél elejtek néhány megjegyzést a kollégám gyengeségeiről.","H":"Nem jelentkezem, mert nem akarok versenyezni vele."},{"stem":"Egy projektben a te ötleted hozta a sikert, de a prezentációt a csapat egy másik tagja tartja.","E":"Örülök a közös sikernek, és ha szóba kerül, elmondom, mi volt az én részem.","T":"Gondoskodom róla, hogy a vezetőség tudja: az ötlet valójában az enyém volt.","H":"Nem szólok semmit, úgyis mindegy, kié az ötlet."},{"stem":"Egy hosszú távú célod (például egy szakmai vizsga) miatt hónapok óta kevés időd jut a családra.","E":"Leülünk, megbeszéljük, mennyi időt kér még a cél, és közösen kijelöljük, mit nem áldozok fel érte.","T":"Elmagyarázom nekik, hogy ez most fontosabb, és türelmesnek kell lenniük, amíg el nem érem.","H":"Feladom a célt, úgysem vagyok elég jó ahhoz, hogy sikerüljön."}]},{"id":"06","axis":"HAT","mature":"06E","distorted":"06T","interview":{"main":"Mesélj valamiről, amit akkor is végigvittél, amikor már nagyon nehéz volt, és elfogyott a lelkesedésed.","stress":"Volt olyan, hogy túl sokáig ragaszkodtál egy elképzeléshez, pedig a jelek már mást mutattak? Mikor és hogyan engedted el?","others":"Ha a hozzád közel állókat kérdezném: inkább kitartó vagy, vagy inkább nehéz téged meggyőzni?","signsE":["Nehézségek közt is kitart, de időnként felülvizsgálja, érdemes-e.","Az ellenérveket komolyan veszi."],"signsT":["A változtatást kudarcként vagy vereségként éli meg.","Presztízsből ragaszkodik, nem a cél miatt."]},"sjt":[{"stem":"Fél éve tanulsz egy hangszeren, és az utóbbi hetekben úgy érzed, semmit sem fejlődsz.","E":"Folytatom, de visszajelzést kérek a tanáromtól, és ha kell, változtatok a gyakorlás módján.","T":"Ugyanúgy folytatom, ahogy eddig, előbb-utóbb be kell jönnie.","H":"Abbahagyom, úgy tűnik, ez nem nekem való."},{"stem":"Egy projektben a csapat többsége szerint a te megoldásod nem működik, és bizonyítékot is hoznak.","E":"Átnézem a bizonyítékot, és ha meggyőző, beállok az új megoldás mögé.","T":"Kitartok a megoldásom mellett, a bizonyítékuk biztosan hiányos.","H":"Rögtön elengedem, nem akarok vitát."},{"stem":"Egy megromlott barátságot évek óta próbálsz helyrehozni, de a másik fél alig reagál.","E":"Jelzem neki, hogy nyitott vagyok, de nem erőltetem tovább, és imádságban elengedem az eredményt.","T":"Továbbra is keresem, üzenek, hívom, mert nem adom fel, akármit mond.","H":"Egyszerűen nem keresem többé, és igyekszem nem is gondolni rá."}]},{"id":"07","axis":"HAT","mature":"07E","distorted":"07T","interview":{"main":"Mesélj egy helyzetről, amikor valamit vagy valakit, ami rád volt bízva, meg kellett védened.","stress":"Mi történik veled, amikor aggódsz valakiért vagy valamiért? Mesélj egy esetet, amikor emiatt mindent a kezedben akartál tartani.","others":"Mondta már valaki, hogy túlféltesz vagy túlellenőrzöl?","signsE":["Határozottan véd, de a védettnek mozgásteret hagy.","A veszélyre arányosan reagál."],"signsT":["Aggodalomból folyamatosan ellenőriz, információt kér.","Nehezen viseli, ha valami a látókörén kívül történik."]},"sjt":[{"stem":"A 16 éves gyermeked először megy el barátokkal egy többnapos kirándulásra.","E":"Megbeszéljük a szabályokat és az elérhetőséget, aztán megbízom benne, és elengedem.","T":"Kérem, hogy óránként jelentkezzen, és a barátai szüleinek is megírom a számomat.","H":"Elengedem, a részletekbe nem kérdezek bele, úgyis megoldja."},{"stem":"Rád bízták a közösség pénzügyeit, és egy új önkéntes szeretne besegíteni.","E":"Betanítom, átadok neki egy jól körülhatárolt részt, és rendszeresen átnézzük együtt.","T":"Megköszönöm, de inkább mindent én csinálok, mert így biztos, hogy nem lesz hiba.","H":"Átadom neki az egészet, és nem is foglalkozom vele többet."},{"stem":"Egy csapattagodat igazságtalanul kritizálja egy másik részleg vezetője.","E":"Kiállok mellette, tisztázom a tényeket a vezetővel, és utána elmondom a csapattagnak, mi történt.","T":"Ettől kezdve minden kommunikációt én bonyolítok a részleggel, a csapattagom oda sem szólhat.","H":"Hagyom, hogy maga intézze el, felnőtt ember."}]},{"id":"08","axis":"HAT","mature":"08E","distorted":"08T","interview":{"main":"Mesélj egy helyzetről, amikor sokáig kellett várnod valaminek a gyümölcsére. Mi segített kitartani?","stress":"Volt olyan, hogy a várakozásod valójában halogatás volt? Honnan vetted észre?","others":"Mit mondanának rólad: türelmes vagy, vagy inkább néha túl sokáig vársz?","signsE":["Aktívan vár: megteszi, ami rajta múlik, a többit hagyja beérni.","Meg tudja különböztetni a várakozást a halogatástól."],"signsT":["A türelem mögött konfliktuskerülés vagy félelem áll.","Sorozatosan elmaradnak a szükséges lépések."]},"sjt":[{"stem":"Egy kolléga hetek óta nem küldi el azt az anyagot, ami nélkül nem tudsz haladni.","E":"Megkeresem, megbeszéljük, mi akadályozza, és közösen kijelölünk egy reális határidőt.","T":"Várok még, biztos sok a dolga, nem akarom siettetni.","H":"Szólok a főnökének, hogy intézze el ő."},{"stem":"Egy felújításnál a szakember csúszik, és a lakás hetek óta félkész állapotban van.","E":"Tartom vele a kapcsolatot, megbeszéljük az új ütemezést, és a köztes időben, amit tudok, magam elintézek.","T":"Nem szólok, majd jön, amikor jön; addig így élünk.","H":"Felhívom, és közlöm, hogy ha holnap nincs itt, keresek mást."},{"stem":"Egy új csapattagod lassabban tanul bele a munkába, mint amire számítottál.","E":"Adok neki még időt, és közben megnézem, miben tudnám jobban segíteni.","T":"Nem hozom szóba, hátha magától belejön; addig nem foglalkozom a kérdéssel.","H":"Szólok neki, hogy gyorsítania kell, különben keresünk mást."}]},{"id":"09","axis":"HAT","mature":"09E","distorted":"09T","interview":{"main":"Mesélj egy helyzetről, amikor erős érzelmek (harag, félelem, sértettség) között is meg tudtad választani, hogyan reagálsz.","stress":"Mi történik a negatív érzéseiddel, miután egy helyzetben „megőrizted a nyugalmadat”? Hová kerülnek?","others":"Tudják-e a hozzád közel állók, ha haragszol vagy szomorú vagy?","signsE":["Érzékeli és meg tudja nevezni az érzést, a reakciót megválasztja.","Később, megfelelő helyen feldolgozza vagy kimondja."],"signsT":["Nem engedi meg magának az érzéseit, vagy nem is érzékeli őket.","A felgyűlt feszültség kitörésben, testi tünetben vagy visszahúzódásban jelenik meg."]},"sjt":[{"stem":"Egy családi ebéden egy rokonod bántó megjegyzést tesz rád mindenki előtt.","E":"Nyugodtan jelzem, hogy ez rosszul esett, és később négyszemközt megbeszélem vele.","T":"Mosolygok, mintha nem történt volna semmi, és soha nem hozom szóba.","H":"Visszavágok ugyanolyan élesen, hadd érezze ő is."},{"stem":"Egy hosszú, nehéz hét után a társad olyat mond, ami nagyon felidegesít.","E":"Szólok, hogy most fáradt és ideges vagyok, és kérek egy kis időt, mielőtt beszélünk róla.","T":"Lenyelem, nem akarok veszekedést, pedig napokig rágódom rajta.","H":"Kiabálok, aztán később bocsánatot kérek."},{"stem":"Egy gyülekezeti döntés mélyen csalódást okoz neked.","E":"Imádságban kimondom a csalódásomat, és megkeresem a döntéshozókat, hogy elmondjam a véleményemet.","T":"Azt mondom magamnak, hogy egy hívőnek nem szabad így éreznie, és igyekszem nem gondolni rá.","H":"Ott helyben hangot adok a felháborodásomnak."}]},{"id":"10","axis":"HAT","mature":"10E","distorted":"10T","interview":{"main":"Mesélj egy kapcsolatról, közösségről vagy vállalásról, amely mellett nehéz időszakban is kitartottál. Mi tartott ott?","stress":"Volt olyan, hogy egy megszokott forma, szerep vagy közösség mellett akkor is kitartottál, amikor már változtatni kellett volna? Mi tartott vissza?","others":"Mit mondanának rólad: megbízható társ vagy, vagy inkább nehezen mozdulsz, ha változni kell?","signsE":["Az emberekhez és az értékekhez hűséges, a formákban rugalmas.","Nehéz időkben is jelen van."],"signsT":["A változást árulásként éli meg.","Szerepekhez, megszokott formákhoz akkor is ragaszkodik, ha azok már nem szolgálnak."]},"sjt":[{"stem":"A közösség, ahová húsz éve jársz, új vezetést és az alkalmak új formáját kapja, ami idegen számodra.","E":"Maradok, időt adok a változásnak, és elmondom a vezetőknek, mi nehéz nekem benne.","T":"Kitartok amellett, hogy a régi forma volt a helyes, és a régiekkel továbbra is úgy csináljuk, ahogy eddig.","H":"Keresek egy másik közösséget, ahol jobban érzem magam."},{"stem":"Egy régi barátod élete nagyot változott (új meggyőződés, új életforma), és ez eltávolít titeket.","E":"Tartom vele a kapcsolatot, kíváncsi vagyok az új életére, és megkeressük az új közös pontokat.","T":"Azt várom tőle, hogy olyan legyen, mint régen, és ha nem az, szóvá is teszem.","H":"Hagyom, hogy a barátság lassan elhaljon, ez az élet rendje."},{"stem":"Egy munkahelyi feladatkört évek óta te viszel, és a vezetőség átszervezné a csapatot.","E":"Segítem az átmenetet, és átadom a tapasztalatomat, még ha nehéz is elengedni.","T":"Igyekszem meggyőzni őket, hogy maradjon minden úgy, ahogy van, mert így működik.","H":"Ha elveszik, hát elveszik; nem kötődöm hozzá, keresek mást."}]},{"id":"11","axis":"OLD","mature":"11E","distorted":"11T","interview":{"main":"Mesélj egy helyzetről, amikor egy terv nem működött, és gyorsan át kellett állnod valami másra.","stress":"Volt olyan, hogy nyomás alatt engedtél valamiben, amiben utólag úgy érzed, ki kellett volna tartanod?","others":"Ha a hozzád közel állókat kérdezném: rugalmas vagy, vagy néha túl könnyen engedsz?","signsE":["A módszerben rugalmas, a lényegben és az értékekben szilárd.","Tudja, miben nem enged."],"signsT":["A nyomás elől enged, nem azért, mert a helyzet változást kér.","Utólag rendszeresen megbánja, hogy igent mondott."]},"sjt":[{"stem":"Egy fontos családi esemény időpontját az utolsó pillanatban áttették, éppen oda, ahol a munkahelyeden is kritikus határidőd van.","E":"Megnézem, mit tudok átszervezni, egyeztetek a munkahelyemen, és keresem a módját, hogy mindkettő sikerüljön.","T":"Mindenre rábólintok, amit kérnek tőlem, és megpróbálom valahogy túlélni.","H":"Ragaszkodom az eredeti tervhez: aki áttette, az oldja meg."},{"stem":"Az ügyfeled olyan kiegészítést kér, ami már sérti a korábban lefektetett minőségi elveidet.","E":"Megkeresem azt a megoldást, amely kielégíti a kérése mögötti igényt, de nem sérti az elveimet.","T":"Megcsinálom, amit kér; az ügyfélnek mindig igaza van, és nem akarom elveszíteni.","H":"Nemet mondok, a szerződésben nem ez szerepelt."},{"stem":"A csoport, amelyben szolgálsz, olyan programot szeretne, amely szerinted nem illik a közösség értékeihez.","E":"Elmondom a fenntartásaimat, és javaslok egy olyan változatot, amelyben mindenki szempontja érvényesül.","T":"Nem szólok, mert mindenki lelkes, és nem akarok ünneprontó lenni.","H":"Kijelentem, hogy ebben nem veszek részt, és kész."}]},{"id":"12","axis":"OLD","mature":"12E","distorted":"12T","interview":{"main":"Mesélj egy helyzetről, amikor egy elakadt problémára új, szokatlan megoldást találtál.","stress":"Volt olyan, hogy egy szabályt „kreatívan” kerültél meg, és utólag ez gondot okozott valakinek?","others":"Mondták már rólad, hogy a szabályok rád nem vonatkoznak?","signsE":["A szabályok keretein belül keres új megoldást, vagy nyíltan kezdeményezi a megváltoztatásukat.","Mások ötleteit is beépíti."],"signsT":["A szabályt akadálynak tekinti, amelyet ki kell játszani.","A kiskapu keresése mögött kényelem vagy saját előny áll."]},"sjt":[{"stem":"Egy pályázat határideje éjfélkor lejár, és rájössz, hogy hiányzik egy kötelező igazolás.","E":"Megkeresem a kiírót, leírom a helyzetet, és megkérdezem, pótolhatom-e utólag.","T":"Beadom egy korábbi, hasonló igazolással; talán nem veszik észre.","H":"Nem adom be, ezt most elszalasztottam."},{"stem":"A gyülekezeti alkalom évek óta ugyanúgy zajlik, és egyre kevesebben jönnek el.","E":"Összegyűjtök néhány új ötletet, és a vezetőkkel közösen kipróbáljuk az egyiket.","T":"A következő alkalmon, amelyet én vezetek, szó nélkül teljesen máshogy csinálom; utólag úgyis mindenki örülni fog.","H":"Így szokott lenni, én nem változtatnék rajta."},{"stem":"A munkahelyi költségelszámolás szabályai szerinted feleslegesen bonyolultak.","E":"Javaslatot teszek egy egyszerűbb eljárásra, és addig betartom a jelenlegit.","T":"A magam módján egyszerűsítem, összevonok tételeket, a lényeg úgyis stimmel.","H":"Betartom, és nem gondolkodom rajta: a szabály az szabály."}]},{"id":"13","axis":"OLD","mature":"13E","distorted":"13T","interview":{"main":"Mesélj egy helyzetről, amikor egy akadályon nem átmenni kellett, hanem okosan megkerülni. Honnan tudtad, hogy ez a bölcs út?","stress":"Mesélj egy konfliktusról, amely elől kitértél. Utólag nézve kerülőút volt, vagy menekülés?","others":"Mit mondanának rólad: szembenézel a kellemetlen dolgokkal, vagy inkább kitérsz előlük?","signsE":["A kerülőút célja az eredmény, nem a kellemetlenség elkerülése.","Ha kell, később visszatér a kérdéshez."],"signsT":["A nehéz beszélgetések rendszeresen elmaradnak.","Megindokolja magának, miért nem kell szembenéznie."]},"sjt":[{"stem":"Egy kollégával évek óta feszült a viszonyod, és most közös projektbe kerültök.","E":"Kezdeményezek egy beszélgetést, és megbeszéljük, hogyan tudunk jól együtt dolgozni.","T":"Megoldom, hogy minél kevesebbet kelljen vele közvetlenül érintkeznem, mindent e-mailben intézek.","H":"Az első megbeszélésen szóvá teszem a régi sérelmeimet, tiszta lappal akarok indulni."},{"stem":"Egy fontos kérést a vezetőd most biztosan elutasítana, mert rossz passzban van.","E":"Megvárom a megfelelő pillanatot, és addig összegyűjtöm az érveket, és előkészítek egy kisebb próbát.","T":"Inkább el sem kezdem, túl kockázatos szóba hozni.","H":"Most rögtön odamegyek, és megkérdezem, legyek túl rajta."},{"stem":"Egy családtagodnak meg kellene mondanod valamit, ami fájdalmas lesz neki.","E":"Átgondolom, mikor és hogyan tudom a legkíméletesebben elmondani, és megteszem.","T":"Halogatom, hátha kiderül magától, vagy más mondja el neki.","H":"Kimondom egyenesen, ahogy van, az igazság úgyis igazság."}]},{"id":"14","axis":"OLD","mature":"14E","distorted":"14T","interview":{"main":"Mesélj egy helyzetről, amikor ellentétes felek között sikerült olyan megoldást találnod, amelyet mindenki elfogadott.","stress":"Volt olyan tárgyalásod, ahol valamit elhallgattál vagy kiszíneztél, hogy a neked kedvező eredmény jöjjön ki? Mi vitt rá?","others":"Ha a tárgyalópartnereidet kérdezném, átláthatónak vagy taktikusnak tartanak?","signsE":["Minden fél érdekét érti és ki is mondja.","Az információt nem torzítja, csak a hangnemet igazítja."],"signsT":["Az információ adagolását eszközként használja.","Az egyes feleknek mást mond, hogy mindenkit megnyerjen."]},"sjt":[{"stem":"Két csapattagod összeveszett, és mindketten tőled várnak igazságot.","E":"Leülök mindkettőjükkel, meghallgatom őket, és segítek megtalálni, mi a közös érdekük.","T":"Mindkettőnek négyszemközt azt mondom, hogy igazából neki van igaza, hogy megnyugodjanak.","H":"Kimaradok belőle, oldják meg egymás között."},{"stem":"Eladod a használt autódat, és tudod, hogy a klíma néha kihagy.","E":"Elmondom a vevőnek, és ennek megfelelően szabom meg az árat.","T":"Nem hozom szóba; ha nem kérdez rá, az az ő dolga.","H":"Inkább nem adom el, nem szeretek alkudozni."},{"stem":"Egy bizottságban a javaslatodat két tag ellenzi.","E":"Megkérdezem, mi a fenntartásuk, és ahol jogos, beépítem a javaslatba.","T":"Az ülés előtt külön-külön megkeresem a többieket, és úgy tálalom a két ellenző érveit, hogy gyengének tűnjenek.","H":"Visszavonom a javaslatot, nem akarok vitát."}]},{"id":"15","axis":"OLD","mature":"15E","distorted":"15T","interview":{"main":"Mesélj egy helyzetről, amikor egy számodra új közegben kellett megtalálnod a helyed. Miben igazodtál, és miben maradtál önmagad?","stress":"Volt olyan, hogy különböző társaságokban egymásnak ellentmondó véleményt képviseltél, hogy elfogadjanak?","others":"Ha két különböző baráti köröd találkozna, ugyanazt az embert ismernék benned?","signsE":["A szokásokhoz igazodik, az értékeit megtartja.","Tapintatosan, de nyíltan vállalja a hitét és a véleményét."],"signsT":["A véleménye társaságról társaságra változik.","A konfliktus elkerülése fontosabb számára, mint a meggyőződése."]},"sjt":[{"stem":"Az új munkahelyeden a kollégák gyakran gúnyolódnak a hívő embereken.","E":"Barátságos vagyok velük, és ha szóba kerül, nyugodtan elmondom, hogy én is hívő vagyok.","T":"Nevetek velük, és inkább nem árulom el, hogy hívő vagyok.","H":"Kerülöm a társaságukat, ebédnél is egyedül ülök."},{"stem":"Egy baráti társaságban mindenki mást gondol egy közéleti kérdésről, mint te.","E":"Ha rákérdeznek, elmondom a véleményemet, és kíváncsi vagyok az övékére.","T":"Egyetértően bólogatok, pedig máshol éppen az ellenkezőjét szoktam mondani.","H":"Vitába szállok, és addig nem hagyom annyiban, amíg el nem mondtam mindent."},{"stem":"Külföldre költözöl, ahol a gyülekezet egészen más stílusú, mint amit megszoktál.","E":"Megtanulom az ottani szokásokat, részt veszek bennük, és közben megtartom a saját lelki gyakorlataimat.","T":"Mindent átveszek, amit ott csinálnak, hogy minél hamarabb befogadjanak, az is mindegy, miben hisznek.","H":"Keresek egy magyar gyülekezetet, ahol minden olyan, mint otthon."}]},{"id":"16","axis":"IST","mature":"16E","distorted":"16T","interview":{"main":"Mesélj egy helyzetről, amikor felismerted, mit kér tőled Isten, és megtetted, pedig nehéz volt, vagy nem értetted teljesen.","stress":"Volt olyan, hogy egy lelki vezető vagy egyházi szabály kedvéért a lelkiismereted ellen cselekedtél? Hogyan élted meg?","others":"Mit mondanának rólad a gyülekezetben: szabálykövető vagy, vagy inkább a szabályok mögötti szívet keresed?","signsE":["Az engedelmessége az Isten iránti bizalomból fakad, és kérdezni is mer.","Érti, miért fontos, amit tesz."],"signsT":["A szabálykövetés biztonságérzetet ad neki, a kérdezés fenyegetőnek tűnik.","Másokat is a szabályok betartásán mér."]},"sjt":[{"stem":"A gyülekezet vezetője azt kéri, hogy egy vitatott ügyről senki ne beszéljen kívülállókkal, pedig egy barátodnak éppen ebben lenne szüksége segítségre.","E":"Imádkozom, és megbeszélem a vezetővel a helyzetet, hogy megtaláljuk, hogyan segíthetek a barátomon.","T":"Betartom a kérést, akármi történik a barátommal: a vezetőnek engedelmeskedni kell.","H":"A saját belátásom szerint döntök, a vezető kérése nem köt."},{"stem":"Az egyik szomszédodnak sürgősen segítség kellene a költözéshez, pont az istentisztelet idejében.","E":"Végiggondolom, mi itt a szeretet útja, és ha tényleg nincs más, segítek neki, az alkalmat pedig máskor pótolom.","T":"Az istentisztelet az első, erről nem nyitok vitát; keressen mást.","H":"Nem gondolkodom rajta, azt csinálom, amihez éppen kedvem van."},{"stem":"Imádság közben erős belső késztetést érzel, hogy bocsáss meg valakinek, akire még haragszol.","E":"Megteszem az első lépést, még ha nehéz is, és kérem Isten segítségét, hogy a szívem is kövesse.","T":"Kimondom a megbocsátást, mert ez a kötelességem, de azzal, hogy mi van a szívemben, nem foglalkozom.","H":"Majd akkor bocsátok meg, ha tényleg érzem is."}]},{"id":"17","axis":"IST","mature":"17E","distorted":"17T","interview":{"main":"Mesélj egy nehéz helyzetről, amikor Istenre számítottál, és ez erőt adott a cselekvéshez.","stress":"Volt olyan, hogy egy valós problémával (egészség, pénz, kapcsolat) azért nem foglalkoztál, mert úgy gondoltad, Isten majd megoldja? Mi lett belőle?","others":"A hozzád közel állók szerint a hited inkább cselekvésre indít, vagy néha elrejt a problémák elől?","signsE":["A hit és a felelős cselekvés együtt jár nála.","Szembenéz a tényekkel, és közben bízik."],"signsT":["A kellemetlen tényeket a hitre hivatkozva nem veszi tudomásul.","A kételyt vagy a rossz hírt hitetlenségnek érzi."]},"sjt":[{"stem":"Az orvos komoly vizsgálatot javasol egy tünet miatt.","E":"Imádkozom érte, és elmegyek a vizsgálatra, mert Isten az orvosokon keresztül is munkálkodik.","T":"Imádkozom érte, és bízom benne, hogy Isten meggyógyít, ezért egyelőre nem megyek el.","H":"Nagyon aggódom, és folyamatosan a legrosszabbra gondolok."},{"stem":"A családi költségvetés már három hónapja mínuszos.","E":"Leülünk, átnézzük a kiadásokat, csökkentünk, ahol lehet, és közben imádkozunk a megoldásért.","T":"Nem aggódom, eddig is gondoskodott rólunk Isten, most is fog; nem kell ezen rágódni.","H":"Pánikba esem, éjjel nem alszom, és úgy érzem, mindent egyedül kell megoldanom."},{"stem":"Egy közeli barátod elmondja, hogy komoly kételyei vannak a hitben.","E":"Meghallgatom, együtt gondolkodom vele, és elmondom, nekem mi segített a saját kételyeimben.","T":"Azt mondom neki, hogy ezeket a gondolatokat el kell hessegetnie, és egyszerűen hinnie kell.","H":"Nem tudok mit mondani, mert őszintén nekem is vannak hasonló kérdéseim, ezért inkább témát váltok."}]},{"id":"18","axis":"IST","mature":"18E","distorted":"18T","interview":{"main":"Mesélj arról, hogyan imádkozol egy fontos döntés előtt. Mesélj egy konkrét döntést.","stress":"Volt olyan, hogy imádkoztál valamiért, de a rád eső lépést nem tetted meg, mert vártad, hogy magától rendeződjön?","others":"A hozzád közel állók szerint az imádság nálad cselekvéssel is jár?","signsE":["Rendszeres imaélete van, amely a döntéseibe és a cselekvésébe is beépül.","Az imádság után megteszi a rá eső lépést."],"signsT":["Az imát a cselekvés helyett használja.","„Még nem kaptam választ”: évekig tartó halogatás."]},"sjt":[{"stem":"Régóta imádkozol egy új munkahelyért.","E":"Továbbra is imádkozom érte, és közben rendszeresen küldök önéletrajzot, és érdeklődöm.","T":"Imádkozom, és várom, hogy Isten megnyissa az ajtót; ha ő akarja, keresni fognak.","H":"Már nem imádkozom érte, magam intézem."},{"stem":"Egy megromlott családi kapcsolatért imádkozol.","E":"Imádkozom, és keresem az alkalmat, hogy egy kis lépést tegyek a másik felé.","T":"Imádkozom érte, és várom, hogy Isten megváltoztassa a másik szívét.","H":"Nem imádkozom érte, úgysem fog változni."},{"stem":"Fontos döntés előtt állsz: elvállalj-e egy vezetői szolgálatot.","E":"Időt szánok az imára, tanácsot kérek tapasztalt hívőktől, és egy kijelölt határidőn belül döntök.","T":"Addig nem döntök, amíg nem kapok egyértelmű jelet, akármeddig tart is.","H":"Mérlegelem az előnyöket és a hátrányokat, és döntök; ehhez nincs szükség imádságra."}]},{"id":"19","axis":"IST","mature":"19E","distorted":"19T","interview":{"main":"Mesélj egy döntésről, amikor fontosabb volt számodra, mit gondol Isten, mint az, hogy mit szólnak az emberek.","stress":"Amikor elbuksz, mi mozgat leginkább: a büntetéstől való félelem, a szégyen vagy a szeretet? Mesélj egy konkrét helyzetet.","others":"Mit mondanának rólad a legközelebbi hívő barátaid: a gyülekezetben inkább a szeretet vagy inkább a megfelelés hajt?","signsE":["Az istenképe tiszteletteljes, de bizalmon alapul.","Mások véleményétől függetlenül vállalja a meggyőződését."],"signsT":["Az istenképe büntető, szorongást kelt.","A megfelelés és a látszat fontosabb számára, mint a belső indíttatás."]},"sjt":[{"stem":"Elbuksz egy olyan dologban, amellyel régóta küzdesz.","E":"Bocsánatot kérek Istentől, elfogadom a bocsánatát, és továbblépek; ha kell, segítséget kérek.","T":"Napokig gyötör a bűntudat, és félek, hogy Isten megbüntet, ezért imádkozni sem merek.","H":"Nem foglalkozom vele sokat, mindenki hibázik."},{"stem":"A gyülekezetben elvárás egy bizonyos öltözködés, amelyet te nem tartasz lényegesnek.","E":"Ha fontos a közösségnek, tiszteletből betartom, de nem ettől érzem magam jobb vagy rosszabb hívőnek.","T":"Betartom, mert félek, mit gondolnának rólam, ha nem tartanám be.","H":"Úgy öltözöm, ahogy akarok, a többiek véleménye nem érdekel."},{"stem":"A főnököd arra kér, hogy egy jelentésben kicsit „szépítsd” a számokat.","E":"Tisztelettel nemet mondok, mert Isten előtt ezt nem tudnám vállalni, akkor sem, ha ennek ára van.","T":"Megteszem, mert félek, hogy elveszítem az állásomat.","H":"Megteszem, ez nem olyan nagy dolog, mindenki így csinálja."}]},{"id":"20","axis":"IST","mature":"20E","distorted":"20T","interview":{"main":"Mesélj egy helyzetről, amikor elismerted, hogy tévedtél, vagy tanultál valakitől, akitől nem vártad volna.","stress":"Előfordul, hogy úgy érzed, amit csinálsz, nem ér sokat? Mesélj egy helyzetet, amikor ez az érzés visszatartott valamitől.","others":"Mit mondanának rólad: alázatos vagy, vagy inkább túl keveset gondolsz magadról?","signsE":["Reálisan látja az erősségeit és a gyengeségeit.","A dicséretet és a kritikát is el tudja fogadni."],"signsT":["A dicséretet elhárítja, a kritikát túlzottan magára veszi.","Nem vállal feladatot, mert „mások jobbak”."]},"sjt":[{"stem":"Megdicsérnek egy szolgálatodért a gyülekezet előtt.","E":"Megköszönöm, örülök neki, és elmondom, kik segítettek.","T":"Zavarba jövök, és mondom, hogy igazán semmiség volt, bárki meg tudta volna csinálni.","H":"Örülök, és elmesélem, mennyi munkám volt benne."},{"stem":"Felkérnek, hogy tarts egy rövid tanítást a kiscsoportban.","E":"Elvállalom, felkészülök, és utána visszajelzést kérek.","T":"Visszautasítom, mert mások sokkal jobban értenek hozzá, mint én.","H":"Elvállalom; nem kell sokat készülnöm, ezt a témát jól ismerem."},{"stem":"Egy fiatalabb kolléga rámutat egy hibára a munkádban.","E":"Megköszönöm, kijavítom, és megkérdezem, mit látott még.","T":"Napokig azon rágódom, hogy még egy ilyen hibát sem vagyok képes észrevenni.","H":"Elmagyarázom neki, hogy ez nem hiba, csak ő nem érti a hátterét."}]},{"id":"21","axis":"ELH","mature":"21E","distorted":"21T","interview":{"main":"Milyen képed van arról, merre haladsz a következő 3–5 évben? Mit teszel ebből már most?","stress":"Volt olyan terved, amelyről sokat beszéltél, de nem valósult meg? Mi történt?","others":"A hozzád közel állók szerint a terveid reálisak, vagy inkább nagyra törők?","signsE":["A jövőképe konkrét lépésekre bomlik.","A terveit a mostani helyzetével összhangban fogalmazza meg."],"signsT":["A tervekről való beszéd helyettesíti a lépéseket.","A jövőkép a saját nagyságáról szól."]},"sjt":[{"stem":"Egy baráti beszélgetésen szóba kerül, ki mit szeretne elérni öt év múlva.","E":"Elmondom a célomat, és azt is, melyek az első lépések, amelyeket már megtettem.","T":"Elmesélem a nagy terveimet, amelyektől mindenki elámul, akkor is, ha még semmit nem tettem értük.","H":"Azt mondom, nem tervezek ennyire előre, majd meglátjuk."},{"stem":"Egy közösségi kezdeményezésnél megkérdezik tőled, szerinted hová juthat el két év alatt.","E":"Felvázolok egy ambiciózus, de elérhető célt, és megmondom, mi kell hozzá.","T":"Azt mondom, országos mozgalom lehet belőle, ha rám bízzák a vezetését.","H":"Nem szeretek jóslásokba bocsátkozni; csináljuk, aztán meglátjuk."},{"stem":"A mentorod megkérdezi, mi a víziód a saját szolgálatodról.","E":"Elmondom, mit látok, és megkérdezem, szerinte mi hiányzik belőle.","T":"Elmondom, hogy nagy dolgokra vagyok elhívva, csak még nem jött el az ideje.","H":"Bevallom, hogy nincs ilyen képem, csak csinálom, ami jön."}]},{"id":"22","axis":"ELH","mature":"22E","distorted":"22T","interview":{"main":"Mire hívott el Isten? Mesélj egy döntésről, amelyben ez az elhívás irányt adott.","stress":"Volt olyan, hogy úgy érezted: ha te nem teszed meg, senki sem fogja, és nélküled összeomlanának a dolgok? Mi lett ennek a következménye rád és másokra nézve?","others":"Mit mondanának a társaid: tudsz feladatot átadni, vagy mindent magadra veszel?","signsE":["Az elhívását a saját helyén és a saját határain belül éli meg.","Másokat is elhívottnak lát."],"signsT":["Nélkülözhetetlennek érzi magát.","A kiégés határán is vállal, mert „nincs más”."]},"sjt":[{"stem":"Abban a szolgálatban, amelyet vezetsz, a kiégés közelébe kerültél.","E":"Szólok a vezetőknek, átadok feladatokat, és pihenőt kérek, mert tudom, hogy Isten műve nem rajtam múlik.","T":"Nem állhatok meg, mert nélkülem összeomlana az egész.","H":"Kilépek a szolgálatból, és utódot sem keresek."},{"stem":"Valaki más is jelentkezik egy olyan szolgálatra, amelyet eddig te végeztél.","E":"Örülök neki, bevezetem, és megbeszéljük, hogyan osztozzunk.","T":"Kételkedem benne, hogy ő ugyanúgy értené a lényeget, hiszen ezt a feladatot én kaptam Istentől.","H":"Átadom neki az egészet, nekem mindegy."},{"stem":"Egy barátod komoly válságban van, és te vagy az egyik, akihez fordul.","E":"Mellette vagyok, és segítek neki további segítőt (lelkigondozót, szakembert) is találni.","T":"Úgy érzem, csak én tudok neki igazán segíteni, ezért mindent félreteszek érte.","H":"Megmondom neki, hogy ezzel inkább egy szakemberhez forduljon."}]},{"id":"23","axis":"ELH","mature":"23E","distorted":"23T","interview":{"main":"Mesélj egy nehéz időszakról, amikor a reménység segített cselekedni.","stress":"Mennyi időt töltesz azzal, hogy elképzeled, milyen lesz majd egyszer? Mi történik közben a mai teendőiddel?","others":"Szerintük a reménységed inkább erőt ad neked, vagy inkább álmodozásba ringat?","signsE":["A remény a jelenben is lépésekre indítja.","A jövő reménye mellett a mai nehézségeket is vállalja."],"signsT":["A képzelgés menedék a jelen elől.","Az „egyszer majd” helyettesíti a mai döntéseket."]},"sjt":[{"stem":"Régóta egyedülálló vagy, és szeretnél házastársat.","E":"Reménykedem, imádkozom, és közben nyitott vagyok új közösségekre, kapcsolatokra.","T":"Sokat képzelgek arról, milyen lesz a tökéletes társam, és várom, hogy egyszer megjelenjen.","H":"Már nem remélem, hogy megtalálom, és nem is foglalkozom a kérdéssel."},{"stem":"A munkahelyeden rossz a hangulat, és a cég nehéz helyzetben van.","E":"Bízom benne, hogy lesz kiút, és közben megteszem, ami rajtam múlik, hogy jobb legyen.","T":"Arról álmodozom, hogy egyszer saját cégem lesz, addig a mostanit csak túlélem.","H":"Úgy érzem, ennek rossz vége lesz, és nem is próbálok tenni semmit."},{"stem":"Krónikus betegséggel élsz, amely korlátoz a mindennapokban.","E":"Remélem a javulást, és közben megtanulom, hogyan élhetek teljes életet a korlátok között.","T":"Leginkább arra gondolok, milyen lesz, ha egyszer meggyógyulok; addig nem nagyon tervezek semmit.","H":"Úgy érzem, nincs mire várnom, és nehezen kelek fel reggelente."}]},{"id":"24","axis":"ELH","mature":"24E","distorted":"24T","interview":{"main":"Mesélj egy célról, amelyért tudatosan megválasztottad, mire mondasz igent és mire nemet.","stress":"Volt olyan cél, amelynek mindent alárendeltél: pihenést, kapcsolatokat, egészséget? Mikor vetted észre, és mi lett az ára?","others":"A családod szerint vannak-e időszakok, amikor „nem lehet veled beszélni”, mert valami teljesen magával ragad?","signsE":["Fókuszált, de a pihenés és a kapcsolatok is helyet kapnak.","A célt időnként felülvizsgálja."],"signsT":["A cél mindent felülír, a határok eltűnnek.","A cél elérése után sem tud megállni."]},"sjt":[{"stem":"Maratonra készülsz, és a párod szerint túl sok időt töltesz edzéssel.","E":"Megbeszéljük, mennyi idő fér bele, és úgy alakítom az edzéstervet, hogy neki is jusson idő.","T":"Elmagyarázom neki, hogy most ez a legfontosabb, utána majd bepótoljuk.","H":"Inkább lemondom a versenyt, nem akarok feszültséget."},{"stem":"Egy héttel a projekted határideje előtt megbetegszel.","E":"Pihenek, szólok a csapatnak, és átütemezzük, amit lehet.","T":"Lázasan is éjszakákig dolgozom, a határidő szent.","H":"Leteszek az egészről, úgysem fog időben elkészülni."},{"stem":"Elértél egy nagy célt, amelyért évekig dolgoztál.","E":"Megünneplem, pihenek, és csak utána gondolkodom a következő lépésen.","T":"Másnap már a következő, még nagyobb célon dolgozom, nincs idő megállni.","H":"Üresnek érzem magam, és hónapokig nem tudok új célt kitűzni."}]},{"id":"25","axis":"ELH","mature":"25E","distorted":"25T","interview":{"main":"Mi a küldetésed, és hogyan ad értelmet a hétköznapi munkádnak?","stress":"Mesélj egy helyzetről, amikor kritikát kaptál. Előfordult, hogy azzal védekeztél, hogy te egy fontos küldetést végzel?","others":"A környezeted szerint el tudod fogadni a szolgálatodat érő kritikát?","signsE":["A küldetés értelmet és kitartást ad neki, de nem teszi érinthetetlenné.","A kritikát a küldetés javára fordítja."],"signsT":["A küldetést pajzsként használja a kritikával szemben.","A saját hibáit a nagy cél nevében elnézi magának."]},"sjt":[{"stem":"Egy gyülekezeti tag szóvá teszi, hogy a szolgálatod közben durván beszéltél vele.","E":"Meghallgatom, bocsánatot kérek, és átgondolom, hogyan lehetnék máskor figyelmesebb.","T":"Elmagyarázom neki, hogy nagy nyomás alatt dolgozom egy fontos ügyért, ezt meg kell értenie.","H":"Úgy érzem, alkalmatlan vagyok erre a szolgálatra, és felmerül bennem, hogy abbahagyom."},{"stem":"A családod szerint az utóbbi időben a sok szolgálat miatt keveset vagy otthon.","E":"Komolyan veszem, és átgondolom, mit tudok elengedni, mert a család is a küldetésem része.","T":"Elmondom nekik, hogy ez Isten ügye, és ezzel áldozatok járnak.","H":"Igazat adok nekik, és mindent abbahagyok; úgysem látom, mi értelme volt."},{"stem":"A munkád monoton, és egy kolléga megkérdezi, miért csinálod mégis ilyen lelkesen.","E":"Elmondom, hogy számomra ez is szolgálat, és értelmet ad, hogy másoknak segít.","T":"Elmondom, hogy én magasabb célért dolgozom, nem úgy, mint a legtöbben itt.","H":"Megvonom a vállam: a pénzért, mint mindenki."}]},{"id":"26","axis":"FEL","mature":"26E","distorted":"26T","interview":{"main":"Mesélj egy helyzetről, amikor valakinek meglátva az erősségét konkrétan bátorítottad. Mi lett a hatása?","stress":"Előfordult, hogy azért dicsértél meg valakit, hogy jó benyomást kelts, vagy elérj nála valamit? Mesélj egy ilyen esetet.","others":"Ha a munkatársaidat kérdezném, őszintének éreznék a dicséreteidet?","signsE":["A bátorítása konkrét, igaz, és a másik javát szolgálja.","Nehéz helyzetben is talál őszinte, bátorító szót."],"signsT":["A dicséret célja a saját előny vagy a konfliktus elkerülése.","Túlzó és általános, mindenkinek ugyanazt mondja."]},"sjt":[{"stem":"Egy csapattagod közepes munkát adott le, és bizonytalannak tűnik.","E":"Kiemelem, ami valóban jól sikerült, és megmondom, min lehet még javítani.","T":"Azt mondom, hogy nagyszerű lett, hogy jó kedve legyen.","H":"Nem mondok semmit, a munkája az ő felelőssége."},{"stem":"A vezetőd olyan döntést hozott, amellyel nem értesz teljesen egyet, és kikéri a véleményedet.","E":"Elmondom, mit tartok jónak benne, és azt is, miben látok kockázatot.","T":"Megdicsérem a döntést; jó, ha a vezető elégedett velem.","H":"Kitérő választ adok, nem szeretek véleményt mondani."},{"stem":"Egy barátod könyvet írt, és a véleményedet kéri.","E":"Elolvasom, elmondom, mi fogott meg benne, és őszintén azt is, ami nem.","T":"Csak dicsérem, hogy ne sértődjön meg, és ne romoljon el a barátságunk.","H":"Megmondom, hogy nem értek hozzá, és el sem olvasom."}]},{"id":"27","axis":"FEL","mature":"27E","distorted":"27T","interview":{"main":"Mesélj egy helyzetről, amikor vezetőként a rád bízottak növekedését szolgáltad. Mit tettél?","stress":"Volt olyan, hogy valaki helyett döntöttél, mert úgy érezted, jobban tudod, mi jó neki? Hogyan reagált?","others":"A rád bízottak szerint kapnak tőled elég önállóságot?","signsE":["A vezetés célja a másik fejlődése, nem a saját kényelem vagy biztonság.","Engedi hibázni a másikat, és mellette marad."],"signsT":["„Én jobban tudom”: felülírja a másik döntéseit.","A segítsége függőséget tart fenn."]},"sjt":[{"stem":"A kiscsoportod egyik tagja olyan párkapcsolati döntést hoz, amelyet te rossznak tartasz.","E":"Egyszer elmondom neki a fenntartásaimat, aztán tiszteletben tartom a döntését, és mellette maradok.","T":"Addig beszélek vele, és ha kell, a családját is bevonom, amíg meg nem gondolja magát.","H":"Nem szólok semmit, ez az ő magánügye."},{"stem":"Egy új csapattagod máshogy oldja meg a feladatot, mint ahogy te szoktad.","E":"Megkérdezem, miért így csinálja; ha működik, hagyom, és tanulok belőle.","T":"Megmutatom neki a helyes módszert, és kérem, hogy ezentúl így csinálja.","H":"Nem érdekel, hogyan csinálja, csak legyen kész."},{"stem":"A gyermeked (vagy egy mentoráltad) egyetemet választ.","E":"Segítek neki végiggondolni a lehetőségeket, de a döntést rábízom.","T":"Megmondom, melyik a jó választás, és ha mást választ, nem támogatom anyagilag.","H":"Teljesen rábízom, nem szólok bele, és nem is kérdezem."}]},{"id":"28","axis":"FEL","mature":"28E","distorted":"28T","interview":{"main":"Mesélj egy helyzetről, amikor lelkesedést ébresztettél másokban egy közös cél iránt. Hogyan csináltad?","stress":"Előfordult, hogy bűntudatot, félelmet vagy túlzott lelkesedést keltettél másokban, hogy elérj valamit? Mesélj egy esetet.","others":"Az emberek szabadnak érzik magukat, hogy nemet mondjanak neked?","signsE":["A lelkesítés a cél értékére épül, és meghagyja a nemet mondás szabadságát.","A nehézségekről is őszintén beszél."],"signsT":["Bűntudatot, félelmet vagy kötelességérzetet használ eszközként.","Az érzelmi hatás fontosabb számára, mint a tartalom."]},"sjt":[{"stem":"Önkénteseket keresel egy jótékonysági akcióhoz, de kevesen jelentkeznek.","E":"Elmesélem, kiknek segítünk, és mit jelentene nekik, majd megkérdezem, ki tudna jönni.","T":"Elmondom, hogy aki most nem jön, az cserben hagyja a rászorulókat, és nem igazi hívő.","H":"Kiteszem a jelentkezési lapot; aki akar, jelentkezik."},{"stem":"Egy gyülekezeti gyűjtésnél a cél még messze van.","E":"Beszámolok az eddigiekről, megköszönöm az adományokat, és elmondom, mit tudnánk még elérni.","T":"Megemlítem, hogy más gyülekezetek sokkal nagylelkűbbek, és Isten látja, ki mennyit ad.","H":"Nem szólok róla, majd összejön, ami összejön."},{"stem":"Szeretnéd, ha a családod elkísérne egy lelkigyakorlatra, de ők nem lelkesek.","E":"Elmondom, nekem miért fontos, és hogy örülnék, ha jönnének, de elfogadom, ha nem.","T":"Szomorúan közlöm, hogy nagyon rosszul esik, hogy ennyire nem fontos nekik, ami nekem fontos.","H":"Meg sem kérdezem őket, egyedül megyek."}]},{"id":"29","axis":"FEL","mature":"29E","distorted":"29T","interview":{"main":"Mesélj egy helyzetről, amikor valakinek úgy adtál át valamit a tudásodból, hogy ő a saját útján fejlődjön.","stress":"Előfordul, hogy akkor is magyarázni kezdesz, amikor senki sem kérdezte? Hogyan szoktak erre reagálni?","others":"Mit mondanának rólad: jó tanító vagy, vagy néha kioktató?","signsE":["Kérdez, mielőtt magyaráz, és a másik tudásszintjéhez igazodik.","Hagyja, hogy a másik maga jöjjön rá a dolgokra."],"signsT":["Kéretlen tanácsok, „majd én megmondom” hangnem.","A tanítás a saját tudásának megmutatásáról szól."]},"sjt":[{"stem":"Egy fiatalabb hívő egy bibliai szakaszt másképp értelmez, mint te.","E":"Megkérdezem, hogyan jutott erre, és elmondom az én értelmezésemet is, hogy együtt gondolkodjunk.","T":"Részletesen elmagyarázom neki, hogyan kell ezt helyesen érteni.","H":"Nem szólok semmit, mindenki úgy érti, ahogy akarja."},{"stem":"Egy kolléga egy olyan programmal küszködik, amelyet te jól ismersz, de nem kért segítséget.","E":"Megkérdezem, segíthetek-e, és ha igen, úgy mutatom meg a lépéseket, hogy ő csinálja.","T":"Odahajolok, elmondom, hogy ezt teljesen rosszul csinálja, és megmutatom, hogyan kell.","H":"Nem szólok; ha segítség kell, majd kér."},{"stem":"Egy családi beszélgetésen valaki tévesen idéz egy történelmi tényt.","E":"Ha a beszélgetés szempontjából fontos, röviden, barátságosan kiegészítem.","T":"Kijavítom, és hozzáfűzök egy hosszabb magyarázatot a témáról.","H":"Hagyom, nem fontos."}]},{"id":"30","axis":"FEL","mature":"30E","distorted":"30T","interview":{"main":"Mesélj egy helyzetről, amikor felelősséget és döntési jogot adtál át valakinek. Hogyan maradtál mellette?","stress":"Mi történik, amikor egy általad átadott feladat rosszul sül el? Mesélj egy esetet: kié lett a felelősség?","others":"Akiknek feladatot adsz át, úgy érzik, számíthatnak rád, ha baj van?","signsE":["Valódi döntési jogot ad át, és kudarc esetén is vállalja a közös felelősséget.","Támogatja azt, akire a feladatot bízta, de nem veszi vissza tőle."],"signsT":["A feladat átadása nála a teher lerakása, nem a másik felemelése.","Kudarc esetén a felelősséget arra hárítja, akire a feladatot bízta."]},"sjt":[{"stem":"Egy rendezvény egyik részét egy fiatal csapattagra bíztad, és a vendégek elégedetlenek voltak.","E":"A vendégek felé én vállalom a felelősséget, a csapattaggal pedig utólag átbeszéljük, mit tanultunk.","T":"Jelzem a vendégeknek, hogy ezt a részt nem én szerveztem.","H":"Legközelebb inkább mindent magam csinálok."},{"stem":"Egy nagy projektet kell elvégezned, és van egy tehetséges munkatársad.","E":"Átadok neki egy fontos részt döntési joggal, és hetente átbeszéljük, hogyan halad.","T":"Rábízom a legnehezebb részt, és ha nem sikerül, az az ő felelőssége lesz.","H":"Egyedül csinálom meg, az gyorsabb, mint elmagyarázni."},{"stem":"A kiscsoportod vezetését átadnád valakinek, mert más feladatot kaptál.","E":"Felkészítem, átadom a vezetést, és az első hónapokban elérhető vagyok, ha kérdése van.","T":"Átadom neki, és onnantól nem foglalkozom vele; ha szétesik, ő nem volt elég jó.","H":"Nem adom át, inkább csinálom mindkettőt, amíg bírom."}]}],"interview":{"duration":"30–45 perc, párokként kb. 4–5 perc","intro":["Köszönd meg, hogy eljött, és mondd el, hogy a beszélgetés célja az önismeret és a növekedés, nem minősítés.","Tisztázd a titoktartást: a jegyzeteket és a pontokat csak ő és az általa kijelölt személy látja.","Mondd el, hogy konkrét helyzetekről fogsz kérdezni, és nincs jó vagy rossz válasz. Ha valamiről nem szeretne beszélni, kihagyhatja.","Ha a közösségben szokás, kezdjétek rövid imádsággal."],"probes":["Pontosan mit csináltál te?","Mi volt benned közben? Mit éreztél, mit gondoltál?","Mi lett az eredménye, rád és másokra nézve?","Ma mit csinálnál másként?","Milyen gyakran fordul elő veled ilyen?"],"closing":["Kérdezd meg, mi volt a legmeglepőbb számára a beszélgetésben.","Foglald össze röviden az erősségeket, és egy-két irányt, amerre növekedhet. A torzult mintákat fejlődési lehetőségként fogalmazd meg.","Beszéljétek meg, hogyan kapja meg az eredményt, és ki láthatja.","Ha a közösségben szokás, zárjátok imádsággal."],"anchorsE":{"0":"Nincs konkrét példa, csak általánosságok.","1":"Egy halvány vagy bizonytalan példa.","2":"Van konkrét példa, de csak kedvező körülmények között, nem következetesen.","3":"Több konkrét példa, nehéz helyzetben is.","4":"Következetes minta nehézségek között is, és a verifikátor vagy a „mások szemével” kérdés is visszaigazolja."},"anchorsT":{"0":"Nincs jele; stresszhelyzetben is érett reakció.","1":"Ritkán fordul elő, felismeri és korrigálja.","2":"Időnként előfordul, részben felismeri.","3":"Ismétlődő minta, nyomás alatt jellemző.","4":"Uralkodó minta, nem ismeri fel, vagy igazolja."},"rules":["Az interjús benyomás külön rögzített érték (0–4); nem írja felül és nem vonódik össze a kérdőíves pontokkal.","A pontozás közvetlenül a beszélgetés után történjen, a jegyzetek és a jelek alapján, ne a résztvevő önminősítése alapján.","Az elmondott konkrét viselkedés számít, nem a szándék vagy az általános önkép.","Ha a verifikátor jelen van, az ő példáit is kérjétek; az eltérés beszélgetési téma, nem hibajel."],"safety":"Ha a beszélgetés során komoly krízis jelei merülnek fel (bántalmazás, tartós reménytelenség, önsértés vagy öngyilkosság gondolata), a pontozást hagyd abba, és segíts a kitöltőnek szakemberhez fordulni. Magyarországon a Lelki Elsősegély Telefonszolgálat ingyenesen hívható a 116-123-as számon."},"sjt":{"instructions":"Minden helyzethez három lehetséges reakció tartozik. Válaszd ki, melyiket tennéd a legvalószínűbben, és melyiket a legkevésbé valószínűen. Nem az a kérdés, mit kellene tenni, hanem hogy te mit tennél valójában.","scoring":"Helyzetenként: legvalószínűbb = 2, középső = 1, legkevésbé valószínű = 0 pont. Páronként a 3 helyzet É és T pontjainak összege / 6 × 4, így 0–4 skálán jelenik meg, de külön mérésként, a kérdőíves pontoktól elkülönítve."}}</script>
+<script>
+'use strict';
+const ORIGINAL_HTML = '<!doctype html>\n' + document.documentElement.outerHTML;
+const CONFIG = JSON.parse(document.getElementById('assessment-config').textContent);
+const BANK = JSON.parse(document.getElementById('kerdesbank').textContent);
+
+// ---------- tételek és jellemzők ----------
+
+const SOURCE_TRAITS = BANK.traits.map((t) => ({
+  id: t.id, pair: t.pair, axis: t.axis, direction: t.direction, sub: t.sub, name: t.name, kind: t.kind, definition: t.definition,
+  items: t.items.filter((q) => q.base).map((q) => ({ id: q.id, text: q.text })),
+}));
+const EXTRA_ITEMS = BANK.traits.flatMap((t) => t.items.filter((q) => !q.base).map((q) => ({ ...q, trait: t.id })));
+const FORM = CONFIG.form;
+const VERSION = FORM?.version || 'testudo-0.1';
+const TRAITS = FORM
+  ? SOURCE_TRAITS.map((t) => ({ ...t, items: FORM.items.filter((q) => q.trait === t.id).map((q) => ({ id: q.id, text: q.text, reverse: !!q.reverse })) }))
+  : SOURCE_TRAITS;
+const traitById = Object.fromEntries(TRAITS.map((t) => [t.id, t]));
+const BLOCKS = ['Előre', 'Hátra', 'Oldalra', 'Felfelé · Istenhez igazodás', 'Felfelé · Elhívás és jövőkép', 'Felfelé · Mások felemelése'];
+const AXIS_IDS = ['ELO', 'HAT', 'OLD', 'IST', 'ELH', 'FEL'];
+const axisById = Object.fromEntries(BANK.axes.map((a) => [a.id, a]));
+const DIRS = ['Előre', 'Hátra', 'Oldalra', 'Felfelé'];
+const ROLES = ['self', 'observer'];
+const ROLE_NAME = { self: 'Önértékelés', observer: 'Verifikátor' };
+const ITEMS = TRAITS.flatMap((t, i) => t.items.map((q, k) => ({ ...q, trait: t.id, block: Math.floor(i / 10), k })));
+const itemById = Object.fromEntries(ITEMS.map((q) => [q.id, q]));
+const VALUES = ['0', '1', '2', '3', '4'];
+const VALUE_LABEL = { 0: 'Soha', 1: 'Ritkán', 2: 'Néha', 3: 'Gyakran', 4: 'Szinte mindig' };
+const MISSING = { N: 'Nem volt alkalom', M: 'Nem tudom / nem megfigyelhető', K: 'Kihagyom' };
+const ALL_VALUES = ['', ...VALUES, ...Object.keys(MISSING)];
+const FLAG_AT = 3;
+const MAX_DEEP = 8;
+const pairById = Object.fromEntries(BANK.pairs.map((p) => [p.id, p]));
+
+// ---------- állapot ----------
+
+const blank = () => ({ answers: {}, notes: {}, rater: '', context: '', sjt: {} });
+const blankDeep = () => ({ selected: [], manual: false, interviewer: '', pairs: {} });
+let state = { self: blank(), observer: blank() };
+let deep = blankDeep();
+let role = 'self';
+let block = 0;
+const ui = { persp: 'self', area: BANK.radarOrder[0], deepTab: 'select', pairIdx: 0 };
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const isNum = (v) => VALUES.includes(v);
+const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+const fmt = (v) => (v === null || v === undefined ? '—' : v.toFixed(1).replace('.', ','));
+const status = (s) => { $('status').textContent = s; };
+
+// ---------- pontszámítás ----------
+
+function itemPoints(q, r) {
+  const v = state[r].answers[q.id];
+  return isNum(v) ? (q.reverse ? 4 - Number(v) : Number(v)) : null;
+}
+function traitScore(t, r) {
+  if (!t || !t.items.length) return null;
+  const a = t.items.map((q) => itemPoints(q, r));
+  return a.every((v) => v !== null) ? mean(a) : null;
+}
+function aggregate(ts, r) {
+  const a = ts.map((t) => traitScore(t, r));
+  return a.length && a.every((v) => v !== null) ? mean(a) : null;
+}
+const blockTraits = (b, kind) => TRAITS.filter((t, i) => Math.floor(i / 10) === b && t.kind === kind);
+const areaScore = (axisId, kind, r) => aggregate(blockTraits(AXIS_IDS.indexOf(axisId), kind), r);
+function directionScore(d, kind, r) {
+  if (d !== 'Felfelé') return aggregate(TRAITS.filter((t) => t.direction === d && t.kind === kind), r);
+  const a = [3, 4, 5].map((b) => aggregate(blockTraits(b, kind), r));
+  return a.every((v) => v !== null) ? mean(a) : null;
+}
+const areaFlag = (axisId, r) => blockTraits(AXIS_IDS.indexOf(axisId), 'T').some((t) => (traitScore(t, r) ?? -1) >= FLAG_AT);
+const hasAnswers = (r) => Object.values(state[r].answers).some((v) => v !== '');
+
+// ---------- radar ----------
+
+const COMPACT = window.matchMedia('(max-width: 560px)');
+
+function polar(i, n, r) { const a = -Math.PI / 2 + (i * 2 * Math.PI) / n; return [r * Math.cos(a), r * Math.sin(a)]; }
+const pt = (xy) => xy.map((v) => v.toFixed(1)).join(',');
+function wrap(text, max) {
+  const lines = [];
+  let cur = '';
+  for (const w of String(text).split(' ')) {
+    if (cur && (cur + ' ' + w).length > max) { lines.push(cur); cur = w; } else cur = cur ? `${cur} ${w}` : w;
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+
+// series: [{ name, kind: 'e'|'t', observer: bool, values: [number|null] }]
+function radarSvg({ labels, series, clickable, selected, ariaLabel }) {
+  const n = labels.length;
+  const R = 118;
+  const f = (v) => (v / 4) * R;
+  const compact = COMPACT.matches;
+  const fs = compact ? { t: 19, s: 16, tick: 13, lh: 21, wt: 11, ws: 13 } : { t: 13, s: 11.5, tick: 10, lh: 14, wt: 22, ws: 24 };
+  const vb = compact ? (n === 6 ? '-285 -215 570 430' : '-290 -240 580 490') : (n === 6 ? '-270 -190 540 380' : '-285 -195 570 395');
+  let g = '';
+  for (const lv of [1, 2, 3, 4]) g += `<polygon class="grid" points="${labels.map((_, i) => pt(polar(i, n, f(lv)))).join(' ')}"/>`;
+  labels.forEach((_, i) => { const [x, y] = polar(i, n, R); g += `<line class="grid" x1="0" y1="0" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`; });
+  for (const lv of [2, 4]) g += `<text class="tick" x="7" y="${(-f(lv) + 11).toFixed(1)}" font-size="${fs.tick}">${lv}</text>`;
+  for (const s of series) {
+    if (s.values.every((v) => v !== null)) {
+      g += `<polygon class="poly ${s.kind}${s.observer ? ' dash' : ''}" points="${s.values.map((v, i) => pt(polar(i, n, f(v)))).join(' ')}"/>`;
+    }
+  }
+  for (const s of series) {
+    s.values.forEach((v, i) => {
+      if (v === null) return;
+      const [x, y] = polar(i, n, f(v));
+      g += s.observer
+        ? `<rect class="mk ${s.kind}" x="${(x - 4.5).toFixed(1)}" y="${(y - 4.5).toFixed(1)}" width="9" height="9"/>`
+        : `<circle class="mk ${s.kind}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5"/>`;
+    });
+  }
+  labels.forEach((l, i) => {
+    const [hx, hy] = polar(i, n, R + 8);
+    const tip = `${l.tipTitle}: ${series.map((s) => `${s.name} ${fmt(s.values[i])}`).join(' · ')}${l.flag ? ' · beszélgetésre javasolt' : ''}`;
+    g += `<line class="hit" x1="0" y1="0" x2="${hx.toFixed(1)}" y2="${hy.toFixed(1)}" data-tip="${esc(tip)}"/>`;
+    const [lx, ly] = polar(i, n, R + 16);
+    const anchor = Math.abs(lx) < 8 ? 'middle' : lx > 0 ? 'start' : 'end';
+    const lines = [
+      ...wrap(l.title, fs.wt).map((t) => ({ t, c: 'lt', size: fs.t })),
+      ...(l.sub ? wrap(l.sub, fs.ws) : []).map((t) => ({ t, c: 'ls', size: fs.s })),
+      ...(series.some((s) => s.values[i] === null) ? [{ t: '(hiányos adat)', c: 'ls', size: fs.s }] : []),
+    ];
+    let y0;
+    if (ly < -R * 0.9) y0 = ly - (lines.length - 1) * fs.lh;
+    else if (ly > R * 0.9) y0 = ly + 10;
+    else y0 = ly - ((lines.length - 1) * fs.lh) / 2 + 4;
+    const tspans = lines.map((ln, j) => {
+      const flag = j === 0 && l.flag ? '<tspan class="flag">⚠ </tspan>' : '';
+      return `<tspan x="${lx.toFixed(1)}" y="${(y0 + j * fs.lh).toFixed(1)}" class="${ln.c}" font-size="${ln.size}">${flag}${esc(ln.t)}</tspan>`;
+    }).join('');
+    const attrs = clickable
+      ? ` class="lbl click${l.key === selected ? ' sel' : ''}" role="button" tabindex="0" data-area="${l.key}" aria-label="${esc(l.tipTitle)} részletei"`
+      : ' class="lbl"';
+    g += `<text text-anchor="${anchor}"${attrs}>${tspans}</text>`;
+  });
+  return `<div class="radar-wrap"><svg viewBox="${vb}" role="img" aria-label="${esc(ariaLabel)}">${g}</svg><div class="tip" hidden></div></div>`;
+}
+
+function swatch(kind, observer) {
+  const c = kind === 'e' ? 'var(--mature)' : 'var(--distorted)';
+  const mark = observer
+    ? `<rect x="10.5" y="1.5" width="9" height="9" fill="${c}" stroke="var(--surface)" stroke-width="2"/>`
+    : `<circle cx="15" cy="6" r="4.5" fill="${c}" stroke="var(--surface)" stroke-width="2"/>`;
+  return `<svg width="30" height="12" aria-hidden="true"><line x1="0" y1="6" x2="30" y2="6" stroke="${c}" stroke-width="2"${observer ? ' stroke-dasharray="6 4"' : ''}/>${mark}</svg>`;
+}
+
+function legendHtml(series, withFlag) {
+  return `<ul class="legend">${series.map((s) => `<li>${swatch(s.kind, s.observer)}${esc(s.name)}</li>`).join('')}${withFlag ? `<li><span class="icon-warn" aria-hidden="true">⚠</span>Beszélgetésre javasolt (torzult vonás ≥ ${FLAG_AT}, „gyakran”)</li>` : ''}</ul>`;
+}
+
+function seriesFor(persp, valuesFn) {
+  if (persp === 'compare') return null;
+  const obs = persp === 'observer';
+  const who = ROLE_NAME[persp].toLowerCase();
+  return [
+    { name: `Érett – ${who}`, kind: 'e', observer: obs, values: valuesFn('E', persp) },
+    { name: `Torzult – ${who}`, kind: 't', observer: obs, values: valuesFn('T', persp) },
+  ];
+}
+
+function compareSeries(kind, valuesFn) {
+  const layer = kind === 'E' ? 'Érett' : 'Torzult';
+  const k = kind === 'E' ? 'e' : 't';
+  return [
+    { name: `${layer} – önértékelés`, kind: k, observer: false, values: valuesFn(kind, 'self') },
+    { name: `${layer} – verifikátor`, kind: k, observer: true, values: valuesFn(kind, 'observer') },
+  ];
+}
+
+function renderResults() {
+  const order = BANK.radarOrder;
+  document.querySelectorAll('[data-persp]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.persp === ui.persp)));
+  const areaValues = (kind, r) => order.map((id) => areaScore(id, kind, r));
+  const areaLabels = (flagRoles) => order.map((id) => ({
+    key: id, title: axisById[id].name, sub: axisById[id].direction === axisById[id].name ? '' : axisById[id].direction,
+    tipTitle: axisById[id].name, flag: flagRoles.some((r) => areaFlag(id, r)),
+  }));
+  const areaAria = (series) => series.map((s) => `${s.name}: ${order.map((id, i) => `${axisById[id].name} ${fmt(s.values[i])}`).join(', ')}`).join('; ');
+
+  let overview;
+  if (ui.persp === 'compare') {
+    const sE = compareSeries('E', areaValues);
+    const sT = compareSeries('T', areaValues);
+    overview = `<div class="radar-pair">
+      <div><h3>Érett működés</h3>${radarSvg({ labels: areaLabels([]), series: sE, clickable: true, selected: ui.area, ariaLabel: areaAria(sE) })}${legendHtml(sE, false)}</div>
+      <div><h3>Torzult működés</h3>${radarSvg({ labels: areaLabels(ROLES), series: sT, clickable: true, selected: ui.area, ariaLabel: areaAria(sT) })}${legendHtml(sT, true)}</div></div>`;
+  } else {
+    const s = seriesFor(ui.persp, areaValues);
+    overview = radarSvg({ labels: areaLabels([ui.persp]), series: s, clickable: true, selected: ui.area, ariaLabel: areaAria(s) }) + legendHtml(s, true);
+    if (!hasAnswers(ui.persp)) overview = `<p class="notice">Ehhez a nézőponthoz még nincs válasz ebben a példányban.</p>` + overview;
+  }
+  $('overview').innerHTML = overview;
+
+  const ax = axisById[ui.area];
+  $('areaTitle').innerHTML = `${esc(ax.name)} <span class="small">· ${esc(ax.direction)} · ${esc(ax.meaning)}</span>`;
+  $('areaTabs').innerHTML = order.map((id) => {
+    const flagged = ui.persp === 'compare' ? ROLES.some((r) => areaFlag(id, r)) : areaFlag(id, ui.persp);
+    return `<button data-area="${id}" aria-pressed="${id === ui.area}">${flagged ? '<span class="icon-warn" aria-hidden="true">⚠</span>' : ''}${esc(axisById[id].name)}</button>`;
+  }).join('');
+  const pairs = BANK.pairs.filter((p) => p.axis === ui.area);
+  const pairValues = (kind, r) => pairs.map((p) => traitScore(traitById[kind === 'E' ? p.mature : p.distorted], r));
+  const pairLabels = (flagRoles) => pairs.map((p) => ({
+    key: p.id, title: traitById[p.mature].name, sub: traitById[p.distorted].name,
+    tipTitle: `${traitById[p.mature].name} / ${traitById[p.distorted].name}`,
+    flag: flagRoles.some((r) => (traitScore(traitById[p.distorted], r) ?? -1) >= FLAG_AT),
+  }));
+  const pairAria = (series) => series.map((s) => `${s.name}: ${pairs.map((p, i) => `${traitById[p.mature].name} ${fmt(s.values[i])}`).join(', ')}`).join('; ');
+  let detail;
+  if (ui.persp === 'compare') {
+    const sE = compareSeries('E', pairValues);
+    const sT = compareSeries('T', pairValues);
+    detail = `<div class="radar-pair">
+      <div><h3>Érett</h3>${radarSvg({ labels: pairLabels([]), series: sE, ariaLabel: pairAria(sE) })}</div>
+      <div><h3>Torzult</h3>${radarSvg({ labels: pairLabels(ROLES), series: sT, ariaLabel: pairAria(sT) })}</div></div>`;
+  } else {
+    const s = seriesFor(ui.persp, pairValues);
+    detail = radarSvg({ labels: pairLabels([ui.persp]), series: s, ariaLabel: pairAria(s) });
+  }
+  $('detail').innerHTML = detail + traitTable(pairs.flatMap((p) => [traitById[p.mature], traitById[p.distorted]]), false);
+
+  let rows = '';
+  DIRS.forEach((d) => ['E', 'T'].forEach((k) => {
+    const ts = TRAITS.filter((t) => t.direction === d && t.kind === k);
+    rows += `<tr><td>${d}</td><td>${k === 'E' ? 'Érett' : 'Torzult'}</td>${ROLES.map((r) => `<td class="num">${fmt(directionScore(d, k, r))} <small>(${ts.filter((t) => traitScore(t, r) !== null).length}/${ts.length})</small></td>`).join('')}</tr>`;
+  }));
+  [3, 4, 5].forEach((b) => ['E', 'T'].forEach((k) => {
+    const ts = blockTraits(b, k);
+    rows += `<tr><td>${BLOCKS[b]}</td><td>${k === 'E' ? 'Érett' : 'Torzult'}</td>${ROLES.map((r) => `<td class="num">${fmt(aggregate(ts, r))} <small>(${ts.filter((t) => traitScore(t, r) !== null).length}/5)</small></td>`).join('')}</tr>`;
+  }));
+  $('summary').innerHTML = `<table><tr><th>Irány / terület</th><th>Működés</th><th class="num">Önértékelés (teljes tulajdonság)</th><th class="num">Verifikátor (teljes tulajdonság)</th></tr>${rows}</table>`;
+  $('traitResults').innerHTML = traitTable(TRAITS, true);
+}
+
+function traitTable(ts, withDirection) {
+  const cell = (t, r) => {
+    const v = traitScore(t, r);
+    const n = t.items.filter((q) => isNum(state[r].answers[q.id])).length;
+    return `<td class="num">${fmt(v)} <small>(${n}/${t.items.length})</small>${v === null ? '' : `<div class="bar ${t.kind.toLowerCase()}${r === 'observer' ? ' obs' : ''}"><span style="width:${v * 25}%"></span></div>`}</td>`;
+  };
+  return `<div class="table-scroll"><table><tr><th>Jellemző</th><th class="num">Önértékelés</th><th class="num">Verifikátor</th><th class="num">Eltérés</th></tr>${ts.map((t) => {
+    const a = traitScore(t, 'self');
+    const b = traitScore(t, 'observer');
+    const flag = t.kind === 'T' && ROLES.some((r) => (traitScore(t, r) ?? -1) >= FLAG_AT);
+    return `<tr><td><small>${t.id}${withDirection ? ` · ${esc(t.direction)}` : ''} · ${t.kind === 'E' ? 'érett' : 'torzult'}</small><br>${flag ? '<span class="icon-warn" aria-label="beszélgetésre javasolt">⚠</span> ' : ''}${esc(t.name)}</td>${cell(t, 'self')}${cell(t, 'observer')}<td class="num">${a !== null && b !== null ? fmt(a - b) : '—'}</td></tr>`;
+  }).join('')}</table></div>`;
+}
+
+// ---------- kitöltés ----------
+
+function answerHtml(name, value, attrs) {
+  return `<div class="answers">${VALUES.map((v) => `<label><input type="radio" name="${name}" value="${v}" ${value === v ? 'checked' : ''} ${attrs}><span><b>${v}</b>${VALUE_LABEL[v]}</span></label>`).join('')}</div>
+    <div class="missing">${Object.entries(MISSING).map(([k, l]) => `<label><input type="radio" name="${name}" value="${k}" ${value === k ? 'checked' : ''} ${attrs}><span>${k} · ${l}</span></label>`).join('')}</div>`;
+}
+
+function progress() {
+  const a = ITEMS.map((q) => state[role].answers[q.id]).filter((v) => v && v !== '');
+  $('completion').textContent = `${a.length}/${ITEMS.length} megválaszolva · ${a.filter(isNum).length} számszerű`;
+  $('bar').style.width = `${(a.length / ITEMS.length) * 100}%`;
+}
+
+function renderSurvey() {
+  $('rater').value = state[role].rater;
+  $('context').value = state[role].context;
+  $('roleHelp').textContent = role === 'self'
+    ? 'Az állítások alanya te vagy. Saját tényleges viselkedésedről válaszolj.'
+    : 'Az állítások a résztvevőre vonatkoznak. Csak saját tapasztalatra vagy ténylegesen hallott beszámolóra támaszkodj.';
+  const offset = ITEMS.filter((q) => q.block < block).length;
+  const qs = ITEMS.filter((q) => q.block === block).sort((a, b) => a.k - b.k || (a.k === 0 ? a.id.localeCompare(b.id) : b.id.localeCompare(a.id)));
+  $('questions').innerHTML = qs.map((q, i) => `<fieldset class="item"><legend><span class="qid">${offset + i + 1}. állítás · ${esc(q.id)}</span>${esc(q.text)}</legend>
+    ${answerHtml(`q-${q.id}`, state[role].answers[q.id], `data-id="${esc(q.id)}"`)}</fieldset>`).join('');
+  $('blockNote').value = state[role].notes[block] || '';
+  $('prev').disabled = block === 0;
+  $('next').disabled = block === BLOCKS.length - 1;
+  $('block').value = block;
+  progress();
+}
+
+// ---------- mélyfúrás ----------
+
+function pairScores(p) {
+  const E = traitById[p.mature];
+  const T = traitById[p.distorted];
+  return {
+    self: { E: traitScore(E, 'self'), T: traitScore(T, 'self') },
+    observer: { E: traitScore(E, 'observer'), T: traitScore(T, 'observer') },
+  };
+}
+const maxOf = (...xs) => { const v = xs.filter((x) => x !== null && x !== undefined); return v.length ? Math.max(...v) : null; };
+
+const REASONS = { 1: 'túlhajtott erősség', 2: 'gyakori torzult működés', 3: 'eltérő nézőpontok', 4: 'támaszkodható erősség', manual: 'kézzel kiválasztva' };
+
+function suggestPairs() {
+  const rows = BANK.pairs.map((p, idx) => {
+    const s = pairScores(p);
+    const gap = maxOf(
+      s.self.E !== null && s.observer.E !== null ? Math.abs(s.self.E - s.observer.E) : null,
+      s.self.T !== null && s.observer.T !== null ? Math.abs(s.self.T - s.observer.T) : null,
+    );
+    return { id: p.id, axis: p.axis, idx, s, maxT: maxOf(s.self.T, s.observer.T), maxE: maxOf(s.self.E, s.observer.E), gap };
+  });
+  const picked = [];
+  const count = {};
+  const has = (id) => picked.some((x) => x.id === id);
+  function tier(reason, filter, key, limit = Infinity) {
+    const cands = rows.filter((c) => !has(c.id) && filter(c)).sort((x, y) => key(y) - key(x) || x.idx - y.idx);
+    let taken = 0;
+    while (cands.length && picked.length < MAX_DEEP && taken < limit) {
+      const ties = cands.filter((c) => key(c) === key(cands[0]));
+      const pick = ties.reduce((b, c) => ((count[c.axis] || 0) < (count[b.axis] || 0) ? c : b));
+      cands.splice(cands.indexOf(pick), 1);
+      picked.push({ id: pick.id, reason });
+      count[pick.axis] = (count[pick.axis] || 0) + 1;
+      taken++;
+    }
+  }
+  const both = (r, c) => c.s[r].E !== null && c.s[r].T !== null && c.s[r].E >= FLAG_AT && c.s[r].T >= FLAG_AT;
+  tier(1, (c) => both('self', c) || both('observer', c), (c) => c.maxT);
+  tier(2, (c) => c.maxT !== null && c.maxT >= FLAG_AT, (c) => c.maxT);
+  tier(3, (c) => c.gap !== null && c.gap >= 1.5, (c) => c.gap);
+  tier(4, (c) => c.maxE !== null && c.maxE >= 3.5 && c.maxT !== null && c.maxT <= 1, (c) => c.maxE, 2);
+  return picked;
+}
+
+const deepSelection = () => (deep.manual ? deep.selected.map((id) => ({ id, reason: 'manual' })) : suggestPairs());
+const deepIds = () => deepSelection().map((s) => s.id);
+const pairTitle = (p) => `${traitById[p.mature].name} / ${traitById[p.distorted].name}`;
+
+function hashSeed(str) { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function optionOrder(pid, s) {
+  let x = hashSeed(`${VERSION}|${pid}|${s}`) || 1;
+  const rand = () => { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return (x >>> 0) / 4294967296; };
+  const arr = ['E', 'T', 'H'];
+  for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+  return arr;
+}
+function sjtScores(pid) {
+  const arr = state.self.sjt[pid];
+  if (!arr || arr.length !== 3 || !arr.every((s) => s && s.most && s.least)) return null;
+  const pts = { E: 0, T: 0, H: 0 };
+  for (const s of arr) {
+    pts[s.most] += 2;
+    pts[['E', 'T', 'H'].find((k) => k !== s.most && k !== s.least)] += 1;
+  }
+  return { E: (pts.E / 6) * 4, T: (pts.T / 6) * 4, H: (pts.H / 6) * 4 };
+}
+const sjtDone = (pid) => !!sjtScores(pid);
+const ivDone = (pid) => { const o = deep.pairs[pid]; return !!o && (o.E !== null && o.E !== undefined) && (o.T !== null && o.T !== undefined); };
+
+function ratingHtml(name, value, attrs) {
+  return `<div class="answers">${VALUES.map((v) => `<label><input type="radio" name="${name}" value="${v}" ${String(value) === v ? 'checked' : ''} ${attrs}><span><b>${v}</b></span></label>`).join('')}</div>`;
+}
+
+function pairNav(ids, label) {
+  const i = Math.min(ui.pairIdx, ids.length - 1);
+  return `<div class="pair-nav"><button data-pairstep="-1" ${i === 0 ? 'disabled' : ''}>Előző pár</button><span class="small">${label} · ${i + 1} / ${ids.length}</span><button class="primary" data-pairstep="1" ${i === ids.length - 1 ? 'disabled' : ''}>Következő pár</button></div>`;
+}
+
+function deepSelectHtml() {
+  const sel = deepSelection();
+  const ids = sel.map((s) => s.id);
+  const chips = sel.length
+    ? `<ul class="chips">${sel.map((s) => `<li>${esc(pairTitle(pairById[s.id]))} <span class="why">· ${esc(REASONS[s.reason])}</span></li>`).join('')}</ul>`
+    : '<p class="notice">Az eddigi kitöltésekből nincs javasolt pár (vagy még nincs elég adat). Válassz ki kézzel legalább egyet.</p>';
+  const groups = BANK.axes.map((ax) => `<h4>${esc(ax.name)}</h4>${BANK.pairs.filter((p) => p.axis === ax.id).map((p) => {
+    const on = ids.includes(p.id);
+    const s = pairScores(p);
+    return `<label><input type="checkbox" data-deepsel="${p.id}" ${on ? 'checked' : ''} ${!on && ids.length >= MAX_DEEP ? 'disabled' : ''}><span>${esc(pairTitle(p))} <span class="small">(önért. ${fmt(s.self.E)} / ${fmt(s.self.T)} · verif. ${fmt(s.observer.E)} / ${fmt(s.observer.T)})</span></span></label>`;
+  }).join('')}`).join('');
+  return `<h3>Kiemelt párok (${ids.length} / ${MAX_DEEP})</h3>
+    <p class="small">Javaslat a beszélgetéshez, nem besorolás. Sorrend: túlhajtott erősség (érett és torzult is ≥ ${FLAG_AT}), gyakori torzult működés (≥ ${FLAG_AT}), eltérő nézőpontok (≥ 1,5 pont), támaszkodható erősség. A lista kézzel módosítható.</p>
+    ${chips}
+    <details ${ui.selOpen ? 'open' : ''} id="deepSelDetails"><summary>Kiválasztás módosítása</summary>
+      <p class="small">Zárójelben az érett / torzult pont. ${deep.manual ? '<button data-deepauto>Javasolt lista visszaállítása</button>' : ''}</p>
+      <div class="select-grid">${groups}</div></details>`;
+}
+
+function deepSjtHtml() {
+  const ids = deepIds();
+  if (!ids.length) return '<p class="notice">Előbb válassz ki párokat az 1. lépésben.</p>';
+  const i = Math.min(ui.pairIdx, ids.length - 1);
+  const pid = ids[i];
+  const p = pairById[pid];
+  const scen = p.sjt.map((sc, s) => {
+    const e = state.self.sjt[pid]?.[s] || {};
+    const opts = optionOrder(pid, s).map((k, j) => `<div class="option"><p>${esc(sc[k])}</p><div class="choices" role="group" aria-label="${j + 1}. reakció">
+      <label class="choice"><input type="radio" name="m-${pid}-${s}" data-sjt="most" data-pid="${pid}" data-s="${s}" value="${k}" ${e.most === k ? 'checked' : ''}><span>Legvalószínűbb</span></label>
+      <label class="choice"><input type="radio" name="l-${pid}-${s}" data-sjt="least" data-pid="${pid}" data-s="${s}" value="${k}" ${e.least === k ? 'checked' : ''}><span>Legkevésbé valószínű</span></label></div></div>`).join('');
+    return `<div class="scenario"><p class="stem">${i * 3 + s + 1}. ${esc(sc.stem)}</p>${opts}</div>`;
+  }).join('');
+  const done = ids.filter(sjtDone).length;
+  return `${role !== 'self' ? '<p class="notice">A szituációkat az önértékelő tölti ki; a válaszok az önértékelés mentésébe kerülnek.</p>' : ''}
+    <div class="card"><p>${esc(BANK.sjt.instructions)}</p><p class="small">${done} / ${ids.length} csoport kész. A csoportok nem mutatják, melyik párt mérik.</p></div>
+    ${scen}${pairNav(ids, 'Helyzetcsoport')}`;
+}
+
+function deepIvHtml() {
+  const ids = deepIds();
+  if (!ids.length) return '<p class="notice">Előbb válassz ki párokat az 1. lépésben.</p>';
+  const i = Math.min(ui.pairIdx, ids.length - 1);
+  const pid = ids[i];
+  const p = pairById[pid];
+  const q = p.interview;
+  const iv = BANK.interview;
+  const o = deep.pairs[pid] || {};
+  const s = pairScores(p);
+  const first = i === 0 ? `<div class="card"><label class="block" style="margin-top:0">Kérdező neve<input type="text" data-interviewer value="${esc(deep.interviewer)}" autocomplete="off"></label>
+      <h3>Nyitás</h3><ul>${iv.intro.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p class="small">Időigény: ${esc(iv.duration)}.</p></div>
+      <p class="notice"><b>Biztonság:</b> ${esc(iv.safety)}</p>` : '';
+  const last = i === ids.length - 1 ? `<div class="card"><h3 style="margin-top:0">Zárás</h3><ul>${iv.closing.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>` : '';
+  return `${first}
+    <h3>${esc(pairTitle(p))}</h3>
+    <p class="small">${esc(axisById[p.axis].name)} (${esc(axisById[p.axis].direction)}) · kérdőív: önért. ${fmt(s.self.E)} / ${fmt(s.self.T)} · verif. ${fmt(s.observer.E)} / ${fmt(s.observer.T)}</p>
+    <ol class="qlist">
+      <li><span class="qlabel">Nyitó történet</span>${esc(q.main)}</li>
+      <li><span class="qlabel">Stresszhelyzet</span>${esc(q.stress)}</li>
+      <li><span class="qlabel">Mások szemével</span>${esc(q.others)}</li>
+    </ol>
+    <details><summary>Általános rákérdezések</summary><ul>${iv.probes.map((x) => `<li>„${esc(x)}”</li>`).join('')}</ul></details>
+    <div class="card"><p><b>Érett jelek:</b></p><ul>${q.signsE.map((x) => `<li>${esc(x)}</li>`).join('')}</ul><p><b>Torzult jelek:</b></p><ul>${q.signsT.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>
+    <fieldset class="item"><legend><b>Interjús benyomás – érett: ${esc(traitById[p.mature].name)}</b></legend>${ratingHtml(`ivE-${pid}`, o.E, `data-iv="E" data-pid="${pid}"`)}</fieldset>
+    <fieldset class="item"><legend><b>Interjús benyomás – torzult: ${esc(traitById[p.distorted].name)}</b></legend>${ratingHtml(`ivT-${pid}`, o.T, `data-iv="T" data-pid="${pid}"`)}</fieldset>
+    <details><summary>Pontozási útmutató (0–4)</summary><div class="table-scroll"><table><tr><th class="num">Pont</th><th>Érett</th><th>Torzult</th></tr>${VALUES.map((k) => `<tr><td class="num">${k}</td><td>${esc(iv.anchorsE[k])}</td><td>${esc(iv.anchorsT[k])}</td></tr>`).join('')}</table></div><ul>${iv.rules.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></details>
+    <label class="block">Jegyzet<textarea data-ivnote="${pid}">${esc(o.notes || '')}</textarea></label>
+    ${last}${pairNav(ids, 'Pár')}`;
+}
+
+function deepSumHtml() {
+  const ids = deepIds();
+  if (!ids.length) return '<p class="notice">Még nincs kiválasztott pár.</p>';
+  const rows = ids.map((pid) => {
+    const p = pairById[pid];
+    const s = pairScores(p);
+    const sj = sjtScores(pid);
+    const o = deep.pairs[pid] || {};
+    const num = (v) => (v === null || v === undefined || v === '' ? null : Number(v));
+    return `<tr><td>${esc(pairTitle(p))}${sj && sj.H > sj.E && sj.H > sj.T ? '<br><small>a szituációkban többnyire a vonás hiánya jelent meg</small>' : ''}</td>
+      <td class="num">${fmt(s.self.E)} / ${fmt(s.self.T)}</td><td class="num">${fmt(s.observer.E)} / ${fmt(s.observer.T)}</td>
+      <td class="num">${sj ? `${fmt(sj.E)} / ${fmt(sj.T)}` : '—'}</td><td class="num">${fmt(num(o.E))} / ${fmt(num(o.T))}</td></tr>`;
+  }).join('');
+  return `<p class="small">Minden érték 0–4, érett / torzult. A négy forrás külön mérés, nem vonódnak össze. A szituációs érték rangsorolásból származik: egy helyzeten belül az érett és a torzult reakció nem lehet egyszerre első, ezért a két réteg viszonyát méri, nem a független gyakoriságukat.</p>
+    <div class="table-scroll"><table><tr><th>Pár</th><th class="num">Kérdőív – önért.</th><th class="num">Kérdőív – verif.</th><th class="num">Szituációk</th><th class="num">Interjú</th></tr>${rows}</table></div>`;
+}
+
+function renderDeep() {
+  document.querySelectorAll('[data-deep]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.deep === ui.deepTab)));
+  const ids = deepIds();
+  if (ui.pairIdx >= ids.length) ui.pairIdx = Math.max(0, ids.length - 1);
+  $('deepBody').innerHTML = { select: deepSelectHtml, sjt: deepSjtHtml, iv: deepIvHtml, sum: deepSumHtml }[ui.deepTab]();
+}
+
+// ---------- mentés, betöltés, CSV ----------
+
+function meta() { return { subject: $('subject').value.trim(), start: $('start').value, end: $('end').value }; }
+function validateMeta(m) {
+  if (!m || !m.subject || !/^\d{4}-\d{2}-\d{2}$/.test(m.start) || !/^\d{4}-\d{2}-\d{2}$/.test(m.end)) throw Error('Add meg a résztvevő kódját és a két dátumot.');
+  if ((Date.parse(m.end) - Date.parse(m.start)) / 86400000 + 1 !== 28) throw Error('Az időszak legyen pontosan 28 nap, a kezdő- és zárónapot is beleszámítva.');
+}
+function downloadContent(content, name, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], { type }));
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+const downloadJson = (payload, name) => downloadContent(JSON.stringify(payload, null, 2), name, 'application/json');
+const safeName = (s) => s.replace(/[^a-zA-Z0-9_-]/g, '_');
+const deepEmpty = () => !deep.selected.length && !deep.manual && !deep.interviewer && !Object.keys(deep.pairs).length;
+
+$('save').onclick = () => {
+  try {
+    const m = meta();
+    validateMeta(m);
+    const p = { version: VERSION, meta: m, role, data: state[role], joint: $('joint').value, deep, exportedAt: new Date().toISOString() };
+    downloadJson(p, `testudo-${safeName(m.subject)}-${m.end}-${role}.json`);
+    status('Aktív nézőpont, közös jegyzet és mélyfúrás exportálva. Ellenőrizd a letöltést.');
+  } catch (e) { status(e.message); }
+};
+
+function cleanSjt(raw) {
+  const out = {};
+  if (!raw || typeof raw !== 'object') return out;
+  for (const [pid, arr] of Object.entries(raw)) {
+    if (!pairById[pid] || !Array.isArray(arr)) throw Error('Hibás szituációs válasz.');
+    const ok = (k) => (['E', 'T', 'H'].includes(k) ? k : undefined);
+    out[pid] = [0, 1, 2].map((i) => ({ most: ok(arr[i]?.most), least: ok(arr[i]?.least) }));
+  }
+  return out;
+}
+function cleanDeep(raw) {
+  const d = blankDeep();
+  if (!raw || typeof raw !== 'object') return d;
+  d.selected = Array.isArray(raw.selected) ? raw.selected.filter((id) => pairById[id]).slice(0, MAX_DEEP) : [];
+  d.manual = !!raw.manual;
+  d.interviewer = typeof raw.interviewer === 'string' ? raw.interviewer : '';
+  const sc = (v) => (VALUES.includes(String(v)) ? Number(v) : null);
+  for (const [pid, o] of Object.entries(raw.pairs || {})) {
+    if (!pairById[pid] || !o) continue;
+    d.pairs[pid] = { E: sc(o.E), T: sc(o.T), notes: typeof o.notes === 'string' ? o.notes : '' };
+  }
+  return d;
+}
+
+$('loadBtn').onclick = () => $('load').click();
+$('load').onchange = async () => {
+  try {
+    const f = $('load').files[0];
+    if (!f) return;
+    if (f.size > 1000000) throw Error('Túl nagy fájl.');
+    const p = JSON.parse(await f.text());
+    if (p.version !== VERSION || !ROLES.includes(p.role) || !p.data || !p.data.answers || typeof p.data.answers !== 'object' || Array.isArray(p.data.answers)) throw Error('Nem kompatibilis felmérésfájl.');
+    validateMeta(p.meta);
+    const current = meta();
+    const hasData = ROLES.some(hasAnswers);
+    if (hasData && ['subject', 'start', 'end'].some((k) => current[k] !== p.meta[k])) throw Error('Eltérő résztvevő vagy időszak. Ehhez nyiss új példányt.');
+    const clean = blank();
+    for (const [id, v] of Object.entries(p.data.answers)) {
+      if (!itemById[id] || !ALL_VALUES.includes(v)) throw Error('Hibás tételazonosító vagy válasz.');
+      clean.answers[id] = v;
+    }
+    for (let b = 0; b < BLOCKS.length; b++) if (typeof p.data.notes?.[b] === 'string') clean.notes[b] = p.data.notes[b];
+    for (const k of ['rater', 'context']) if (typeof p.data[k] === 'string') clean[k] = p.data[k];
+    if (p.role === 'self') clean.sjt = cleanSjt(p.data.sjt);
+    const loadedDeep = cleanDeep(p.deep);
+    if (hasAnswers(p.role) && !confirm('Lecseréled e nézőpont meglévő válaszait?')) return;
+    state[p.role] = clean;
+    for (const k of ['subject', 'start', 'end']) $(k).value = p.meta[k];
+    if (typeof p.joint === 'string' && p.joint) {
+      if (!$('joint').value) $('joint').value = p.joint;
+      else if ($('joint').value !== p.joint) $('joint').value += '\n\nTovábbi betöltött jegyzet:\n' + p.joint;
+    }
+    if (deepEmpty()) deep = loadedDeep;
+    else {
+      for (const [pid, o] of Object.entries(loadedDeep.pairs)) if (!deep.pairs[pid]) deep.pairs[pid] = o;
+      if (!deep.interviewer) deep.interviewer = loadedDeep.interviewer;
+    }
+    role = p.role;
+    $('role').value = role;
+    renderSurvey();
+    renderResults();
+    renderDeep();
+    status('Kitöltés betöltve.');
+  } catch (e) { status('Betöltés sikertelen: ' + e.message); } finally { $('load').value = ''; }
+};
+
+function csvCell(v) {
+  if (v === null || v === undefined) return '';
+  let s = typeof v === 'number' ? String(Math.round(v * 1000) / 1000).replace('.', ',') : String(v);
+  if (typeof v === 'string' && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+  return /[";\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+const toCsv = (rows) => '﻿' + rows.map((r) => r.map(csvCell).join(';')).join('\r\n') + '\r\n';
+const presentRoles = () => ROLES.filter(hasAnswers);
+
+function csvFileName(suffix) {
+  const m = meta();
+  return `testudo-${safeName(m.subject || 'resztvevo')}-${m.end || 'datum'}-${suffix}.csv`;
+}
+
+$('csvLong').onclick = () => {
+  const m = meta();
+  const base = [m.subject, m.start, m.end, VERSION];
+  const rows = [['resztvevo', 'kezdet', 'veg', 'verzio', 'nezopont', 'ertekelo', 'kozeg', 'tipus', 'kod', 'vonas', 'vonas_nev', 'irany', 'terulet', 'reteg', 'valasz', 'pont', 'szoveg']];
+  for (const r of ROLES) {
+    const st = state[r];
+    const rb = [...base, ROLE_NAME[r], st.rater, st.context];
+    for (const q of ITEMS) {
+      const t = traitById[q.trait];
+      rows.push([...rb, 'tetel', q.id, t.id, t.name, t.direction, axisById[t.axis].name, t.kind === 'E' ? 'érett' : 'torzult', st.answers[q.id] || '', itemPoints(q, r), q.text]);
+    }
+    for (const t of TRAITS) rows.push([...rb, 'vonas', t.id, t.id, t.name, t.direction, axisById[t.axis].name, t.kind === 'E' ? 'érett' : 'torzult', '', traitScore(t, r), '']);
+    for (const id of AXIS_IDS) for (const k of ['E', 'T']) rows.push([...rb, 'terulet', id, '', '', axisById[id].direction, axisById[id].name, k === 'E' ? 'érett' : 'torzult', '', areaScore(id, k, r), '']);
+    for (const d of DIRS) for (const k of ['E', 'T']) rows.push([...rb, 'irany', d, '', '', d, '', k === 'E' ? 'érett' : 'torzult', '', directionScore(d, k, r), '']);
+    for (const [b, note] of Object.entries(st.notes)) if (note) rows.push([...rb, 'blokkjegyzet', BLOCKS[b], '', '', '', '', '', '', '', note]);
+  }
+  for (const p of BANK.pairs) {
+    const arr = state.self.sjt[p.id];
+    if (arr) arr.forEach((e, s) => {
+      for (const [k, lab] of [['most', 'legvalószínűbb'], ['least', 'legkevésbé']]) {
+        if (e?.[k]) rows.push([...base, 'Önértékelés', state.self.rater, '', 'szituacio', `${p.id}/${s + 1}`, '', pairTitle(p), '', axisById[p.axis].name, lab, e[k] === 'E' ? 'É' : e[k], '', p.sjt[s][e[k]]]);
+      }
+    });
+    const sj = sjtScores(p.id);
+    if (sj) for (const k of ['E', 'T']) rows.push([...base, 'Önértékelés', state.self.rater, '', 'szituacio_pont', p.id, k === 'E' ? p.mature : p.distorted, pairTitle(p), '', axisById[p.axis].name, k === 'E' ? 'érett' : 'torzult', '', sj[k], '']);
+    const o = deep.pairs[p.id];
+    if (o) {
+      for (const k of ['E', 'T']) if (o[k] !== null && o[k] !== undefined) rows.push([...base, 'Kérdező', deep.interviewer, '', 'interju_pont', p.id, k === 'E' ? p.mature : p.distorted, pairTitle(p), '', axisById[p.axis].name, k === 'E' ? 'érett' : 'torzult', o[k], o[k], '']);
+      if (o.notes) rows.push([...base, 'Kérdező', deep.interviewer, '', 'interju_jegyzet', p.id, '', pairTitle(p), '', axisById[p.axis].name, '', '', '', o.notes]);
+    }
+  }
+  rows.push([...base, '', '', '', 'melyfuras_parok', '', '', '', '', '', '', '', '', deepIds().join(' ')]);
+  if ($('joint').value) rows.push([...base, '', '', '', 'kozos_jegyzet', '', '', '', '', '', '', '', '', $('joint').value]);
+  downloadContent(toCsv(rows), csvFileName('reszletes'), 'text/csv;charset=utf-8');
+  status('Részletes CSV exportálva (mindkét nézőpont, ami ebben a példányban van).');
+};
+
+$('csvWide').onclick = () => {
+  const m = meta();
+  const head = ['resztvevo', 'kezdet', 'veg', 'verzio', 'nezopont', 'ertekelo', 'kozeg'];
+  for (const id of AXIS_IDS) head.push(`${id}_erett`, `${id}_torzult`, `${id}_jelzes`);
+  for (const d of DIRS) head.push(`irany_${d}_erett`, `irany_${d}_torzult`);
+  for (const t of TRAITS) head.push(`${t.id}_pont`);
+  for (const q of ITEMS) head.push(`t_${q.id}`);
+  for (const p of BANK.pairs) head.push(`${p.id}_szituacio_erett`, `${p.id}_szituacio_torzult`, `${p.id}_interju_erett`, `${p.id}_interju_torzult`);
+  head.push('melyfuras_parok');
+  const roles = presentRoles();
+  if (!roles.length) { status('Nincs exportálható válasz.'); return; }
+  const rows = [head, ...roles.map((r) => {
+    const st = state[r];
+    const row = [m.subject, m.start, m.end, VERSION, ROLE_NAME[r], st.rater, st.context];
+    for (const id of AXIS_IDS) row.push(areaScore(id, 'E', r), areaScore(id, 'T', r), areaFlag(id, r) ? 'igen' : 'nem');
+    for (const d of DIRS) row.push(directionScore(d, 'E', r), directionScore(d, 'T', r));
+    for (const t of TRAITS) row.push(traitScore(t, r));
+    for (const q of ITEMS) row.push(st.answers[q.id] || '');
+    for (const p of BANK.pairs) {
+      const sj = r === 'self' ? sjtScores(p.id) : null;
+      const o = deep.pairs[p.id] || {};
+      row.push(sj?.E ?? null, sj?.T ?? null, o.E ?? null, o.T ?? null);
+    }
+    row.push(deepIds().join(' '));
+    return row;
+  })];
+  downloadContent(toCsv(rows), csvFileName('egysor'), 'text/csv;charset=utf-8');
+  status(`Egy soros CSV exportálva (${roles.length} nézőpont). Az oszlopok ugyanazon interjúverziónál mindig azonosak.`);
+};
+
+// ---------- kérdésműhely: pool, ellenőrzés, builder, véglegesítés ----------
+
+const statusNames = { draft: 'Ellenőrzésre vár', revise: 'Javítandó', approved: 'Jóváhagyott', rejected: 'Elvetett' };
+const checks = [
+  ['relevance', 'A tétel a kijelölt jellemzőt és annak megadott részjelenségét méri.'],
+  ['clarity', 'A szöveg egyértelmű; egy fő viselkedést kérdez, nem több független állítást.'],
+  ['observable', 'A viselkedés vagy kimondott beszámoló megfigyelhető; a nem hozzáférhető esetben M válasz adható.'],
+  ['neutral', 'A megfogalmazás nem sugalmaz, nem bélyegez meg és nem diagnosztizál.'],
+  ['period', 'A négyhetes időablak és a releváns alkalmak fogalma alkalmazható.'],
+  ['scoring', 'A 0–4 válasz és az egyenes/fordított pontozás a céljellemző helyes irányát mutatja.'],
+  ['both', 'Önértékelőként és verifikátorként is érthető; a szerep- vagy helyzethiány kezelhető.'],
+];
+const contexts = ['általános', 'otthon', 'munka', 'közösség', 'hitgyakorlat', 'vezetés'];
+const contentKeys = ['text', 'trait', 'aspect', 'evidence', 'context', 'reverse', 'priority', 'source'];
+const stamp = (q) => JSON.stringify(contentKeys.map((k) => q[k]));
+const DEFAULT_EVIDENCE = 'Konkrét, a tételhez kapcsolódó viselkedéses példa vagy a résztvevő kimondott beszámolója; rálátás hiányában M.';
+const byTrait = (id) => SOURCE_TRAITS.find((t) => t.id === id);
+
+const seeds = [
+  ...TRAITS.flatMap((t) => t.items.map((q) => ({
+    id: q.id, trait: t.id, text: q.text, aspect: t.definition, evidence: DEFAULT_EVIDENCE, context: 'általános', reverse: !!q.reverse, priority: 5,
+    source: 'Az aktív interjúból származó munkatétel; ebben a munkapoolban szakértői ellenőrzésre vár.', rev: 1, status: 'draft', review: null, history: [],
+  }))),
+  ...(FORM ? [] : EXTRA_ITEMS.filter((q) => !itemById[q.id]).map((q) => ({
+    id: q.id, trait: q.trait, text: q.text, aspect: q.aspect, evidence: q.evidence || DEFAULT_EVIDENCE, context: q.context, reverse: false, priority: q.priority || 4,
+    source: `${q.origin}; ellenőrzésre vár.`, rev: 1, status: 'draft', review: null, history: [],
+  }))),
+];
+let pool = structuredClone(CONFIG.pool || seeds);
+let dirtyPool = false;
+
+const isApproved = (q) => q.status === 'approved' && q.review?.rev === q.rev && q.review?.stamp === stamp(q) && checks.every(([k]) => q.review.checks?.[k] === true) && !!q.review.reviewer?.trim() && !!q.review.note?.trim();
+const candidates = (id) => pool.filter((q) => q.trait === id && isApproved(q)).sort((a, b) => b.priority - a.priority || a.id.localeCompare(b.id));
+const perTrait = () => Number($('perTrait').value) || 2;
+const selectedItems = (n) => SOURCE_TRAITS.flatMap((t) => candidates(t.id).slice(0, n));
+
+function traitOptions(all = false) {
+  return (all ? '<option value="all">Minden jellemző</option>' : '') + SOURCE_TRAITS.map((t) => `<option value="${t.id}">${t.id} · ${esc(t.name)} · ${t.direction}</option>`).join('');
+}
+
+function renderReviewOptions(preferred) {
+  const old = preferred || $('reviewQ').value;
+  const a = pool.filter((q) => ($('reviewFilter').value === 'all' || q.status === $('reviewFilter').value) && ($('reviewTrait').value === 'all' || q.trait === $('reviewTrait').value));
+  $('reviewQ').innerHTML = a.map((q) => `<option value="${esc(q.id)}">${esc(q.id)} · ${statusNames[q.status]} · ${esc(q.text.slice(0, 100))}</option>`).join('');
+  if (a.some((q) => q.id === old)) $('reviewQ').value = old;
+  renderReview();
+}
+
+function renderReview() {
+  const q = pool.find((x) => x.id === $('reviewQ').value);
+  $('reviewControls').hidden = !q;
+  if (!q) { $('reviewDetail').innerHTML = '<p>Nincs ilyen státuszú vagy jellemzőjű tétel.</p>'; return; }
+  const t = byTrait(q.trait);
+  $('reviewDetail').innerHTML = `<h3>${esc(q.id)} · ${esc(t.name)}</h3><p class="notice">${esc(q.text)}</p>
+    <p class="small"><b>Definíció:</b> ${esc(t.definition)}<br><b>Mért részjelenség:</b> ${esc(q.aspect)}<br><b>Megfigyelhető jel:</b> ${esc(q.evidence)}<br>
+    <b>Helyzet:</b> ${esc(q.context)} · <b>Pontozás:</b> ${q.reverse ? 'fordított (4 − válasz)' : 'egyenes'} · <b>Prioritás:</b> ${q.priority}<br>
+    <b>Státusz:</b> ${statusNames[q.status]} · <b>Tételrevízió:</b> ${q.rev}<br><b>Forrás:</b> ${esc(q.source)}</p>
+    <details><summary>Előzmények (${q.history.length})</summary>${q.history.map((h) => `<p class="small">${esc(h.at)} · ${esc(h.actor || 'szerkesztő')} · ${esc(h.action)} · ${esc(h.note || '')}</p>`).join('') || '<p class="small">Még nincs rögzített döntés.</p>'}</details>`;
+  const r = q.review;
+  $('reviewer').value = r?.reviewer || '';
+  $('reviewNote').value = r?.note || '';
+  $('reviewDecision').value = q.status === 'approved' ? 'approved' : q.status === 'rejected' ? 'rejected' : 'revise';
+  checks.forEach(([k]) => { $('check-' + k).checked = !!r?.checks?.[k]; });
+}
+
+$('saveReview').onclick = () => {
+  const q = pool.find((x) => x.id === $('reviewQ').value);
+  if (!q) return;
+  const decision = $('reviewDecision').value;
+  const reviewer = $('reviewer').value.trim();
+  const note = $('reviewNote').value.trim();
+  const flags = Object.fromEntries(checks.map(([k]) => [k, $('check-' + k).checked]));
+  if (!reviewer || !note) { $('reviewStatus').textContent = 'A döntéshez add meg a szakértőt és az indoklást.'; return; }
+  if (decision === 'approved' && !checks.every(([k]) => flags[k])) { $('reviewStatus').textContent = 'Jóváhagyáshoz minden ellenőrzési szempontot teljesíteni kell. Egyébként jelöld javítandónak vagy elvetettnek.'; return; }
+  const at = new Date().toISOString();
+  q.status = decision;
+  q.review = { reviewer, note, checks: flags, rev: q.rev, stamp: stamp(q), at };
+  q.history.push({ at, actor: reviewer, action: statusNames[decision], note, rev: q.rev, snapshot: Object.fromEntries(contentKeys.map((k) => [k, q[k]])), checks: flags });
+  dirtyPool = true;
+  refreshPool();
+  renderReviewOptions(q.id);
+  $('reviewStatus').textContent = `${q.id} döntése rögzítve. A tartós megőrzéshez mentsd a kérdéspoolt.`;
+};
+
+function refreshEditOptions(preferred) {
+  const old = preferred || $('editQ').value || 'new';
+  $('editQ').innerHTML = '<option value="new">Új kérdés</option>' + pool.map((q) => `<option value="${esc(q.id)}">${esc(q.id)} · ${esc(q.text.slice(0, 95))}</option>`).join('');
+  $('editQ').value = pool.some((q) => q.id === old) ? old : 'new';
+}
+function showDefinition() {
+  const t = byTrait($('editTrait').value);
+  $('editDefinition').textContent = t ? `${t.direction} · ${t.kind === 'E' ? 'Érett' : 'Torzult'} · ${t.name}: ${t.definition}` : '';
+}
+function fillEditor() {
+  const q = pool.find((x) => x.id === $('editQ').value);
+  $('editTrait').value = q?.trait || SOURCE_TRAITS[0].id;
+  $('editText').value = q?.text || '';
+  $('editAspect').value = q?.aspect || '';
+  $('editEvidence').value = q?.evidence || '';
+  $('editContext').value = q?.context || 'általános';
+  $('editReverse').value = q?.reverse ? 'reverse' : 'direct';
+  $('editPriority').value = q?.priority || 5;
+  $('editSource').value = q?.source || '';
+  showDefinition();
+}
+function newItemId() { let n = 1; while (pool.some((q) => q.id === 'Q' + String(n).padStart(4, '0'))) n++; return 'Q' + String(n).padStart(4, '0'); }
+
+$('saveQuestion').onclick = () => {
+  const fields = {
+    trait: $('editTrait').value, text: $('editText').value.trim(), aspect: $('editAspect').value.trim(), evidence: $('editEvidence').value.trim(),
+    context: $('editContext').value, reverse: $('editReverse').value === 'reverse', priority: Number($('editPriority').value), source: $('editSource').value.trim(),
+  };
+  if (!byTrait(fields.trait) || !fields.text || !fields.aspect || !fields.evidence) { $('builderStatus').textContent = 'Töltsd ki a jellemzőt, a szöveget, a mért részjelenséget és a megfigyelhető jelet.'; return; }
+  if (!Number.isInteger(fields.priority) || fields.priority < 1 || fields.priority > 9) { $('builderStatus').textContent = 'A prioritás 1–9 közötti egész szám legyen.'; return; }
+  let q = pool.find((x) => x.id === $('editQ').value);
+  if (q && stamp(q) === stamp(fields)) { $('builderStatus').textContent = 'Nem változott a tétel.'; return; }
+  if (q) {
+    q.history.push({ at: new Date().toISOString(), action: 'Tétel módosítva, új ellenőrzés szükséges', rev: q.rev, snapshot: Object.fromEntries(contentKeys.map((k) => [k, q[k]])) });
+    Object.assign(q, fields, { rev: q.rev + 1, status: 'draft', review: null });
+  } else {
+    q = { id: newItemId(), ...fields, rev: 1, status: 'draft', review: null, history: [] };
+    pool.push(q);
+  }
+  dirtyPool = true;
+  refreshEditOptions(q.id);
+  fillEditor();
+  refreshPool();
+  renderReviewOptions();
+  $('builderStatus').textContent = `${q.id} mentve ellenőrzésre. A jelenlegi interjú változatlan. Mentsd a kérdéspoolt is.`;
+};
+
+function refreshPool() {
+  const n = perTrait();
+  const approved = pool.filter(isApproved).length;
+  const missing = SOURCE_TRAITS.filter((t) => candidates(t.id).length < n);
+  $('poolCounts').textContent = `${pool.length} kérdés a készletben · ${approved} jóváhagyott · ${missing.length}/60 jellemzőnél még nincs ${n} jóváhagyott tétel.`;
+  $('publishForm').disabled = missing.length > 0;
+  $('publishStatus').textContent = missing.length ? `Véglegesítéshez minden jellemzőnél legalább ${n} jóváhagyott tétel szükséges.` : `Összeállítható a ${60 * n} tételes interjú.`;
+  $('coverage').innerHTML = `<table><tr><th>Jellemző</th><th class="num">Pool</th><th class="num">Jóváhagyott</th><th>Kiválasztandó ${n} tétel</th><th class="num">Hiányzik</th></tr>${SOURCE_TRAITS.map((t) => {
+    const a = candidates(t.id);
+    return `<tr><td>${t.id} · ${esc(t.name)}</td><td class="num">${pool.filter((q) => q.trait === t.id).length}</td><td class="num">${a.length}</td><td>${a.slice(0, n).map((q) => `${esc(q.id)} (p${q.priority})`).join(', ') || '—'}</td><td class="num">${Math.max(0, n - a.length)}</td></tr>`;
+  }).join('')}</table>`;
+}
+
+function validatePool(p) {
+  if (p?.format !== 'testudo-pool-1' || !Array.isArray(p.questions) || p.questions.length > 3000) throw Error('Nem kompatibilis kérdéspool.');
+  const ids = new Set();
+  return p.questions.map((q) => {
+    if (!q || typeof q.id !== 'string' || !/^([0-9]{2}[ET][1-9]|Q[0-9]{4,})$/.test(q.id) || ids.has(q.id) || !byTrait(q.trait)) throw Error('Hibás vagy ismétlődő tételazonosító / jellemző.');
+    ids.add(q.id);
+    if (!['text', 'aspect', 'evidence', 'source'].every((k) => typeof q[k] === 'string') || !q.text.trim() || !q.aspect.trim() || !q.evidence.trim() || !contexts.includes(q.context) || typeof q.reverse !== 'boolean' || !Number.isInteger(q.priority) || q.priority < 1 || q.priority > 9 || !Number.isInteger(q.rev) || q.rev < 1 || !statusNames[q.status] || !Array.isArray(q.history)) throw Error('Hibás kérdésparaméter: ' + q.id);
+    const clean = { id: q.id, ...Object.fromEntries(contentKeys.map((k) => [k, q[k]])), rev: q.rev, status: q.status, history: q.history, review: q.review || null };
+    if (clean.status === 'approved' && !isApproved(clean)) throw Error('Hiányos vagy a szöveggel nem egyező jóváhagyás: ' + q.id);
+    return clean;
+  });
+}
+
+$('exportPool').onclick = () => {
+  downloadJson({ format: 'testudo-pool-1', exportedAt: new Date().toISOString(), questions: pool }, 'testudo-kerdespool.json');
+  dirtyPool = false;
+  $('poolStatus').textContent = 'Kérdéspool és döntéstörténet exportálva. Ellenőrizd a letöltést.';
+};
+$('importPoolBtn').onclick = () => $('importPool').click();
+$('importPool').onchange = async () => {
+  try {
+    const f = $('importPool').files[0];
+    if (!f) return;
+    if (f.size > 10000000) throw Error('Túl nagy fájl.');
+    const next = validatePool(JSON.parse(await f.text()));
+    if (!confirm('A betöltött pool lecseréli a teljes munkakészletet. A kitöltői válaszok és az aktív interjú nem változnak. Folytatod?')) return;
+    pool = next;
+    dirtyPool = false;
+    refreshPool();
+    refreshEditOptions();
+    fillEditor();
+    renderReviewOptions();
+    $('poolStatus').textContent = 'Kérdéspool betöltve.';
+  } catch (e) { $('poolStatus').textContent = 'Betöltési hiba: ' + e.message; } finally { $('importPool').value = ''; }
+};
+
+function buildPublishedHtml(name, version, n) {
+  const selected = selectedItems(n);
+  if (selected.length !== 60 * n || SOURCE_TRAITS.some((t) => selected.filter((q) => q.trait === t.id).length !== n)) throw Error('Nem teljes a jóváhagyott készlet.');
+  const config = { form: { name, version, itemsPerTrait: n, createdAt: new Date().toISOString(), items: selected.map((q) => ({ id: q.id, trait: q.trait, text: q.text, reverse: q.reverse, rev: q.rev })) }, pool: null };
+  const safe = JSON.stringify(config).replace(/</g, '\\u003c');
+  return ORIGINAL_HTML.replace(/(<script id="assessment-config" type="application\/json">)[\s\S]*?(<\/script>)/, (_, a, b) => a + safe + b);
+}
+$('publishForm').onclick = () => {
+  try {
+    const name = $('formName').value.trim();
+    if (!name) throw Error('Adj nevet az interjúverziónak.');
+    const n = perTrait();
+    const version = 'testudo-form-' + Date.now().toString(36) + '-' + crypto.randomUUID();
+    downloadContent(buildPublishedHtml(name, version, n), `testudo-interju-${version}.html`, 'text/html');
+    $('publishStatus').textContent = `Az új, üres, rögzített ${60 * n} tételes interjú exportálva. A munkapoolt külön mentsd; az interjúfájl nem tartalmaz kitöltői válaszokat vagy szakértői jegyzeteket.`;
+  } catch (e) { $('publishStatus').textContent = e.message; }
+};
+
+// ---------- események ----------
+
+function showView(id) {
+  document.querySelectorAll('main > section:not(#data)').forEach((s) => { s.hidden = s.id !== id; });
+  document.querySelectorAll('nav.main button').forEach((x) => x.classList.toggle('active', x.dataset.view === id));
+  if (id === 'results') renderResults();
+  if (id === 'deep') renderDeep();
+}
+document.querySelectorAll('nav.main button').forEach((b) => { b.onclick = () => showView(b.dataset.view); });
+document.querySelectorAll('[data-goto]').forEach((a) => { a.onclick = (e) => { e.preventDefault(); showView(a.dataset.goto); }; });
+
+$('block').innerHTML = BLOCKS.map((b, i) => `<option value="${i}">${i + 1}/${BLOCKS.length} · ${b}</option>`).join('');
+$('block').onchange = () => { block = +$('block').value; renderSurvey(); };
+$('role').onchange = () => { role = $('role').value; renderSurvey(); };
+$('rater').oninput = () => { state[role].rater = $('rater').value; };
+$('context').oninput = () => { state[role].context = $('context').value; };
+$('blockNote').oninput = () => { state[role].notes[block] = $('blockNote').value; };
+$('questions').onchange = (e) => {
+  const id = e.target.dataset.id;
+  if (!id) return;
+  state[role].answers[id] = e.target.value;
+  progress();
+};
+['prev', 'next'].forEach((id) => {
+  $(id).onclick = () => {
+    block += id === 'next' ? 1 : -1;
+    renderSurvey();
+    $('survey').scrollIntoView({ block: 'start' });
+  };
+});
+
+$('results').addEventListener('click', (e) => {
+  const persp = e.target.closest('[data-persp]');
+  if (persp) { ui.persp = persp.dataset.persp; renderResults(); return; }
+  const area = e.target.closest('[data-area]');
+  if (area) {
+    ui.area = area.dataset.area;
+    const wasLabel = area.tagName !== 'BUTTON';
+    renderResults();
+    const sel = wasLabel ? `.lbl[data-area="${ui.area}"]` : `#areaTabs [data-area="${ui.area}"]`;
+    document.querySelector(sel)?.focus();
+  }
+});
+$('results').addEventListener('keydown', (e) => {
+  const el = e.target.closest('[role="button"][data-area]');
+  if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); el.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+});
+
+$('deep').addEventListener('click', (e) => {
+  const tab = e.target.closest('[data-deep]');
+  if (tab) { ui.deepTab = tab.dataset.deep; ui.pairIdx = 0; renderDeep(); return; }
+  const step = e.target.closest('[data-pairstep]');
+  if (step && !step.disabled) { ui.pairIdx += Number(step.dataset.pairstep); renderDeep(); $('deep').scrollIntoView({ block: 'start' }); return; }
+  if (e.target.closest('[data-deepauto]')) { deep.manual = false; deep.selected = []; renderDeep(); }
+});
+$('deep').addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.dataset.deepsel) {
+    const ids = deepIds();
+    deep.selected = t.checked ? [...ids, t.dataset.deepsel].slice(0, MAX_DEEP) : ids.filter((x) => x !== t.dataset.deepsel);
+    deep.manual = true;
+    ui.selOpen = true;
+    renderDeep();
+    document.querySelector(`[data-deepsel="${t.dataset.deepsel}"]`)?.focus();
+  } else if (t.dataset.sjt) {
+    const pid = t.dataset.pid;
+    const arr = state.self.sjt[pid] || (state.self.sjt[pid] = [{}, {}, {}]);
+    const entry = arr[Number(t.dataset.s)];
+    const other = t.dataset.sjt === 'most' ? 'least' : 'most';
+    entry[t.dataset.sjt] = t.value;
+    if (entry[other] === t.value) delete entry[other];
+    const y = window.scrollY;
+    renderDeep();
+    window.scrollTo(0, y);
+  } else if (t.dataset.iv) {
+    const pid = t.dataset.pid;
+    deep.pairs[pid] = { E: null, T: null, notes: '', ...(deep.pairs[pid] || {}), [t.dataset.iv]: Number(t.value) };
+  }
+});
+$('deep').addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.matches('[data-interviewer]')) deep.interviewer = t.value;
+  else if (t.dataset.ivnote) deep.pairs[t.dataset.ivnote] = { E: null, T: null, ...(deep.pairs[t.dataset.ivnote] || {}), notes: t.value };
+});
+
+document.addEventListener('pointermove', (e) => {
+  const hit = e.target.closest?.('[data-tip]');
+  document.querySelectorAll('.tip').forEach((t) => { if (!hit || !t.parentElement.contains(hit)) t.hidden = true; });
+  if (!hit) return;
+  const wrapEl = hit.closest('.radar-wrap');
+  const tip = wrapEl.querySelector('.tip');
+  const box = wrapEl.getBoundingClientRect();
+  tip.textContent = hit.dataset.tip;
+  tip.hidden = false;
+  tip.style.left = `${Math.min(Math.max(e.clientX - box.left, 90), box.width - 90)}px`;
+  tip.style.top = `${e.clientY - box.top}px`;
+});
+COMPACT.addEventListener('change', () => { if (!$('results').hidden) renderResults(); });
+
+$('reviewTrait').innerHTML = traitOptions(true);
+$('editTrait').innerHTML = traitOptions();
+$('reviewChecks').innerHTML = checks.map(([id, label]) => `<label style="display:flex;gap:8px;margin:10px 0"><input type="checkbox" id="check-${id}"> ${esc(label)}</label>`).join('');
+$('reviewFilter').onchange = () => renderReviewOptions();
+$('reviewTrait').onchange = () => renderReviewOptions();
+$('reviewQ').onchange = renderReview;
+$('reviewEdit').onclick = () => { refreshEditOptions($('reviewQ').value); fillEditor(); showView('builder'); };
+$('editQ').onchange = fillEditor;
+$('editTrait').onchange = showDefinition;
+$('newQuestion').onclick = () => { $('editQ').value = 'new'; fillEditor(); $('builderStatus').textContent = 'Új tétel. Mentés után szakértői ellenőrzésre vár.'; };
+$('perTrait').onchange = refreshPool;
+if (FORM?.itemsPerTrait) $('perTrait').value = String(FORM.itemsPerTrait);
+
+window.addEventListener('beforeunload', (e) => {
+  const sjtData = Object.keys(state.self.sjt).length > 0;
+  if (ROLES.some(hasAnswers) || $('joint').value || !deepEmpty() || sjtData || dirtyPool) { e.preventDefault(); e.returnValue = ''; }
+});
+
+// ---------- indulás ----------
+
+$('subtitle').textContent = `30 jellempár · ${ITEMS.length} állítás · két nézőpont · közös fejlődési terv`;
+$('timeEstimate').textContent = `Tervezett idő: személyenként ${ITEMS.length > 150 ? '35–45' : '25–35'} perc kitöltés, majd 30–45 perc közös interjú; a mélyfúrás további 15–20 perc szituáció és 30–45 perc páronkénti interjú. Ezek becslések, a pilotban ellenőrizendők. A 6 blokk között tartható szünet.`;
+$('dictionary').innerHTML = TRAITS.map((t) => `<details><summary>${t.id} · ${esc(t.name)} <small>(${t.direction}${t.sub === '—' ? '' : '; ' + esc(t.sub)})</small></summary><p>${esc(t.definition)}</p><ol>${t.items.map((q) => `<li><b>${esc(q.id)}</b> ${esc(q.text)}</li>`).join('')}</ol></details>`).join('');
+if (FORM) {
+  $('activeForm').textContent = `Aktív rögzített interjú: ${FORM.name} · ${ITEMS.length} tétel · ${VERSION}`;
+  $('poolOrigin').textContent = 'Ez egy rögzített interjú. A builder munkakészlete a kiválasztott tételekből indul, új szakértői munkapéldányként. A teljes korábbi pool és a döntések a külön poolexportból tölthetők vissza.';
+} else {
+  $('activeForm').textContent = 'Aktív interjú: az eredeti 0.1 pilot 120 tétele, még szakértői jóváhagyás nélkül (a korábbi 0.1-es mentések betölthetők). A poolban vonásonként egy harmadik, átírt tétel is ellenőrzésre vár; jóváhagyás után 120 vagy 180 tételes rögzített interjú véglegesíthető.';
+  $('poolOrigin').textContent = 'A munkapool a közös kérdésbankból indul: az aktív interjú 120 tétele és 60 további, Testudo-normára átírt tétel.';
+}
+renderSurvey();
+refreshPool();
+refreshEditOptions();
+fillEditor();
+renderReviewOptions();
+</script>
+</body>
+</html>

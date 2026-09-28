@@ -1,45 +1,31 @@
-# Jellemprofil – 2. kör: szituációs kérdőív (alkalmazásban)
+# Mélyfúrás – szituációs kérdőív
 
-<!-- A fájl generált: a kerdesbank.json szerkesztése után futtasd: node docs/jellemprofil/build.mjs -->
+<!-- Generált fájl: a kerdesbank.json szerkesztése után futtasd: node docs/jellemprofil/build.mjs -->
 
-> Célcsoport: hívő kitöltők. A kitöltő csak a szűrő kérdőív alapján kiválasztott 6–8 pár szituációit kapja: páronként 3 helyzet, összesen 18–24, kb. 15–20 perc.
-> Kitöltés: [kitolto.html](kitolto.html), „2. kör az alkalmazásban”.
+> Célcsoport: hívő kitöltők. Az önértékelő tölti ki a Testudo „Mélyfúrás” menüjében, a kiemelt 6–8 párra: páronként 3 helyzet, összesen 18–24, kb. 15–20 perc.
 
-## 1. Formátum
+## Formátum
 
 > Minden helyzethez három lehetséges reakció tartozik. Válaszd ki, melyiket tennéd a legvalószínűbben, és melyiket a legkevésbé valószínűen. Nem az a kérdés, mit kellene tenni, hanem hogy te mit tennél valójában.
 
-- Minden helyzethez három reakció tartozik, a kitöltő számára véletlen, de kitöltésenként állandó sorrendben:
+- Minden helyzethez három reakció tartozik, verziónként rögzített sorrendben:
   - **É** – az érett vonás reakciója;
   - **T** – a torzult vonás reakciója, érthető, nem ellenszenves megfogalmazásban;
   - **H** – a vonás hiánya vagy alulhasználata (a helyzet elkerülése vagy az ellenkező végletbe csúszás).
-- A kitöltő két dolgot jelöl: a **legvalószínűbb** és a **legkevésbé valószínű** reakciót. A harmadik ezzel középre kerül.
-- A kitöltő nem látja, melyik párt vagy tengelyt méri a helyzet, és a betűjeleket sem.
+- A kitöltő a **legvalószínűbb** és a **legkevésbé valószínű** reakciót jelöli; a harmadik középre kerül.
+- A kitöltő nem látja, melyik párt méri a helyzet, és a betűjeleket sem.
 
-## 2. Pontozás
+## Pontozás
 
-1. Helyzetenként: legvalószínűbb = 2 pont, középső = 1 pont, legkevésbé valószínű = 0 pont.
-2. Páronként (3 helyzet): érett érték = az É reakciók pontjainak összege / 6 × 100; torzult érték = a T reakciók pontjainak összege / 6 × 100.
-3. A H reakció pontjai nem kerülnek a radarra, de az eredménylapon „fejletlen terület” jelzésként megjelennek, ha a H átlaga magasabb az É-nél és a T-nél is.
+Helyzetenként: legvalószínűbb = 2, középső = 1, legkevésbé valószínű = 0 pont. Páronként a 3 helyzet É és T pontjainak összege / 6 × 4, így 0–4 skálán jelenik meg, de külön mérésként, a kérdőíves pontoktól elkülönítve.
 
-**Korlát:** a rangsorolás miatt egy helyzeten belül az érett és a torzult érték nem független (ha az egyik első, a másik nem lehet az). Ezért a szituációs eredmény a pár két rétegének egymáshoz viszonyított súlyát méri jól; a független mérést az 1. kör adja, a kettőt együtt értelmezzük.
+**Korlát:** a rangsorolás miatt egy helyzeten belül az érett és a torzult reakció nem lehet egyszerre első, ezért a szituációs érték a két réteg egymáshoz viszonyított súlyát méri, nem a független gyakoriságukat. A kérdőíves pontokkal együtt, de külön értelmezzük.
 
-## 3. Összevonás az 1. körrel
+## Szituációk páronként
 
-Minden kiválasztott párnál rétegenként:
+### Előre
 
-- **2. köri érték** = a szituációs és az élő interjús érték átlaga (ha csak az egyik készült el, akkor az);
-  az interjús 1–5 pont átváltása: `(pont − 1) / 4 × 100`;
-- **végső érték** = `(1. köri érték + 2 × 2. köri érték) / 3`, egészre kerekítve;
-- a nem kiválasztott párok végső értéke az 1. köri érték.
-
-A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor jelenik meg egy tengelyen, ha bármelyik párjának végső torzult értéke ≥ 75.
-
-## 4. Szituációk páronként
-
-### Előre (Előre)
-
-#### ELO-1 · Kezdeményezés / Impulzivitás
+#### 01 · Kezdeményezés / Impulzivitás
 
 1. A gyülekezetben régóta szó van róla, hogy kellene egy ifjúsági alkalom, de senki nem lép.
    - **É:** Felvetem a vezetőknek, hogy szívesen elindítanám, és kérek egy hetet, hogy összeírjam, mi kell hozzá.
@@ -54,7 +40,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Azonnal benevezek mindkettőnket, meg még két ismerőst is, majd kiderül, hogyan készülünk.
    - **H:** Azt mondom, jó ötlet, de inkább majd jövőre, ha több időm lesz.
 
-#### ELO-2 · Bátorság / Vakmerőség
+#### 02 · Bátorság / Vakmerőség
 
 1. Egy megbeszélésen a vezető olyan döntést jelent be, amelyről tudod, hogy igazságtalan egy kollégával szemben.
    - **É:** A megbeszélés után négyszemközt jelzem neki a véleményemet, konkrét érvekkel.
@@ -69,7 +55,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Ha jónak érzem, azonnal igent mondok, az anyagiak majd megoldódnak valahogy.
    - **H:** Megköszönöm, de nemet mondok, mert nem szeretném kockáztatni azt, amit eddig felépítettem.
 
-#### ELO-3 · Hódítás / Agresszió vagy uralkodás
+#### 03 · Hódítás / Agresszió vagy uralkodás
 
 1. Új csapatba kerülsz, ahol egy régi tag viszi a legfontosabb projektet, szerinted nem túl jól.
    - **É:** Megismerem a projektet, felajánlom a segítségemet, és apránként olyan részt vállalok, amelyben megmutathatom, mit tudok.
@@ -84,7 +70,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Addig nyomom, amíg a másik fel nem adja, hadd lássa mindenki, ki nyert.
    - **H:** Ráhagyom, nem éri meg vitatkozni.
 
-#### ELO-4 · Határozottság / Erőszakosság
+#### 04 · Határozottság / Erőszakosság
 
 1. Családi program szervezésekor mindenki mást akar, és fogy az idő a foglalásra.
    - **É:** Még egyszer röviden meghallgatok mindenkit, aztán döntök, és elmondom, miért ez lett.
@@ -99,7 +85,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Ettől kezdve egyszerűen megkerülöm, és én döntök helyette, előtte szólni sem szólok.
    - **H:** Várok, ő a felelős, én nem akarok beleszólni.
 
-#### ELO-5 · Ambíció / Törtetés
+#### 05 · Ambíció / Törtetés
 
 1. Megnyílik egy vezetői pozíció, amelyre egy közeli kollégád is pályázik.
    - **É:** Jelentkezem, ezt nyíltan megmondom neki is, és a legjobb formámat hozom a kiválasztáson.
@@ -114,9 +100,9 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Elmagyarázom nekik, hogy ez most fontosabb, és türelmesnek kell lenniük, amíg el nem érem.
    - **H:** Feladom a célt, úgysem vagyok elég jó ahhoz, hogy sikerüljön.
 
-### Hátra (Hátra)
+### Hátra
 
-#### HAT-1 · Kitartás / Makacsság
+#### 06 · Kitartás / Makacsság
 
 1. Fél éve tanulsz egy hangszeren, és az utóbbi hetekben úgy érzed, semmit sem fejlődsz.
    - **É:** Folytatom, de visszajelzést kérek a tanáromtól, és ha kell, változtatok a gyakorlás módján.
@@ -131,7 +117,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Továbbra is keresem, üzenek, hívom, mert nem adom fel, akármit mond.
    - **H:** Egyszerűen nem keresem többé, és igyekszem nem is gondolni rá.
 
-#### HAT-2 · Védelem / Kontrollálás
+#### 07 · Védelem / Kontrollálás
 
 1. A 16 éves gyermeked először megy el barátokkal egy többnapos kirándulásra.
    - **É:** Megbeszéljük a szabályokat és az elérhetőséget, aztán megbízom benne, és elengedem.
@@ -146,7 +132,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Ettől kezdve minden kommunikációt én bonyolítok a részleggel, a csapattagom oda sem szólhat.
    - **H:** Hagyom, hogy maga intézze el, felnőtt ember.
 
-#### HAT-3 · Türelem / Passzivitás
+#### 08 · Türelem / Passzivitás
 
 1. Egy kolléga hetek óta nem küldi el azt az anyagot, ami nélkül nem tudsz haladni.
    - **É:** Megkeresem, megbeszéljük, mi akadályozza, és közösen kijelölünk egy reális határidőt.
@@ -161,7 +147,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Nem hozom szóba, hátha magától belejön; addig nem foglalkozom a kérdéssel.
    - **H:** Szólok neki, hogy gyorsítania kell, különben keresünk mást.
 
-#### HAT-4 · Önuralom / Elfojtás
+#### 09 · Önuralom / Elfojtás
 
 1. Egy családi ebéden egy rokonod bántó megjegyzést tesz rád mindenki előtt.
    - **É:** Nyugodtan jelzem, hogy ez rosszul esett, és később négyszemközt megbeszélem vele.
@@ -176,7 +162,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Azt mondom magamnak, hogy egy hívőnek nem szabad így éreznie, és igyekszem nem gondolni rá.
    - **H:** Ott helyben hangot adok a felháborodásomnak.
 
-#### HAT-5 · Hűség / Változásképtelenség
+#### 10 · Hűség / Változásképtelenség
 
 1. A közösség, ahová húsz éve jársz, új vezetést és az alkalmak új formáját kapja, ami idegen számodra.
    - **É:** Maradok, időt adok a változásnak, és elmondom a vezetőknek, mi nehéz nekem benne.
@@ -191,9 +177,9 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Igyekszem meggyőzni őket, hogy maradjon minden úgy, ahogy van, mert így működik.
    - **H:** Ha elveszik, hát elveszik; nem kötődöm hozzá, keresek mást.
 
-### Oldalra (Oldalra)
+### Oldalra
 
-#### OLD-1 · Rugalmasság / Megalkuvás
+#### 11 · Rugalmasság / Megalkuvás
 
 1. Egy fontos családi esemény időpontját az utolsó pillanatban áttették, éppen oda, ahol a munkahelyeden is kritikus határidőd van.
    - **É:** Megnézem, mit tudok átszervezni, egyeztetek a munkahelyemen, és keresem a módját, hogy mindkettő sikerüljön.
@@ -208,7 +194,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Nem szólok, mert mindenki lelkes, és nem akarok ünneprontó lenni.
    - **H:** Kijelentem, hogy ebben nem veszek részt, és kész.
 
-#### OLD-2 · Kreativitás / Szabálykerülés
+#### 12 · Kreativitás / Szabálykerülés
 
 1. Egy pályázat határideje éjfélkor lejár, és rájössz, hogy hiányzik egy kötelező igazolás.
    - **É:** Megkeresem a kiírót, leírom a helyzetet, és megkérdezem, pótolhatom-e utólag.
@@ -223,7 +209,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** A magam módján egyszerűsítem, összevonok tételeket, a lényeg úgyis stimmel.
    - **H:** Betartom, és nem gondolkodom rajta: a szabály az szabály.
 
-#### OLD-3 · Bölcs kerülőút / Menekülés
+#### 13 · Bölcs kerülőút / Menekülés
 
 1. Egy kollégával évek óta feszült a viszonyod, és most közös projektbe kerültök.
    - **É:** Kezdeményezek egy beszélgetést, és megbeszéljük, hogyan tudunk jól együtt dolgozni.
@@ -238,7 +224,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Halogatom, hátha kiderül magától, vagy más mondja el neki.
    - **H:** Kimondom egyenesen, ahogy van, az igazság úgyis igazság.
 
-#### OLD-4 · Diplomácia / Manipuláció
+#### 14 · Diplomácia / Manipuláció
 
 1. Két csapattagod összeveszett, és mindketten tőled várnak igazságot.
    - **É:** Leülök mindkettőjükkel, meghallgatom őket, és segítek megtalálni, mi a közös érdekük.
@@ -253,7 +239,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Az ülés előtt külön-külön megkeresem a többieket, és úgy tálalom a két ellenző érveit, hogy gyengének tűnjenek.
    - **H:** Visszavonom a javaslatot, nem akarok vitát.
 
-#### OLD-5 · Alkalmazkodás / Elvtelenség
+#### 15 · Alkalmazkodás / Elvtelenség
 
 1. Az új munkahelyeden a kollégák gyakran gúnyolódnak a hívő embereken.
    - **É:** Barátságos vagyok velük, és ha szóba kerül, nyugodtan elmondom, hogy én is hívő vagyok.
@@ -270,7 +256,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
 
 ### Istenhez igazodás (Felfelé)
 
-#### IST-1 · Engedelmesség / Vak engedelmesség vagy legalizmus
+#### 16 · Engedelmesség / Vak engedelmesség vagy legalizmus
 
 1. A gyülekezet vezetője azt kéri, hogy egy vitatott ügyről senki ne beszéljen kívülállókkal, pedig egy barátodnak éppen ebben lenne szüksége segítségre.
    - **É:** Imádkozom, és megbeszélem a vezetővel a helyzetet, hogy megtaláljuk, hogyan segíthetek a barátomon.
@@ -285,7 +271,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Kimondom a megbocsátást, mert ez a kötelességem, de azzal, hogy mi van a szívemben, nem foglalkozom.
    - **H:** Majd akkor bocsátok meg, ha tényleg érzem is.
 
-#### IST-2 · Hit / Valóságtagadás
+#### 17 · Hit / Valóságtagadás
 
 1. Az orvos komoly vizsgálatot javasol egy tünet miatt.
    - **É:** Imádkozom érte, és elmegyek a vizsgálatra, mert Isten az orvosokon keresztül is munkálkodik.
@@ -300,7 +286,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Azt mondom neki, hogy ezeket a gondolatokat el kell hessegetnie, és egyszerűen hinnie kell.
    - **H:** Nem tudok mit mondani, mert őszintén nekem is vannak hasonló kérdéseim, ezért inkább témát váltok.
 
-#### IST-3 · Imádság / Passzív várakozás
+#### 18 · Imádság / Passzív várakozás
 
 1. Régóta imádkozol egy új munkahelyért.
    - **É:** Továbbra is imádkozom érte, és közben rendszeresen küldök önéletrajzot, és érdeklődöm.
@@ -315,7 +301,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Addig nem döntök, amíg nem kapok egyértelmű jelet, akármeddig tart is.
    - **H:** Mérlegelem az előnyöket és a hátrányokat, és döntök; ehhez nincs szükség imádságra.
 
-#### IST-4 · Istenfélelem / Emberektől vagy büntetéstől való félelem
+#### 19 · Istenfélelem / Emberektől vagy büntetéstől való félelem
 
 1. Elbuksz egy olyan dologban, amellyel régóta küzdesz.
    - **É:** Bocsánatot kérek Istentől, elfogadom a bocsánatát, és továbblépek; ha kell, segítséget kérek.
@@ -330,7 +316,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Megteszem, mert félek, hogy elveszítem az állásomat.
    - **H:** Megteszem, ez nem olyan nagy dolog, mindenki így csinálja.
 
-#### IST-5 · Alázat / Önleértékelés
+#### 20 · Alázat / Önleértékelés
 
 1. Megdicsérnek egy szolgálatodért a gyülekezet előtt.
    - **É:** Megköszönöm, örülök neki, és elmondom, kik segítettek.
@@ -347,7 +333,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
 
 ### Elhívás (Felfelé)
 
-#### ELH-1 · Jövőkép / Nagyzolás
+#### 21 · Jövőkép / Nagyzolás
 
 1. Egy baráti beszélgetésen szóba kerül, ki mit szeretne elérni öt év múlva.
    - **É:** Elmondom a célomat, és azt is, melyek az első lépések, amelyeket már megtettem.
@@ -362,7 +348,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Elmondom, hogy nagy dolgokra vagyok elhívva, csak még nem jött el az ideje.
    - **H:** Bevallom, hogy nincs ilyen képem, csak csinálom, ami jön.
 
-#### ELH-2 · Elhívástudat / Messiáskomplexus
+#### 22 · Elhívástudat / Messiáskomplexus
 
 1. Abban a szolgálatban, amelyet vezetsz, a kiégés közelébe kerültél.
    - **É:** Szólok a vezetőknek, átadok feladatokat, és pihenőt kérek, mert tudom, hogy Isten műve nem rajtam múlik.
@@ -377,7 +363,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Úgy érzem, csak én tudok neki igazán segíteni, ezért mindent félreteszek érte.
    - **H:** Megmondom neki, hogy ezzel inkább egy szakemberhez forduljon.
 
-#### ELH-3 · Reménység / Ábrándozás
+#### 23 · Reménység / Ábrándozás
 
 1. Régóta egyedülálló vagy, és szeretnél házastársat.
    - **É:** Reménykedem, imádkozom, és közben nyitott vagyok új közösségekre, kapcsolatokra.
@@ -392,7 +378,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Leginkább arra gondolok, milyen lesz, ha egyszer meggyógyulok; addig nem nagyon tervezek semmit.
    - **H:** Úgy érzem, nincs mire várnom, és nehezen kelek fel reggelente.
 
-#### ELH-4 · Céltudatosság / Megszállottság
+#### 24 · Céltudatosság / Megszállottság
 
 1. Maratonra készülsz, és a párod szerint túl sok időt töltesz edzéssel.
    - **É:** Megbeszéljük, mennyi idő fér bele, és úgy alakítom az edzéstervet, hogy neki is jusson idő.
@@ -407,7 +393,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Másnap már a következő, még nagyobb célon dolgozom, nincs idő megállni.
    - **H:** Üresnek érzem magam, és hónapokig nem tudok új célt kitűzni.
 
-#### ELH-5 · Küldetéstudat / Önigazolás
+#### 25 · Küldetéstudat / Önigazolás
 
 1. Egy gyülekezeti tag szóvá teszi, hogy a szolgálatod közben durván beszéltél vele.
    - **É:** Meghallgatom, bocsánatot kérek, és átgondolom, hogyan lehetnék máskor figyelmesebb.
@@ -424,7 +410,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
 
 ### Mások felemelése (Felfelé)
 
-#### FEL-1 · Bátorítás / Hízelgés
+#### 26 · Bátorítás / Hízelgés
 
 1. Egy csapattagod közepes munkát adott le, és bizonytalannak tűnik.
    - **É:** Kiemelem, ami valóban jól sikerült, és megmondom, min lehet még javítani.
@@ -439,7 +425,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Csak dicsérem, hogy ne sértődjön meg, és ne romoljon el a barátságunk.
    - **H:** Megmondom, hogy nem értek hozzá, és el sem olvasom.
 
-#### FEL-2 · Szolgáló vezetés / Atyáskodó kontroll
+#### 27 · Szolgáló vezetés / Atyáskodó kontroll
 
 1. A kiscsoportod egyik tagja olyan párkapcsolati döntést hoz, amelyet te rossznak tartasz.
    - **É:** Egyszer elmondom neki a fenntartásaimat, aztán tiszteletben tartom a döntését, és mellette maradok.
@@ -454,7 +440,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Megmondom, melyik a jó választás, és ha mást választ, nem támogatom anyagilag.
    - **H:** Teljesen rábízom, nem szólok bele, és nem is kérdezem.
 
-#### FEL-3 · Inspirálás / Érzelmi manipuláció
+#### 28 · Inspirálás / Érzelmi manipuláció
 
 1. Önkénteseket keresel egy jótékonysági akcióhoz, de kevesen jelentkeznek.
    - **É:** Elmesélem, kiknek segítünk, és mit jelentene nekik, majd megkérdezem, ki tudna jönni.
@@ -469,7 +455,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Szomorúan közlöm, hogy nagyon rosszul esik, hogy ennyire nem fontos nekik, ami nekem fontos.
    - **H:** Meg sem kérdezem őket, egyedül megyek.
 
-#### FEL-4 · Tanítás / Kioktatás
+#### 29 · Tanítás / Kioktatás
 
 1. Egy fiatalabb hívő egy bibliai szakaszt másképp értelmez, mint te.
    - **É:** Megkérdezem, hogyan jutott erre, és elmondom az én értelmezésemet is, hogy együtt gondolkodjunk.
@@ -484,7 +470,7 @@ A tengelyértékek a végső párértékek átlagai. A torzult jelölő akkor je
    - **T:** Kijavítom, és hozzáfűzök egy hosszabb magyarázatot a témáról.
    - **H:** Hagyom, nem fontos.
 
-#### FEL-5 · Felhatalmazás / Felelősség áthárítása
+#### 30 · Felhatalmazás / Felelősség áthárítása
 
 1. Egy rendezvény egyik részét egy fiatal csapattagra bíztad, és a vendégek elégedetlenek voltak.
    - **É:** A vendégek felé én vállalom a felelősséget, a csapattaggal pedig utólag átbeszéljük, mit tanultunk.
