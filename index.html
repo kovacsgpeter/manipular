@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manipular – vállalások közösen</title>
+<meta name="description" content="A Manipular egy interjúval kezdődik: jellemprofil hat területen, majd a profilhoz illő heti és napi kihívások.">
+<style>
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb; --card: #f3f2ee; --border: #dedcd5;
+  --text: #0b0b0b; --text-2: #52514e; --muted: #74726c; --focus: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #1a1a19; --card: #242422; --border: #3b3a37;
+    --text: #ffffff; --text-2: #c3c2b7; --muted: #9c9b93; --focus: #6da7ec;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1a1a19; --card: #242422; --border: #3b3a37;
+  --text: #ffffff; --text-2: #c3c2b7; --muted: #9c9b93; --focus: #6da7ec;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--surface); color: var(--text); font: 17px/1.6 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 0 16px 48px; }
+.eyebrow { font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.hero { text-align: center; padding: 72px 0 56px; }
+.hero h1 { font-size: clamp(2.1rem, 6vw, 3.1rem); line-height: 1.1; margin: 10px 0 18px; letter-spacing: -0.01em; }
+.hero p { color: var(--text-2); max-width: 580px; margin: 0 auto; font-size: 1.1rem; }
+.cta { display: inline-block; margin-top: 34px; padding: 16px 38px; border-radius: 12px; background: var(--text); color: var(--surface); font-size: 1.15rem; font-weight: 700; text-decoration: none; }
+.cta:hover { opacity: 0.88; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.cta-note { display: block; margin-top: 12px; font-size: 0.875rem; color: var(--muted); }
+h2 { font-size: 1.4rem; margin: 0 0 18px; }
+section { border-top: 1px solid var(--border); padding: 40px 0; }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; counter-reset: step; }
+.steps li { counter-increment: step; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px 16px 62px; position: relative; }
+.steps li::before { content: counter(step); position: absolute; left: 18px; top: 16px; width: 30px; height: 30px; border-radius: 50%; background: var(--text); color: var(--surface); font-weight: 700; display: grid; place-items: center; font-size: 0.95rem; }
+.steps b { display: block; font-size: 1.05rem; margin-bottom: 2px; }
+.steps span { color: var(--text-2); }
+.dirs { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.dirs div { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.dirs b { display: block; }
+.dirs span { font-size: 0.92rem; color: var(--text-2); }
+.small { font-size: 0.9rem; color: var(--text-2); }
+.again { text-align: center; }
+footer { max-width: 760px; margin: 0 auto; padding: 0 16px 40px; font-size: 0.82rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <div class="hero">
+    <div class="eyebrow">Manipular</div>
+    <h1>Kis vállalások,<br>közös hadjárat.</h1>
+    <p>Egy játék, ami valódi, hétköznapi vállalások teljesítésére épít: mozgás, tanulás, kapcsolatok, hit. Nem egyedül csinálod: a csapat együtt halad előre, és mindenki teljesítése a közös eredményt erősíti.</p>
+    <a class="cta" href="interju/">Kezdjük el →</a>
+    <span class="cta-note">Egy interjúval indul · kb. 25–35 perc</span>
+  </div>
+
+  <section>
+    <h2>Hogyan működik?</h2>
+    <ol class="steps">
+      <li><b>Interjú</b><span>30 jellempárról szóló állítás arról, hogyan működtél az elmúlt négy hétben. Ha van, egy társad (verifikátor) is kitöltheti rólad, így két nézőpontból látod magad.</span></li>
+      <li><b>Profil</b><span>A válaszokból hat területre bontott profil készül: hol erős az érett működés, és hol csúszik át túlzásba vagy torzulásba.</span></li>
+      <li><b>Kihívások</b><span>A profil alapján egy heti és öt napi kihívást kapsz, arra a területre, ahol most a legtöbbet fejlődhetsz. Ha nem illik hozzád, néhányszor újragenerálhatod.</span></li>
+      <li><b>Közös út</b><span>A teljesített kihívások a csapat közös előrehaladását szolgálják. A kerettörténet a künoszkephalai csata előzményeiből merít.</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Négy irány</h2>
+    <div class="dirs">
+      <div><b>Előre</b><span>Elindít, vállal, áttör, teret nyer.</span></div>
+      <div><b>Hátra</b><span>Megtart, véd, kitart, uralkodik önmagán.</span></div>
+      <div><b>Oldalra</b><span>Új nézőpontot, kapcsolatot vagy kerülőutat talál.</span></div>
+      <div><b>Felfelé</b><span>Istenhez igazodás, elhívás, mások felemelése.</span></div>
+    </div>
+    <p class="small">Minden kihívás egy irányhoz és egy érett jellemvonáshoz tartozik, és annak torzult párját is korrigálja (pl. önuralom ↔ elfojtás, diplomácia ↔ manipuláció).</p>
+  </section>
+
+  <section class="again">
+    <p class="small">Minden a böngésződben fut: a válaszaid nem kerülnek szerverre. A kitöltést és a kihívásokat te mented le fájlba, és csak azzal osztod meg, akivel megállapodtatok.</p>
+    <a class="cta" href="interju/">Kezdjük el →</a>
+  </section>
+</main>
+<footer>Fejlesztési prototípus. A profil beszámolt viselkedési gyakoriságot mutat: nem diagnózis, nem személyiségtípus, és nem a hit vagy az emberi érték mértéke.</footer>
+<script>
+// Helyben megnyitva (file://) a böngésző nem nyitja meg magától a mappa index.html-jét.
+if (location.protocol === 'file:') document.querySelectorAll('a[href="interju/"]').forEach((a) => { a.href = 'interju/index.html'; });
+</script>
+</body>
+</html>
