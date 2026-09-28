@@ -121,11 +121,13 @@ function noiKihivasokBeirasa() {
 
   const firstData = HEADER_ROW + 1;
   const n = Math.max(sh.getLastRow() - HEADER_ROW, 1);
-  const titles = sh.getRange(firstData, 1, n, 1).getDisplayValues();
-  const sources = new Set(sh.getRange(firstData, 13, n, 1).getDisplayValues().map((r) => r[0].trim()));
+  const existing = sh.getRange(firstData, 1, n, HEADERS.length).getDisplayValues();
+  const sources = new Set(existing.map((r) => r[12].trim()));
+  const ours = new Set(ROWS.map((r) => r[0]));
 
+  // Egy korábbi, félbeszakadt futás sorait (saját cím, üres Forrássor) felülírja.
   let lastFilled = HEADER_ROW;
-  titles.forEach((r, i) => { if (r[0].trim()) lastFilled = firstData + i; });
+  existing.forEach((r, i) => { if (r[0].trim() && !(ours.has(r[0].trim()) && !r[12].trim())) lastFilled = firstData + i; });
 
   const rows = ROWS.filter((r) => !sources.has(r[12]));
   if (!rows.length) return report('Mind a ' + ROWS.length + ' sor már bent van, nem írtam be semmit.');
@@ -134,8 +136,14 @@ function noiKihivasokBeirasa() {
   const end = start + rows.length - 1;
   if (end > sh.getMaxRows()) sh.insertRowsAfter(sh.getMaxRows(), end - sh.getMaxRows());
 
+  // A 174. sortól elcsúszott érvényesítés javítása: J = dimenzió lista, K (Szerző) szabad szöveg.
+  sh.getRange(start, 10, rows.length, 1).setDataValidation(
+    SpreadsheetApp.newDataValidation().requireValueInList(['Fizikai', 'Szellemi', 'Lelki'], true).build());
+  sh.getRange(start, 11, rows.length, 1).clearDataValidations();
   sh.getRange(start, 12, rows.length, 1).insertCheckboxes();
   sh.getRange(start, 1, rows.length, HEADERS.length).setValues(rows);
+  // A Típus oszlop a katalógusban képlet (az Időtartamból számol), ezért azt írjuk vissza.
+  sh.getRange(start, 5, rows.length, 1).setFormulaR1C1('=IF(R[0]C[-1]="","",IF(R[0]C[-1]=1,"Napi","Heti"))');
 
   // Az "Érvényes?" oszlop soronkénti képletét (ha van) továbbmásolja az új sorokra.
   const formula = sh.getRange(firstData, 14).getFormulaR1C1();
