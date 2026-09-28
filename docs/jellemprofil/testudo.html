@@ -287,6 +287,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
   <h2>Kihívások a profil alapján</h2>
   <p class="small" id="planIntro"></p>
   <div id="planReady"></div>
+  <div class="fields"><label>A kitöltő neme (a kihívások szűréséhez)<select id="gender"><option value="">— válassz —</option><option value="female">Nő</option><option value="male">Férfi</option></select></label></div>
   <div class="tools">
     <button id="genPlan" class="primary">Kihívások generálása</button>
     <button id="savePlan">Kihívásterv mentése (JSON)</button>
@@ -852,6 +853,16 @@ function pairProfiles(cfg = chSettings) {
 }
 const planReady = () => Object.keys(pairProfiles()).length >= chSettings.readyPairs;
 
+// A kihívás "gender" mezője: hiányzik/"any" = koedukált, "male" = férfi, "female" = női. Csak a kitöltő nemének megfelelő kihívás választható.
+// Elfogadja a sheetből jövő magyar és angol értékeket is (mező: gender vagy nem); üres/ismeretlen érték = mindenkinek szól.
+function challengeGender(c) {
+  const v = String(c.gender ?? c.nem ?? '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (['male', 'm', 'ferfi', 'fiu', 'ferfiaknak'].includes(v)) return 'male';
+  if (['female', 'f', 'noi', 'lany', 'noknek'].includes(v)) return 'female';
+  return 'any';
+}
+const fitsGender = (c) => { const g = challengeGender(c); return g === 'any' || g === $('gender').value; };
+
 function pickChallenges(type, mode, count, prof, taken, avoid) {
   const byDir = {};
   for (const d of DIRS) {
@@ -863,7 +874,7 @@ function pickChallenges(type, mode, count, prof, taken, avoid) {
     if (mode !== 'weak') return byDir[c.direction] !== undefined && !c.pair ? byDir[c.direction] - 1 : null;
     return (byDir[c.direction] ?? 2) - 0.5;
   };
-  const pool = CHALLENGES.filter((c) => c.type === type && chSettings.dirs[c.direction] !== 'off' && !taken.includes(c) && base(c) !== null);
+  const pool = CHALLENGES.filter((c) => c.type === type && chSettings.dirs[c.direction] !== 'off' && fitsGender(c) && !taken.includes(c) && base(c) !== null);
   const picked = [];
   while (picked.length < count && picked.length < pool.length) {
     let best = null;
@@ -958,6 +969,8 @@ function planCard(x, weekly) {
     <h3>${esc(x.title)}</h3><p>${esc(x.description)}</p><p class="plan-why">${why}</p></article>`;
 }
 
+$('gender').addEventListener('change', () => { if (!$('challenges').hidden) renderPlan(); });
+
 function renderPlan() {
   const count = Object.keys(pairProfiles()).length;
   const left = maxGenerations() - gensUsed;
@@ -965,7 +978,8 @@ function renderPlan() {
   $('planReady').innerHTML = count >= chSettings.readyPairs ? ''
     : `<p class="notice">A profil még nem kész: ${count}/${BANK.pairs.length} párhoz van a beállított nézőpont szerinti pontszám, legalább ${chSettings.readyPairs} kell. Tölts ki ${chSettings.persp === 'gap' ? 'mindkét nézőpontot' : 'legalább egy nézőpontot'}, vagy töltsd be a mentett kitöltést.</p>`;
   $('genPlan').textContent = gensUsed === 0 ? 'Kihívások generálása' : `${plan ? 'Újragenerálás' : 'Kihívások generálása'} (még ${Math.max(0, left)})`;
-  $('genPlan').disabled = count < chSettings.readyPairs || left <= 0;
+  if (!$('gender').value) $('planReady').innerHTML += '<p class="notice">Add meg a kitöltő nemét lentebb, mert a kihívások egy része csak férfiaknak vagy csak nőknek szól.</p>';
+  $('genPlan').disabled = count < chSettings.readyPairs || left <= 0 || !$('gender').value;
   $('savePlan').disabled = !plan;
   if (!plan) { $('plan').innerHTML = ''; return; }
   const when = !Number.isNaN(Date.parse(plan.generatedAt)) ? new Date(plan.generatedAt).toLocaleString('hu-HU') : '—';
@@ -1150,7 +1164,7 @@ function renderDeep() {
 
 // ---------- mentés, betöltés, CSV ----------
 
-function meta() { return { subject: $('subject').value.trim(), start: $('start').value, end: $('end').value }; }
+function meta() { return { subject: $('subject').value.trim(), start: $('start').value, end: $('end').value, gender: $('gender').value }; }
 function validateMeta(m) {
   if (!m || !m.subject || !/^\d{4}-\d{2}-\d{2}$/.test(m.start) || !/^\d{4}-\d{2}-\d{2}$/.test(m.end)) throw Error('Add meg a résztvevő kódját és a két dátumot.');
   if ((Date.parse(m.end) - Date.parse(m.start)) / 86400000 + 1 !== 28) throw Error('Az időszak legyen pontosan 28 nap, a kezdő- és zárónapot is beleszámítva.');
@@ -1233,6 +1247,7 @@ $('load').onchange = async () => {
     if (hasAnswers(p.role) && !confirm('Lecseréled e nézőpont meglévő válaszait?')) return;
     state[p.role] = clean;
     for (const k of ['subject', 'start', 'end']) $(k).value = p.meta[k];
+    if (['male', 'female'].includes(p.meta.gender)) $('gender').value = p.meta.gender;
     if (typeof p.joint === 'string' && p.joint) {
       if (!$('joint').value) $('joint').value = p.joint;
       else if ($('joint').value !== p.joint) $('joint').value += '\n\nTovábbi betöltött jegyzet:\n' + p.joint;

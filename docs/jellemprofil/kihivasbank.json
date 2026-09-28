@@ -1,7 +1,7 @@
 {
   "schema": "manipular-kihivasbank/1",
   "version": "2026-09-28a",
-  "note": "Induló minta a kihívástáblázatból. A mature/distorted a kerdesbank.json jellemnevei közül való; a direction elhagyható, ekkor a pár iránya.",
+  "note": "Induló minta a kihívástáblázatból. A mature/distorted a kerdesbank.json jellemnevei közül való; a direction elhagyható, ekkor a pár iránya. A gender (any / male / female) elhagyható, ekkor a kihívás mindenkinek szól.",
   "challenges": [
     { "id": "H01", "type": "weekly", "direction": "Előre", "title": "Ima vezetőkért", "mature": "Kezdeményezés", "distorted": "Impulzivitás", "description": "Imádkozz egy hétig napi 3x a gyülekezeti vezetőidért." },
     { "id": "H02", "type": "weekly", "direction": "Hátra", "title": "Egy hét nasi nélkül", "mature": "Önuralom", "distorted": "Elfojtás", "description": "Figyelj egy hétig arra, hogy tényleg csak a szükségleteid kielégítése céljából egyél. Ne egyél mennyiségre sem többet a szükségesnél, és ne nassolj a főétkezések között (üdítőt se fogyassz)." },
