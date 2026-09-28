@@ -203,6 +203,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
     <label>Résztvevő kódja<input type="text" id="subject" placeholder="pl. T-01" autocomplete="off"></label>
     <label>Időszak kezdete<input type="date" id="start"></label>
     <label>Időszak vége<input type="date" id="end"></label>
+    <label>A kitöltő neme<select id="gender"><option value="">— válassz —</option><option value="female">Nő</option><option value="male">Férfi</option></select></label>
   </div>
   <p class="small">Mindkét értékelő ugyanarról a lezárt, 28 napos időszakról válaszoljon.</p>
   </div>
@@ -861,6 +862,9 @@ function pairProfiles(cfg = chSettings) {
 }
 const planReady = () => Object.keys(pairProfiles()).length >= chSettings.readyPairs;
 
+// A kihívás "gender" mezője: hiányzik/"any" = koedukált, "male" = férfi, "female" = női. Csak a kitöltő nemének megfelelő kihívás választható.
+const fitsGender = (c) => !c.gender || c.gender === 'any' || c.gender === $('gender').value;
+
 function pickChallenges(type, mode, count, prof, taken, avoid) {
   const byDir = {};
   for (const d of DIRS) {
@@ -872,7 +876,7 @@ function pickChallenges(type, mode, count, prof, taken, avoid) {
     if (mode !== 'weak') return byDir[c.direction] !== undefined && !c.pair ? byDir[c.direction] - 1 : null;
     return (byDir[c.direction] ?? 2) - 0.5;
   };
-  const pool = CHALLENGES.filter((c) => c.type === type && chSettings.dirs[c.direction] !== 'off' && !taken.includes(c) && base(c) !== null);
+  const pool = CHALLENGES.filter((c) => c.type === type && chSettings.dirs[c.direction] !== 'off' && fitsGender(c) && !taken.includes(c) && base(c) !== null);
   const picked = [];
   while (picked.length < count && picked.length < pool.length) {
     let best = null;
@@ -967,6 +971,8 @@ function planCard(x, weekly) {
     <h3>${esc(x.title)}</h3><p>${esc(x.description)}</p><p class="plan-why">${why}</p></article>`;
 }
 
+$('gender').addEventListener('change', () => { if (!$('challenges').hidden) renderPlan(); });
+
 function renderPlan() {
   const count = Object.keys(pairProfiles()).length;
   const left = maxGenerations() - gensUsed;
@@ -974,7 +980,8 @@ function renderPlan() {
   $('planReady').innerHTML = count >= chSettings.readyPairs ? ''
     : `<p class="notice">A profil még nem kész: ${count}/${BANK.pairs.length} párhoz van a beállított nézőpont szerinti pontszám, legalább ${chSettings.readyPairs} kell. Tölts ki ${chSettings.persp === 'gap' ? 'mindkét nézőpontot' : 'legalább egy nézőpontot'}, vagy töltsd be a mentett kitöltést.</p>`;
   $('genPlan').textContent = gensUsed === 0 ? 'Kihívások generálása' : `${plan ? 'Újragenerálás' : 'Kihívások generálása'} (még ${Math.max(0, left)})`;
-  $('genPlan').disabled = count < chSettings.readyPairs || left <= 0;
+  if (!$('gender').value) $('planReady').innerHTML += '<p class="notice">Add meg a kitöltő nemét (Adatok), mert a kihívások egy része csak férfiaknak vagy csak nőknek szól.</p>';
+  $('genPlan').disabled = count < chSettings.readyPairs || left <= 0 || !$('gender').value;
   $('savePlan').disabled = !plan;
   if (!plan) { $('plan').innerHTML = ''; return; }
   const when = !Number.isNaN(Date.parse(plan.generatedAt)) ? new Date(plan.generatedAt).toLocaleString('hu-HU') : '—';
@@ -1159,7 +1166,7 @@ function renderDeep() {
 
 // ---------- mentés, betöltés, CSV ----------
 
-function meta() { return { subject: $('subject').value.trim(), start: $('start').value, end: $('end').value }; }
+function meta() { return { subject: $('subject').value.trim(), start: $('start').value, end: $('end').value, gender: $('gender').value }; }
 function validateMeta(m) {
   if (!m || !m.subject) throw Error('Add meg a résztvevő kódját.');
 }
@@ -1241,6 +1248,7 @@ $('load').onchange = async () => {
     if (hasAnswers(p.role) && !confirm('Lecseréled e nézőpont meglévő válaszait?')) return;
     state[p.role] = clean;
     for (const k of ['subject', 'start', 'end']) $(k).value = p.meta[k];
+    if (['male', 'female'].includes(p.meta.gender)) $('gender').value = p.meta.gender;
     if (typeof p.joint === 'string' && p.joint) {
       if (!$('joint').value) $('joint').value = p.joint;
       else if ($('joint').value !== p.joint) $('joint').value += '\n\nTovábbi betöltött jegyzet:\n' + p.joint;
