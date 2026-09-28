@@ -203,7 +203,6 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
     <label>Résztvevő kódja<input type="text" id="subject" placeholder="pl. T-01" autocomplete="off"></label>
     <label>Időszak kezdete<input type="date" id="start"></label>
     <label>Időszak vége<input type="date" id="end"></label>
-    <label>A kitöltő neme<select id="gender"><option value="">— válassz —</option><option value="female">Nő</option><option value="male">Férfi</option></select></label>
   </div>
   <p class="small">Mindkét értékelő ugyanarról a lezárt, 28 napos időszakról válaszoljon.</p>
   </div>
@@ -288,6 +287,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
   <h2>Kihívások a profil alapján</h2>
   <p class="small" id="planIntro"></p>
   <div id="planReady"></div>
+  <div class="fields"><label>A kitöltő neme (a kihívások szűréséhez)<select id="gender"><option value="">— válassz —</option><option value="female">Nő</option><option value="male">Férfi</option></select></label></div>
   <div class="tools">
     <button id="genPlan" class="primary">Kihívások generálása</button>
     <button id="savePlan">Kihívásterv mentése (JSON)</button>
@@ -978,7 +978,7 @@ function renderPlan() {
   $('planReady').innerHTML = count >= chSettings.readyPairs ? ''
     : `<p class="notice">A profil még nem kész: ${count}/${BANK.pairs.length} párhoz van a beállított nézőpont szerinti pontszám, legalább ${chSettings.readyPairs} kell. Tölts ki ${chSettings.persp === 'gap' ? 'mindkét nézőpontot' : 'legalább egy nézőpontot'}, vagy töltsd be a mentett kitöltést.</p>`;
   $('genPlan').textContent = gensUsed === 0 ? 'Kihívások generálása' : `${plan ? 'Újragenerálás' : 'Kihívások generálása'} (még ${Math.max(0, left)})`;
-  if (!$('gender').value) $('planReady').innerHTML += '<p class="notice">Add meg a kitöltő nemét (Adatok), mert a kihívások egy része csak férfiaknak vagy csak nőknek szól.</p>';
+  if (!$('gender').value) $('planReady').innerHTML += '<p class="notice">Add meg a kitöltő nemét lentebb, mert a kihívások egy része csak férfiaknak vagy csak nőknek szól.</p>';
   $('genPlan').disabled = count < chSettings.readyPairs || left <= 0 || !$('gender').value;
   $('savePlan').disabled = !plan;
   if (!plan) { $('plan').innerHTML = ''; return; }
