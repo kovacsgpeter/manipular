@@ -162,6 +162,9 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .qlabel { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
 .plan-card { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin: 10px 0; background: var(--surface); }
 .plan-card.weekly { background: var(--card); border-width: 2px; }
+.plan-card.pinned { border-color: var(--mature); box-shadow: 0 0 0 2px var(--mature) inset; }
+.plan-card .pin { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; }
+.plan-card .pin input { width: 18px; height: 18px; margin: 0; cursor: pointer; }
 .plan-card h3 { margin: 6px 0 4px; }
 .plan-card p { margin: 4px 0; }
 .plan-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 0.82rem; color: var(--text-2); }
@@ -184,6 +187,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .tour-bubble .tour-nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .tour-bubble .tour-nav button { padding: 6px 11px; font-size: 0.85rem; }
 @media print {
+  .plan-card .pin { display: none !important; }
   .tour-row, .tour-hl, .tour-arrow, .tour-bubble { display: none !important; }
   nav.main, .tools, .sticky, #data, .tabs, .pair-nav { display: none !important; }
   body { background: white; color: black; }
@@ -930,28 +934,38 @@ function planEntry(c, prof, mode, day) {
   };
 }
 
+// Részleges újragenerálás: a rögzített (pinned) bejegyzések megmaradnak, a többit újra választja,
+// figyelembe véve a rögzítetteket (nem duplikál, párok/irányok szerint is kerüli az ismétlést).
 function generatePlan() {
   const prof = pairProfiles();
-  const avoid = new Set(plan ? [plan.weekly, ...plan.daily].filter(Boolean).map((x) => x.id) : []);
-  const [weekly] = pickChallenges('weekly', 'weak', 1, prof, [], avoid);
-  const daily = [];
+  const keptWeekly = plan && plan.weekly && plan.weekly.pinned ? plan.weekly : null;
+  const keptByDay = new Map(plan ? plan.daily.filter((x) => x.pinned).map((x) => [x.day, x]) : []);
+  const asChallenge = (x) => CHALLENGES.find((c) => c.id === x.id) || { id: x.id, direction: x.direction };
+  const avoid = new Set(plan ? [plan.weekly, ...plan.daily].filter((x) => x && !x.pinned).map((x) => x.id) : []);
+  const pinnedC = [...keptByDay.values()].map(asChallenge);
+  const freeDays = WEEKDAYS.filter((d) => !keptByDay.has(d));
+  const weekly = keptWeekly ? null : pickChallenges('weekly', 'weak', 1, prof, [], avoid)[0];
+  const fresh = [];
   const notes = [];
-  for (const [mode, n] of [['overdone', chSettings.overdoneDaily], ['keep', chSettings.keepDaily]]) {
+  for (const [mode, n0] of [['overdone', chSettings.overdoneDaily], ['keep', chSettings.keepDaily]]) {
+    const n = Math.min(Math.max(0, n0 - [...keptByDay.values()].filter((x) => x.mode === mode).length), freeDays.length - fresh.length);
     if (!n) continue;
-    const got = pickChallenges('daily', mode, n, prof, daily.map((x) => x.c), avoid);
-    got.forEach((c) => daily.push({ c, mode }));
+    const got = pickChallenges('daily', mode, n, prof, [...pinnedC, ...fresh.map((x) => x.c)], avoid);
+    got.forEach((c) => fresh.push({ c, mode }));
     if (got.length < n) notes.push(`${MODE_NAME[mode]}: a profil vagy a bank alapján csak ${got.length} jutott a kért ${n} helyett; a többi fejlesztendő kihívás lett.`);
   }
-  const weakN = WEEKDAYS.length - daily.length;
-  daily.unshift(...pickChallenges('daily', 'weak', weakN, prof, daily.map((x) => x.c), avoid).map((c) => ({ c, mode: 'weak' })));
-  if (!weekly) notes.push('Nincs a beállításoknak megfelelő heti kihívás a bankban (pl. minden irány tiltva).');
+  const weakN = freeDays.length - fresh.length;
+  fresh.unshift(...pickChallenges('daily', 'weak', weakN, prof, [...pinnedC, ...fresh.map((x) => x.c)], avoid).map((c) => ({ c, mode: 'weak' })));
+  if (!weekly && !keptWeekly) notes.push('Nincs a beállításoknak megfelelő heti kihívás a bankban (pl. minden irány tiltva).');
+  const freshByDay = new Map(freeDays.slice(0, fresh.length).map((d, i) => [d, planEntry(fresh[i].c, prof, fresh[i].mode, d)]));
+  const daily = WEEKDAYS.map((d) => keptByDay.get(d) || freshByDay.get(d)).filter(Boolean);
   if (daily.length < WEEKDAYS.length) notes.push(`Csak ${daily.length} napi kihívás felel meg a beállításoknak.`);
   return {
     bankVersion: CHBANK.version || '', generatedAt: new Date().toISOString(),
     perspectives: ROLES.filter(hasAnswers).map((r) => ROLE_NAME[r]),
     settings: structuredClone(chSettings), notes,
-    weekly: weekly ? planEntry(weekly, prof, 'weak') : null,
-    daily: daily.map((x, i) => planEntry(x.c, prof, x.mode, WEEKDAYS[i])),
+    weekly: keptWeekly || (weekly ? planEntry(weekly, prof, 'weak') : null),
+    daily,
   };
 }
 
@@ -962,6 +976,7 @@ function cleanPlan(raw) {
     id: str(x.id), type: str(x.type), mode: Object.hasOwn(MODE_NAME, x.mode) ? x.mode : 'weak', day: withDay ? str(x.day) : null,
     direction: str(x.direction), title: str(x.title), description: str(x.description),
     mature: str(x.mature) || null, distorted: str(x.distorted) || null, basis: x.basis ? { E: num(x.basis.E), T: num(x.basis.T) } : null,
+    pinned: x.pinned === true,
   } : null);
   if (!raw || typeof raw !== 'object') throw Error('Hibás kihívásterv.');
   const weekly = entry(raw.weekly, false);
@@ -991,12 +1006,25 @@ function planCard(x, weekly) {
     : x.mode === 'overdone' ? `Túlhajtott erősség: ${scores} (az érett és a torzult is gyakori) – a kihívás a túlzást fogja vissza.`
     : `A profil alapján: ${scores} (0–4; az érettnél a magasabb, a torzultnál az alacsonyabb a jobb).`;
   const modePill = x.mode && x.mode !== 'weak' ? `<span class="pill">${MODE_NAME[x.mode]}</span>` : '';
-  return `<article class="plan-card${weekly ? ' weekly' : ''}">
+  return `<article class="plan-card${weekly ? ' weekly' : ''}${x.pinned ? ' pinned' : ''}">
     <div class="plan-meta"><span class="pill">${weekly ? 'Heti kihívás' : esc(x.day)}</span><span class="pill">${esc(x.direction)}</span>${modePill}${x.mature ? `<span>Érett célvonás: <b>${esc(x.mature)}</b> · korrigált torzulás: <b>${esc(x.distorted)}</b></span>` : ''}</div>
-    <h3>${esc(x.title)}</h3><p>${esc(x.description)}</p><p class="plan-why">${why}</p></article>`;
+    <h3>${esc(x.title)}</h3><p>${esc(x.description)}</p><p class="plan-why">${why}</p>
+    <label class="pin"><input type="checkbox" data-pin="${weekly ? 'weekly' : esc(x.day)}"${x.pinned ? ' checked' : ''}> Rögzítés${x.pinned ? ' – újragenerálásnál megmarad' : ''}</label></article>`;
 }
 
 $('gender').addEventListener('change', () => { if (!$('challenges').hidden) renderPlan(); });
+$('plan').addEventListener('change', (e) => {
+  const key = e.target.dataset && e.target.dataset.pin;
+  if (!key || !plan) return;
+  const entry = key === 'weekly' ? plan.weekly : plan.daily.find((x) => x.day === key);
+  if (!entry) return;
+  entry.pinned = e.target.checked;
+  renderPlan();
+  const again = [...$('plan').querySelectorAll('[data-pin]')].find((x) => x.dataset.pin === key);
+  if (again) again.focus();
+  const n = [plan.weekly, ...plan.daily].filter((x) => x && x.pinned).length;
+  $('planStatus').textContent = n ? `${n} kihívás rögzítve: az újragenerálás csak a többit cseréli, a rögzítettekhez igazodva.` : '';
+});
 
 function renderPlan() {
   const count = Object.keys(pairProfiles()).length;
@@ -1004,9 +1032,13 @@ function renderPlan() {
   $('planIntro').textContent = `Egy heti és öt napi (hétfő–péntek) kihívás a kihívásbankból${CONFIG.hideWorkshop ? '' : ', a Kérdésműhely › Kihívás-beállítások szerint'} (${settingsSummary(chSettings)}). Egy munkamenetben ${chSettings.regens === 0 ? 'nincs újragenerálás' : `${chSettings.regens}× lehet újragenerálni`}.`;
   $('planReady').innerHTML = count >= chSettings.readyPairs ? ''
     : `<p class="notice">A profil még nem kész: ${count}/${BANK.pairs.length} párhoz van a beállított nézőpont szerinti pontszám, legalább ${chSettings.readyPairs} kell. Tölts ki ${chSettings.persp === 'gap' ? 'mindkét nézőpontot' : 'legalább egy nézőpontot'}, vagy töltsd be a mentett kitöltést.</p>`;
-  $('genPlan').textContent = gensUsed === 0 ? 'Kihívások generálása' : `${plan ? 'Újragenerálás' : 'Kihívások generálása'} (még ${Math.max(0, left)})`;
+  const entries = plan ? [plan.weekly, ...plan.daily].filter(Boolean) : [];
+  const pinnedN = entries.filter((x) => x.pinned).length;
+  const allPinned = entries.length > 0 && pinnedN === entries.length;
+  const genLabel = !plan ? 'Kihívások generálása' : pinnedN ? 'Nem rögzítettek újragenerálása' : 'Újragenerálás';
+  $('genPlan').textContent = !plan && gensUsed === 0 ? genLabel : `${genLabel} (még ${Math.max(0, left)})`;
   if (!$('gender').value) $('planReady').innerHTML += '<p class="notice">Add meg a kitöltő nemét lentebb, mert a kihívások egy része csak férfiaknak vagy csak nőknek szól.</p>';
-  $('genPlan').disabled = count < chSettings.readyPairs || left <= 0 || !$('gender').value;
+  $('genPlan').disabled = count < chSettings.readyPairs || left <= 0 || !$('gender').value || allPinned;
   $('savePlan').disabled = !plan;
   if (!plan) { $('plan').innerHTML = ''; return; }
   const when = !Number.isNaN(Date.parse(plan.generatedAt)) ? new Date(plan.generatedAt).toLocaleString('hu-HU') : '—';
@@ -1591,11 +1623,12 @@ function showView(id) {
 }
 $('genPlan').onclick = () => {
   if (!planReady() || gensUsed >= maxGenerations()) return;
+  const partial = !!plan && [plan.weekly, ...plan.daily].some((x) => x && x.pinned);
   plan = generatePlan();
   gensUsed++;
   try { sessionStorage.setItem(GEN_KEY, String(gensUsed)); } catch (e) { /* sessionStorage nem érhető el */ }
   const left = maxGenerations() - gensUsed;
-  $('planStatus').textContent = left ? `Kész. Ebben a munkamenetben még ${left}× generálhatsz újra. Mentsd el a tervet.` : 'Kész. Ebben a munkamenetben több újragenerálás nincs. Mentsd el a tervet.';
+  $('planStatus').textContent = (partial ? 'A rögzítettek megmaradtak, a többi új. ' : '') + (left ? `Kész. Ebben a munkamenetben még ${left}× generálhatsz újra. Mentsd el a tervet.` : 'Kész. Ebben a munkamenetben több újragenerálás nincs. Mentsd el a tervet.');
   renderPlan();
 };
 $('savePlan').onclick = () => {
@@ -1773,7 +1806,8 @@ renderReviewOptions();
       { view: 'challenges', sel: '#gender', text: 'Előbb add meg a kitöltő nemét: a kihívások egy része csak nőknek vagy csak férfiaknak szól.' },
       { view: 'challenges', sel: '#genPlan', text: 'Ezután generáld a kihívásokat a profilod alapján. Csak elég kész jellemzőpárnál aktív, és munkamenetenként korlátozott számú (újra)generálás van.' },
       { view: 'challenges', sel: '#plan', text: 'A kész terv: egy heti és több napi kihívás a profil alapján.' },
-      { view: 'challenges', sel: '#savePlan', text: 'A tervet mentsd el JSON-ba, vagy nyomtasd / mentsd PDF-be. Az újragenerálás felülírja az előzőt.' },
+      { view: 'challenges', sel: '#plan .pin', text: 'RÖGZÍTÉS: pipáld be azokat a kihívásokat, amelyeket megtartanál (bármennyit, akár mind). Újragenerálásnál csak a nem rögzítettek cserélődnek, és az újak a rögzítettekhez igazodnak.' },
+      { view: 'challenges', sel: '#savePlan', text: 'A tervet mentsd el JSON-ba, vagy nyomtasd / mentsd PDF-be. Az újragenerálás csak a nem rögzítetteket írja felül.' },
     ],
   };
   let steps = [], idx = 0, hl, arrow, bub, current = null;
