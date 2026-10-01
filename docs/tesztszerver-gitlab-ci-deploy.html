@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="hu"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tesztszerver · GitLab CI + Tailscale + Doppler</title>
+<style>
+:root{color-scheme:light dark;--bg:#f3f6f4;--card:#fff;--ink:#17231f;--muted:#54665f;--line:#d4dfd9;--accent:#166d63;--code:#ebf1ed;--warn:#8a5a00;--warnbg:#fff4d6}
+@media(prefers-color-scheme:dark){:root{--bg:#111a17;--card:#1b2722;--ink:#eaf2ed;--muted:#b2c4b9;--line:#3a5144;--accent:#80d5bd;--code:#26382e;--warn:#f3cf7a;--warnbg:#3a3118}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif}
+header{position:sticky;top:0;z-index:1;background:var(--card);border-bottom:1px solid var(--line);padding:.6rem max(1rem,calc((100vw - 840px)/2))}
+header strong{color:var(--accent)}#progress{font-size:.85rem;color:var(--muted);margin-left:1rem}
+main{max-width:840px;margin:auto;padding:1.5rem 1rem 5rem}
+h1{line-height:1.15;font-size:clamp(1.8rem,5vw,2.6rem)}h2{margin:2.4rem 0 1rem;border-top:2px solid var(--accent);padding-top:1rem;font-size:1.3rem}h3{margin:1.6rem 0 .5rem;font-size:1.05rem}
+p,li{max-width:75ch}a{color:var(--accent)}code,pre{font:.9em/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+code{background:var(--code);border-radius:4px;padding:.12em .32em;overflow-wrap:anywhere}
+pre{background:var(--code);border:1px solid var(--line);border-radius:9px;overflow:auto;padding:1rem;white-space:pre}
+pre code{padding:0;background:transparent}
+ul.task-list{padding:0;list-style:none}ul.task-list li{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:.75rem 1rem;margin:.55rem 0}
+ul.task-list label{display:flex;gap:.65rem;align-items:flex-start;cursor:pointer}ul.task-list input{width:19px;height:19px;flex:none;margin:.22rem 0;accent-color:var(--accent)}
+ul.task-list li.done{opacity:.67}ul.task-list li.done label{text-decoration:line-through}
+.fname{margin:1rem 0 -.4rem;font:600 .85rem ui-monospace,monospace;color:var(--muted)}
+.sourceCode{position:relative}button.copy{position:absolute;right:8px;top:8px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:.28rem .6rem;cursor:pointer}
+.sourceCode pre{padding-top:2.5rem}strong{font-weight:650}
+.note{background:var(--warnbg);color:var(--warn);border-radius:8px;padding:.7rem 1rem;margin:1rem 0}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.93rem}th,td{border:1px solid var(--line);padding:.45rem .6rem;text-align:left;vertical-align:top}th{background:var(--card)}
+.tablewrap{overflow-x:auto}
+</style></head><body>
+<header><strong>Tesztszerver · GitLab CI + Tailscale + Doppler</strong><span id="progress"></span></header>
+<main>
+<h1>Automatikus deploy: nagy gép → GitLab Registry → ThinkCentre</h1>
+<p><strong>Cél:</strong> egy <code>git push</code> után a nagy gép megépíti a Docker image-et és feltölti a GitLab (cloud) Container Registrybe, majd a ThinkCentre-en futó második runner magától lehúzza és elindítja. Az app csak a Tailscale-hálózaton érhető el, routeres portnyitás nélkül. A titkokat (jelszavak, API-kulcsok) a Doppler adja futáskor, repóba nem kerül semmi titok.</p>
+
+<h2 id="attekintes">0. Áttekintés</h2>
+<pre><code>git push (main)
+   |
+   v
+GitLab cloud ---- build job (tag: build) ----&gt; nagy gép runnere: docker build + push
+   |                                                      |
+   |                                                      v
+   |                                          GitLab Container Registry
+   |                                                      |
+   +---- deploy job (tag: deploy) ----&gt; ThinkCentre runnere: docker pull + up -d
+                                           (Doppler adja a titkokat futáskor)
+                                                          |
+                                           Tailscale (serve) --&gt; telefon / laptop</code></pre>
+<p><strong>Melyik gépen mi fut?</strong> A GitLab a <strong>tagek</strong> alapján választ: a <code>build</code> tagű runner a nagy gépen, a <code>deploy</code> tagű a ThinkCentre-en van. A <code>.gitlab-ci.yml</code> jobjai a <code>tags:</code> sorral kérik a megfelelő gépet.</p>
+<h3>Mi hol van tárolva (kulcs- és titokterkép)</h3>
+<div class="tablewrap"><table>
+<tr><th>Titok / kulcs</th><th>Mire való</th><th>Hol él</th></tr>
+<tr><td>Runner token (<code>glrt-…</code>)</td><td>a runner azonosítja magát a GitLabnál</td><td>a gépen, <code>/etc/gitlab-runner/config.toml</code> (csak root olvassa)</td></tr>
+<tr><td><code>CI_REGISTRY_USER/PASSWORD</code></td><td>registry push/pull a jobban</td><td>a GitLab adja automatikusan jobonként, nem kell kezelni</td></tr>
+<tr><td>Doppler service token</td><td>az app titkainak olvasása a deploynál</td><td>GitLab CI/CD változó (masked + protected)</td></tr>
+<tr><td>App titkai (adatbázis jelszó stb.)</td><td>az app futása</td><td>csak a Doppleren, deploykor környezeti változóként jutnak a konténerbe</td></tr>
+<tr><td>SSH kulcs (ed25519)</td><td>te lépsz be adminisztrálni a gépekre</td><td>a laptopodon (privát), a gépeken csak a publikus rész</td></tr>
+<tr><td>Tailscale belépés</td><td>a gépek a tailnetben</td><td>a Tailscale fiókod, a gépeken a tailscaled állapota</td></tr>
+</table></div>
+<div class="note"><strong>Fontos:</strong> a pipeline-hoz <strong>nincs szükség SSH-kulcsra</strong>, mert a deploy runner magán a ThinkCentre-en fut. SSH csak a te kézi adminisztrációdhoz kell (3. szakasz).</div>
+
+<h2 id="thinkcentre">1. ThinkCentre alapok (Ubuntu Desktop marad)</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />Ethernet, fix DHCP-foglalás a routerben, automatikus felfüggesztés kikapcsolva (Beállítások → Energiagazdálkodás).</label></li>
+<li><label><input type="checkbox" />Rendszerfrissítés és alapcsomagok (helyi Terminál, Ctrl+Alt+T).</label></li>
+</ul>
+<pre><code>lsb_release -ds
+sudo apt update
+sudo apt full-upgrade
+sudo apt install unattended-upgrades curl ca-certificates gnupg
+sudo timedatectl set-timezone Europe/Budapest</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />Docker Engine + Compose telepítése a <a href="https://docs.docker.com/engine/install/ubuntu/">hivatalos Ubuntu-útmutató</a> szerint (<code>docker-ce</code>, <code>docker-ce-cli</code>, <code>containerd.io</code>, <code>docker-buildx-plugin</code>, <code>docker-compose-plugin</code>).</label></li>
+<li><label><input type="checkbox" />Naplóméret korlátozása és tesztelés:</label></li>
+</ul>
+<pre><code>sudo install -d -m 0755 /etc/docker
+printf '%s\n' '{"log-driver":"json-file","log-opts":{"max-size":"10m","max-file":"3"}}' | sudo tee /etc/docker/daemon.json
+sudo systemctl restart docker
+sudo systemctl enable docker
+sudo docker run --rm hello-world
+sudo docker compose version</code></pre>
+<p><strong>A nagy gépen</strong> is kell Docker (ugyanígy telepítve). Ott a <code>daemon.json</code> lépés opcionális.</p>
+
+<h2 id="tailscale">2. Tailscale</h2>
+<h3>2.1 Telepítés a ThinkCentre-re</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Telepítés a <a href="https://tailscale.com/docs/install/linux">hivatalos Linux-útmutató</a> szerint, majd belépés. A parancs kiír egy linket, azt nyisd meg böngészőben, és hagyd jóvá az eszközt.</label></li>
+</ul>
+<pre><code>curl -fsSL https://tailscale.com/install.sh | sh
+sudo tailscale up --hostname=homeserver
+tailscale ip -4
+tailscale status</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />Telepítsd a Tailscale-t a telefonra és a laptopra is, lépj be ugyanazzal a fiókkal.</label></li>
+<li><label><input type="checkbox" />A <a href="https://login.tailscale.com/admin/machines">Tailscale admin konzolban</a> a ThinkCentre soránál <strong>Disable key expiry</strong>, különben a gép kb. fél év után kiesik a hálózatból.</label></li>
+<li><label><input type="checkbox" />Admin konzol → <strong>DNS</strong>: kapcsold be a <strong>MagicDNS</strong>-t és az <strong>HTTPS Certificates</strong> opciót (a <code>tailscale serve</code> HTTPS-éhez kell).</label></li>
+<li><label><input type="checkbox" />A nagy gépre csak akkor kell Tailscale, ha távolról is el akarod érni (pl. SSH). A pipeline-nak nem kell, mert a runnerek kifelé kapcsolódnak a GitLabhoz.</label></li>
+</ul>
+<h3>2.2 Az app kiajánlása a tailneten (<code>tailscale serve</code>)</h3>
+<p>A javasolt megoldás: a konténer portja csak a <code>127.0.0.1</code>-en figyel, a Tailscale pedig HTTPS-sel továbbítja a tailnetre. Így nincs indulási sorrend-probléma (Docker vs. Tailscale), és kapsz egy <code>https://homeserver.NEVED.ts.net</code> címet.</p>
+<pre><code>sudo tailscale serve --bg 8081
+tailscale serve status</code></pre>
+<p>Több app esetén használj külön HTTPS portot (<code>sudo tailscale serve --bg --https=8443 8082</code>). A pontos kapcsolókat a <a href="https://tailscale.com/kb/1242/tailscale-serve">Serve dokumentációban</a> ellenőrizd, mert a CLI változhat.</p>
+<div class="note"><strong>Ne használd a <code>tailscale funnel</code> parancsot</strong>: az az app-ot a nyilvános internetre teszi. A HTTPS-tanúsítvány gépneve ráadásul bekerül a nyilvános Certificate Transparency naplókba, ezért ne legyen árulkodó a hostname.</div>
+
+<h2 id="ssh">3. SSH (csak a te adminisztrációdhoz)</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />A <strong>laptopodon</strong> készíts kulcsot (jelszóvédett legyen):</label></li>
+</ul>
+<pre><code>ssh-keygen -t ed25519 -C "laptop-peter" -f ~/.ssh/id_ed25519</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />A ThinkCentre-en telepítsd az SSH-szervert, majd a laptopról másold át a publikus kulcsot (Tailscale-néven vagy helyi IP-n). A <code>USER</code> a ThinkCentre felhasználóneved:</label></li>
+</ul>
+<pre><code>sudo apt install openssh-server
+ssh-copy-id -i ~/.ssh/id_ed25519.pub USER@homeserver
+ssh USER@homeserver</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />Ha a kulcsos belépés működik, tiltsd le a jelszavas belépést. Hozz létre egy <code>/etc/ssh/sshd_config.d/10-hardening.conf</code> fájlt (<code>sudoedit</code>), ebbe:</label></li>
+</ul>
+<div class="fname">/etc/ssh/sshd_config.d/10-hardening.conf</div>
+<pre><code>PasswordAuthentication no
+PermitRootLogin no</code></pre>
+<pre><code>sudo sshd -t
+sudo systemctl restart ssh</code></pre>
+<p>Zárás előtt <strong>nyiss egy második SSH-kapcsolatot</strong>, és ellenőrizd, hogy beléphetsz. Közben legyen nyitva egy első session vagy a helyi billentyűzet, hogy ne zárd ki magad.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Opcionális tűzfal: SSH csak a Tailscale-felületről.</label></li>
+</ul>
+<pre><code>sudo ufw allow in on tailscale0 to any port 22 proto tcp
+sudo ufw default deny incoming
+sudo ufw enable</code></pre>
+<p>A <code>ufw enable</code> előtt győződj meg róla, hogy van helyi hozzáférésed a géphez (monitor, billentyűzet). A Docker által publikált portokra az UFW nem feltétlenül vonatkozik, ezért kötjük az appot <code>127.0.0.1</code>-re.</p>
+<p><strong>Alternatíva:</strong> <a href="https://tailscale.com/kb/1193/tailscale-ssh">Tailscale SSH</a> (<code>sudo tailscale up --ssh</code>), ekkor nem kell kulcsot kezelned, a belépést a Tailscale identitás hitelesíti.</p>
+<h3>GitLab SSH-kulcs (opcionális)</h3>
+<p>Csak akkor kell, ha a saját gépedről SSH-n keresztül pusholsz a GitLabra: a GitLabon <strong>Preferences → SSH Keys</strong> alatt add hozzá a laptop <code>~/.ssh/id_ed25519.pub</code> tartalmát. A runnerek HTTPS-en és a job tokennel dolgoznak, nekik nem kell.</p>
+
+<h2 id="doppler">4. Doppler (titkok)</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />Doppleren hozz létre egy projektet (pl. <code>myapp</code>). Az alapértelmezett configok (<code>dev</code>, <code>stg</code>, <code>prd</code>) közül a tesztszervernek használd az <code>stg</code>-t, és vidd fel ide az app titkait (<code>DATABASE_URL</code>, <code>SECRET_KEY</code> stb.).</label></li>
+<li><label><input type="checkbox" />A config <strong>Access</strong> fülén generálj <strong>Service Token</strong>-t <code>thinkcentre-deploy</code> néven, <strong>read-only</strong> jogosultsággal. A token (<code>dp.st.…</code>) csak egyszer látszik, másold ki.</label></li>
+<li><label><input type="checkbox" />A Doppler CLI telepítése a ThinkCentre-re (<a href="https://docs.doppler.com/docs/install-cli">hivatalos útmutató</a>, az Ubuntu/Debian apt-tárolós változat):</label></li>
+</ul>
+<pre><code>curl -sLf --retry 3 --tlsv1.2 --proto "=https" 'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key' | sudo gpg --dearmor -o /usr/share/keyrings/doppler-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/doppler-archive-keyring.gpg] https://packages.doppler.com/public/cli/deb/debian any-version main" | sudo tee /etc/apt/sources.list.d/doppler-cli.list
+sudo apt update
+sudo apt install doppler
+doppler --version</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />Teszt: a token nem kerül a shell-előzménybe.</label></li>
+</ul>
+<pre><code>read -rs DOPPLER_TOKEN
+export DOPPLER_TOKEN
+doppler secrets
+doppler run -- printenv DATABASE_URL
+unset DOPPLER_TOKEN</code></pre>
+<p><strong>Hogyan jut a titok a konténerbe?</strong> A deploy job <code>doppler run -- docker compose …</code> formában fut. A Doppler a titkokat környezeti változóként adja a <code>docker compose</code> folyamatnak, a <code>compose.yaml</code> <code>environment:</code> listája pedig átadja a kiválasztottakat a konténernek. Lemezre nem íródik titkos fájl.</p>
+<p><strong>Rotálás:</strong> ha a tokent lecseréled, generálj újat, írd át a GitLab változót (5.3), majd töröld a régit a Doppleren. A Doppler saját GitLab-integrációját (titkok szinkronizálása GitLab változókba) szándékosan nem használjuk, mert az a titkokat átmásolja a GitLabba.</p>
+
+<h2 id="gitlab">5. GitLab cloud beállítások</h2>
+<h3>5.1 Projekt és registry</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Projekt létrehozása (vagy a meglévő használata), a kód a <code>main</code> ágon. A <code>main</code> alapból védett ág (Settings → Repository → Protected branches).</label></li>
+<li><label><input type="checkbox" />Settings → General → <strong>Visibility, project features, permissions</strong>: a <strong>Container registry</strong> legyen bekapcsolva, a projekt legyen <strong>Private</strong>.</label></li>
+<li><label><input type="checkbox" />Settings → <strong>Packages and registries → Container registry → Cleanup policies</strong> (vagy a Container Registry oldalon): tartsd meg az utolsó 10 taget, a régebbieket töröld, különben a commit-hash tagek felhalmozódnak.</label></li>
+<li><label><input type="checkbox" />A registry útvonalát a Deploy → Container Registry oldalon látod. A pipeline ezt a <code>$CI_REGISTRY_IMAGE</code> változóból veszi, kézzel nem kell beírni.</label></li>
+</ul>
+<h3>5.2 Runnerek létrehozása a GitLabon</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Settings → CI/CD → <strong>Runners</strong>: kapcsold ki az <strong>Enable instance runners for this project</strong> opciót (ne fussanak a jobok GitLab megosztott runnerein).</label></li>
+<li><label><input type="checkbox" /><strong>New project runner</strong> a nagy gépnek: Tags: <code>build</code>, a <strong>Run untagged jobs</strong> legyen <strong>kikapcsolva</strong>, Protected: bekapcsolva. Mentés után megkapod a <code>glrt-…</code> tokent. Csak egyszer látszik, a gépen azonnal használd fel.</label></li>
+<li><label><input type="checkbox" />Második <strong>New project runner</strong> a ThinkCentre-nek: Tags: <code>deploy</code>, untagged kikapcsolva, Protected bekapcsolva. Ennek is külön tokenje lesz.</label></li>
+</ul>
+<h3>5.3 CI/CD változók</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />Settings → CI/CD → <strong>Variables → Add variable</strong>: Key: <code>DOPPLER_TOKEN</code>, Value: a <code>dp.st.…</code> token, Visibility: <strong>Masked</strong>, a <strong>Protect variable</strong> pipa bekapcsolva (csak védett ágon éri el), Environment scope: <code>teszt</code> (a deploy job <code>environment</code> neve ugyanez).</label></li>
+<li><label><input type="checkbox" />Egyéb titkos változót ide ne vegyél fel, az app titkai a Doppleren vannak.</label></li>
+</ul>
+<p>A registry-hozzáféréshez nem kell semmilyen deploy token vagy jelszó: a job a saját <code>CI_REGISTRY_USER</code> / <code>CI_REGISTRY_PASSWORD</code> (job token) változóit használja, ezek a job végén érvénytelenek lesznek. Az ingyenes csomagban a saját runnerek futása nem fogyasztja a GitLab gépperceket.</p>
+
+<h2 id="runnerek">6. Runnerek telepítése és regisztrálása</h2>
+<p>Mindkét gépen (nagy gép és ThinkCentre) ugyanaz a lépéssorozat, csak a token és a tag különbözik.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Telepítés a <a href="https://docs.gitlab.com/runner/install/linux-repository.html">hivatalos apt-tárolóval</a>:</label></li>
+</ul>
+<pre><code>curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
+sudo apt install gitlab-runner
+sudo rm -f /home/gitlab-runner/.bash_logout</code></pre>
+<p>A <code>.bash_logout</code> törlése ismert Ubuntu-hibát előz meg (a shell executor jobja „Process exited with status 1" hibával állhat le).</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Regisztráció a megfelelő gépen. A <code>RUNNER_TOKEN</code> helyére a 5.2-ben kapott <code>glrt-…</code> token kerül. A tagek már a GitLabon vannak beállítva, ezért nem kell őket itt megadni. Saját GitLab-példány esetén az <code>--url</code> a te címed.</label></li>
+</ul>
+<pre><code>sudo gitlab-runner register --non-interactive --url https://gitlab.com --token RUNNER_TOKEN --executor shell --description "builder"</code></pre>
+<p>A ThinkCentre-en a <code>--description "homeserver-deploy"</code> legyen.</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Docker-jogosultság a runner felhasználónak, majd újraindítás:</label></li>
+</ul>
+<pre><code>sudo usermod -aG docker gitlab-runner
+sudo systemctl restart gitlab-runner
+sudo gitlab-runner verify
+sudo gitlab-runner status</code></pre>
+<div class="note"><strong>Biztonság:</strong> a <code>docker</code> csoport gyakorlatilag root-jogot ad. Ezért a runnerek <strong>projekthez kötöttek</strong>, <strong>protected</strong> módban futnak, és a deploy csak a <code>main</code> ágról indulhat. Ne regisztráld a runnert olyan projektekhez, amelyekben nem bízol.</div>
+<ul class="task-list">
+<li><label><input type="checkbox" />A GitLabon a Settings → CI/CD → Runners oldalon mindkét runner zöld (online) legyen.</label></li>
+</ul>
+
+<h2 id="repo">7. Fájlok a repóban</h2>
+<p>Az app Dockerfile-ja a repó gyökerében van, a konténer belül a <code>8080</code> porton figyel (ezt igazítsd a sajátodhoz). A két új fájl a gyökérbe kerül.</p>
+<div class="fname">compose.yaml</div>
+<pre><code>services:
+  web:
+    image: ${APP_IMAGE}:${IMAGE_TAG}
+    ports:
+      - "${BIND_IP}:${APP_PORT}:8080"
+    environment:
+      - DATABASE_URL
+      - SECRET_KEY
+    restart: unless-stopped</code></pre>
+<p>Az <code>environment:</code> alatti nevek (érték nélkül) a Doppleren lévő titkok nevei. Adatot tartós tárolásra <strong>named volume</strong>-ba tegyél, ne relatív könyvtárba, mert a runner munkakönyvtára minden jobnál törlődik.</p>
+<div class="fname">.gitlab-ci.yml</div>
+<pre><code>stages: [build, deploy]
+
+variables:
+  APP_PORT: "8081"
+  BIND_IP: "127.0.0.1"
+  COMPOSE_PROJECT_NAME: myapp-test
+
+build:
+  stage: build
+  tags: [build]
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  after_script:
+    - docker logout "$CI_REGISTRY"
+
+deploy:
+  stage: deploy
+  tags: [deploy]
+  needs: [build]
+  resource_group: teszt
+  environment:
+    name: teszt
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  variables:
+    APP_IMAGE: $CI_REGISTRY_IMAGE
+    IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - doppler run -- docker compose pull
+    - doppler run -- docker compose up -d --remove-orphans
+    - docker compose ps
+    - curl -fsS --retry 15 --retry-delay 2 --retry-connrefused -o /dev/null "http://127.0.0.1:${APP_PORT}/"
+  after_script:
+    - docker logout "$CI_REGISTRY"</code></pre>
+<p><strong>Mit csinál?</strong></p>
+<ul>
+<li>Az image tagje a commit rövid hash-e, így mindig tudod, mi fut.</li>
+<li>A <code>resource_group</code> miatt két deploy nem fut egyszerre.</li>
+<li>Az utolsó sor egészségellenőrzés: ha az app 30 mp alatt nem válaszol a <code>/</code> címen, a job elbukik. Ha az appnak van <code>/health</code> végpontja, azt írd be.</li>
+<li>A <code>DOPPLER_TOKEN</code> a GitLab változóból jön, a Doppler CLI magától felismeri.</li>
+</ul>
+<ul class="task-list">
+<li><label><input type="checkbox" />Commit és push a <code>main</code> ágra.</label></li>
+</ul>
+
+<h2 id="elso-futas">8. Első futás és ellenőrzés</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />GitLab → <strong>Build → Pipelines</strong>: a <code>build</code> job a nagy gépen, a <code>deploy</code> a ThinkCentre-en indul. Ha a nagy gép ki van kapcsolva, a build <code>pending</code> marad, amíg vissza nem jön.</label></li>
+<li><label><input type="checkbox" />Siker után a ThinkCentre-en ellenőrizd:</label></li>
+</ul>
+<pre><code>sudo docker ps
+curl -I http://127.0.0.1:8081/
+tailscale serve status</code></pre>
+<ul class="task-list">
+<li><label><input type="checkbox" />Telefonról (Tailscale bekapcsolva) nyisd meg a <code>https://homeserver.NEVED.ts.net</code> címet.</label></li>
+<li><label><input type="checkbox" />Indítsd újra a ThinkCentre-t: a Docker, a Tailscale és a konténer (<code>restart: unless-stopped</code>) magától visszajön.</label></li>
+<li><label><input type="checkbox" />Teszteld a titkot: változtass meg egy értéket a Doppleren, indíts új deployt (Pipeline → Run, vagy új commit). Az új érték csak ilyenkor kerül a konténerbe.</label></li>
+</ul>
+<h3>Visszaállítás régi verzióra</h3>
+<p>Nyiss meg egy régebbi, sikeres pipeline-t, és a <code>deploy</code> jobon nyomd meg a <strong>Retry</strong> gombot. A régi commit hash-e szerinti image-et indítja újra. Ehhez az kell, hogy a cleanup policy még ne törölje a régi taget.</p>
+
+<h2 id="hibak">9. Hibakeresés</h2>
+<div class="tablewrap"><table>
+<tr><th>Tünet</th><th>Valószínű ok és teendő</th></tr>
+<tr><td>A job örökre <code>pending</code></td><td>Nincs online runner a kért taggel. Nézd a Settings → CI/CD → Runners oldalt; a gép be van kapcsolva és a <code>gitlab-runner</code> szolgáltatás fut? Protected runner csak védett ágon fut.</td></tr>
+<tr><td><code>permission denied ... docker.sock</code></td><td>A <code>gitlab-runner</code> nincs a <code>docker</code> csoportban, vagy nem indítottad újra a szolgáltatást (6. szakasz).</td></tr>
+<tr><td>Registry login / push elutasítva</td><td>A Container registry ki van kapcsolva a projektben, vagy a push nem a projekt saját útvonalára (<code>$CI_REGISTRY_IMAGE</code>) megy.</td></tr>
+<tr><td><code>DOPPLER_TOKEN</code> üres a jobban</td><td>A változó protected, de a pipeline nem védett ágon fut, vagy az Environment scope nem egyezik az <code>environment</code> nevével.</td></tr>
+<tr><td>Doppler: invalid token / unauthorized</td><td>Lejárt vagy visszavont token, vagy rossz config. Generálj újat (4. szakasz), és frissítsd a GitLab változót.</td></tr>
+<tr><td>Job: „Process exited with status 1" azonnal</td><td>A <code>/home/gitlab-runner/.bash_logout</code> törlése hiányzik (6. szakasz).</td></tr>
+<tr><td>Az app nem érhető el Tailscale-en</td><td><code>tailscale serve status</code>: a port egyezik az <code>APP_PORT</code>-tal? A telefonon be van kapcsolva a Tailscale? A HTTPS és MagicDNS be van kapcsolva az admin konzolban?</td></tr>
+<tr><td>Egészségellenőrzés elbukik</td><td><code>sudo docker compose -p myapp-test logs --tail=100</code>. Gyakori ok: hiányzó titok a Doppleren, vagy rossz belső port a <code>compose.yaml</code>-ban.</td></tr>
+</table></div>
+<p>Hasznos naplók: <code>sudo journalctl -u gitlab-runner -e</code> és a job naplója a GitLab webes felületén.</p>
+
+<h2 id="karbantartas">10. Karbantartás és biztonsági ellenőrzőlista</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />Évente rotáld a Doppler service tokent, és szükség szerint a runnereket (új token a GitLabon, <code>gitlab-runner register</code> újra).</label></li>
+<li><label><input type="checkbox" />Időnként <code>df -h /</code> és <code>sudo docker system df</code>; régi image-ekhez <code>sudo docker image prune</code>, de csak ha nem kell visszaállítani.</label></li>
+<li><label><input type="checkbox" />Az adatbázisról külön mentés kell: az image és a Doppler nem őrzi az adatot.</label></li>
+<li><label><input type="checkbox" />A GitLab runner és a Docker frissítése a rendszerfrissítéssel együtt megy (<code>apt upgrade</code>).</label></li>
+<li><label><input type="checkbox" />Ellenőrizd: a routeren nincs porttovábbítás, nincs <code>tailscale funnel</code>, az SSH jelszavas belépés tiltva, a Doppler token read-only, a GitLab változók masked + protected.</label></li>
+</ul>
+
+<h3>Hivatalos hivatkozások</h3>
+<ul>
+<li><a href="https://docs.docker.com/engine/install/ubuntu/">Docker Engine Ubuntu</a></li>
+<li><a href="https://docs.gitlab.com/runner/install/linux-repository.html">GitLab Runner telepítés (Linux)</a></li>
+<li><a href="https://docs.gitlab.com/ci/yaml/">GitLab CI/CD YAML referencia</a></li>
+<li><a href="https://tailscale.com/docs/install/linux">Tailscale Linux</a> · <a href="https://tailscale.com/kb/1242/tailscale-serve">Tailscale Serve</a> · <a href="https://tailscale.com/kb/1028/key-expiry">Key expiry</a></li>
+<li><a href="https://docs.doppler.com/docs/install-cli">Doppler CLI</a> · <a href="https://docs.doppler.com/docs/service-tokens">Service tokenek</a></li>
+</ul>
+</main>
+<script>
+(() => {
+  const key = 'tesztszerver-gitlab-ci-deploy-v1';
+  const inputs = [...document.querySelectorAll('ul.task-list input[type="checkbox"]')];
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch {}
+  function refresh(){
+    inputs.forEach(input => input.closest('li').classList.toggle('done', input.checked));
+    document.getElementById('progress').textContent = inputs.filter(x => x.checked).length + '/' + inputs.length + ' kész · mentés ebben a böngészőben';
+  }
+  inputs.forEach((input, i) => {
+    input.checked = !!saved[i];
+    input.addEventListener('change', () => {
+      saved[i] = input.checked;
+      try { localStorage.setItem(key, JSON.stringify(saved)); } catch {}
+      refresh();
+    });
+  });
+  document.querySelectorAll('pre').forEach(pre => {
+    const wrap = document.createElement('div');
+    wrap.className = 'sourceCode';
+    pre.parentNode.insertBefore(wrap, pre);
+    wrap.appendChild(pre);
+    const button = document.createElement('button');
+    button.className = 'copy'; button.type = 'button'; button.textContent = 'Másolás';
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.innerText.trim());
+        button.textContent = 'Másolva';
+      } catch {
+        const range = document.createRange();
+        range.selectNodeContents(pre);
+        const selection = window.getSelection();
+        selection.removeAllRanges(); selection.addRange(range);
+        button.textContent = 'Kijelölve';
+      }
+      setTimeout(() => button.textContent = 'Másolás', 1500);
+    });
+    wrap.append(button);
+  });
+  refresh();
+})();
+</script></body></html>
