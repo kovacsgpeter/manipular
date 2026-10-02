@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="52.00 24.00 136.00 192.00" width="60mm" height="84.7mm">
+  <title>Ordo VIII – mellkasi pólólogó (1szin-jel)</title>
+
+  <path d="M175.79 152.88 A56 56 0 1 1 69.25 124.33" fill="none" stroke="#E4D8BE" stroke-width="12"/>
+  <path d="M69.25 115.67 A56 56 0 1 1 175.79 87.12" fill="none" stroke="#E4D8BE" stroke-width="12"/>
+  <path d="M176 92 A56 56 0 0 1 71.5 120 A56 56 0 0 1 176 148" fill="none" stroke="#E4D8BE" stroke-width="12" stroke-linejoin="miter"/>
+</svg>
