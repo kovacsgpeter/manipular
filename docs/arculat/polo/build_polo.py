@@ -34,14 +34,14 @@ def text_path(text, tracking=0.16):
     return "".join(parts), x, bp.bounds[3]
 
 
-def mark(ring, lens):
-    """Két összefonódó gyűrű (a 8-as), a metszetük – a hal (vesica piscis) – kiemelt kitöltéssel.
-    Csak festékfelület van benne: a rések üresen maradnak (a póló színe látszik át), így szitán
-    és hímzésen is tiszta. A gyűrűk között és a hal körül 6 egység (kb. 2,5 mm) rés fut."""
+def mark(ring, fish):
+    """Két összefonódó gyűrű (a 8-as). A belső ívek és a jobb oldali kereszteződésen túli
+    folytatásuk kiadják a halat (ichthys), ahogy az autók hátulján: ez kapja a kiemelő színt.
+    A színváltásoknál 5°-os rés fut, így a két szín nem ér össze (szitán, hímzésen is tiszta)."""
     return f'''
-  <path d="M86.06 120 A44 44 0 0 1 153.94 120 A44 44 0 0 1 86.06 120 Z" fill="{lens}"/>
-  <path d="M79.55 109.29 A56 56 0 1 1 65.97 133.28" fill="none" stroke="{ring}" stroke-width="12"/>
-  <path d="M160.45 130.71 A56 56 0 1 1 174.03 106.72" fill="none" stroke="{ring}" stroke-width="12"/>'''
+  <path d="M175.79 152.88 A56 56 0 1 1 69.25 124.33" fill="none" stroke="{ring}" stroke-width="12"/>
+  <path d="M69.25 115.67 A56 56 0 1 1 175.79 87.12" fill="none" stroke="{ring}" stroke-width="12"/>
+  <path d="M176 92 A56 56 0 0 1 71.5 120 A56 56 0 0 1 176 148" fill="none" stroke="{fish}" stroke-width="12" stroke-linejoin="miter"/>'''
 
 
 def svg(name, ring, lens, with_text, width_mm=80):
@@ -67,10 +67,10 @@ def svg(name, ring, lens, with_text, width_mm=80):
     (OUT / f"ordo-viii-polo-{name}.svg").write_text(out, encoding="utf-8")
 
 
-# 2 szín: homok gyűrűk és felirat, arany hal
+# 2 szín: homok gyűrűk és felirat, arany hal (ichthys)
 svg("2szin-felirattal", HOMOK, ARANY, True)
 svg("2szin-jel", HOMOK, ARANY, False, width_mm=60)
-# 1 szín: minden homok, a hal tömör kitöltéssel emelkedik ki a vonalas gyűrűkből
+# 1 szín: minden homok, a halat a színváltások helyén futó rések rajzolják ki
 svg("1szin-felirattal", HOMOK, HOMOK, True)
 svg("1szin-jel", HOMOK, HOMOK, False, width_mm=60)
 print("kész")
