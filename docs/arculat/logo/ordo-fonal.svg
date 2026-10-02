@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <title>Ordo VIII – Hármas fonál</title>
+  <rect width="240" height="240" rx="40" fill="#5E1631"/>
+  <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke="#C9A54C" stroke-width="32"/>
+  <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke="#5E1631" stroke-width="20"/>
+  <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke="#F0E1AE" stroke-width="6"/>
+  <line x1="107.5" y1="110" x2="132.5" y2="130" stroke="#5E1631" stroke-width="42"/>
+  <line x1="96.6" y1="101.25" x2="143.4" y2="138.75" stroke="#C9A54C" stroke-width="32"/>
+  <line x1="96.6" y1="101.25" x2="143.4" y2="138.75" stroke="#5E1631" stroke-width="20"/>
+  <line x1="96.6" y1="101.25" x2="143.4" y2="138.75" stroke="#F0E1AE" stroke-width="6"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <title>Ordo VIII – Láncszem</title>
+  <rect width="240" height="240" rx="40" fill="#5E1631"/>
+  <circle cx="120" cy="148" r="56" fill="none" stroke="#C9A54C" stroke-width="12"/>
+  <circle cx="120" cy="92" r="56" fill="none" stroke="#5E1631" stroke-width="24"/>
+  <circle cx="120" cy="92" r="56" fill="none" stroke="#C9A54C" stroke-width="12"/>
+  <path d="M156 105.1 A56 56 0 0 1 175.15 138.28" fill="none" stroke="#5E1631" stroke-width="24"/>
+  <path d="M156 105.1 A56 56 0 0 1 175.15 138.28" fill="none" stroke="#C9A54C" stroke-width="12"/>
+</svg>
