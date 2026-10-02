@@ -94,13 +94,14 @@ for k in range(4):
 
 
 def patch(rank):
-    """Ék alakú ujjfelvarró (kb. 55 × 75 mm): sötétebb barna alap, homok szegély, felül a jelzés."""
-    shape = "M6 6 H174 V176 L90 234 L6 176 Z"
+    """Ék alakú rendfokozat-felvarró a 15M mintájára (kb. 55 × 73 mm): egyenes felső él, lefelé
+    hegyesedő ék, sötétebb barna alap, homok szegély, felül a jelzés."""
+    shape = "M6 6 H174 V140 L90 234 L6 140 Z"
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 240" width="55mm" height="73.3mm">
   <title>Ordo VIII ujjfelvarró – {rank}</title>
   <path d="{shape}" fill="{FOLT}" stroke="{HOMOK}" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M18 18 H162 V170 L90 220 L18 170 Z" fill="none" stroke="{HOMOK}" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
-  <g transform="translate(22 30) scale(0.567)">{RANKS[rank]}</g>
+  <path d="M18 18 H162 V136 L90 218 L18 136 Z" fill="none" stroke="{HOMOK}" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+  <g transform="translate(12 -4) scale(0.65)">{RANKS[rank]}</g>
 </svg>
 '''
 
