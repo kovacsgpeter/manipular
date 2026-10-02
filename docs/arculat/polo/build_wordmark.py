@@ -1,4 +1,4 @@
-"""ORDO szóvédjegy nyolcszögletű O betűkkel – nyomdakész SVG-k (görbésítve).
+"""ORDO szóvédjegy: az első O nyolcszög, a második kis o – nyomdakész SVG-k (görbésítve).
 
 Használat: python3 build_wordmark.py <Cinzel változó betűfájl (.ttf/.woff2)>
 Kell hozzá: pip install fonttools brotli
@@ -76,7 +76,8 @@ def write(name, text, oct_color, color, width_mm):
     (OUT / f"ordo-szovedjegy-{name}.svg").write_text(out, encoding="utf-8")
 
 
-write("2szin", "ORDO", ARANY, HOMOK, 80)
-write("2szin-viii", "ORDO VIII", ARANY, HOMOK, 100)
-write("1szin", "ORDO", HOMOK, HOMOK, 80)
+# Csak az első O nyolcszög; a második a Cinzel kisbetűs o-ja (kiskapitális), a szöveg színében.
+write("2szin", "ORDo", ARANY, HOMOK, 80)
+write("2szin-viii", "ORDo VIII", ARANY, HOMOK, 100)
+write("1szin", "ORDo", HOMOK, HOMOK, 80)
 print("kész")
