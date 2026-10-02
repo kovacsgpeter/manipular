@@ -1,6 +1,8 @@
 # Név és arculat
 
 > Állapot: **v0.1 – első névinterjú után**. Két változat van versenyben, a **Cohors** és az **Ordo VIII**. A logóvázlatok a [`logo/`](logo/) könyvtárban vannak, a teljes vázlatvászon (jelvényekkel, app-ikon méretekkel és egyszínű változatokkal) privát Claude-artifactként készült: <https://claude.ai/artifact/GoHPsWuB9Npb7rve1t29pw>.
+>
+> **Teljes csomag PDF-ben:** [`cohors-ordo-viii-arculati-csomag.pdf`](cohors-ordo-viii-arculati-csomag.pdf). Benne van a két opció érvelése (eredet, erősségek, kockázatok, összevetés), a logók, mindkét névtér, minden név magyarázata kiejtéssel és rejtett rétegekkel, valamint egy hivatkozásjegyzék. A forrás a [`csomag-forras/`](csomag-forras/) könyvtárban van; újragenerálás: `node docs/arculat/csomag-forras/render.mjs` (Playwright kell hozzá), majd a `cover.pdf` és a `body.pdf` összefűzése.
 
 ## Az interjú eddigi döntései
 
