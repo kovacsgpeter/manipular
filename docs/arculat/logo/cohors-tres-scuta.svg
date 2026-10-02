@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <title>Cohors – Tres scuta</title>
+  <rect width="240" height="240" rx="40" fill="#5E1631"/>
+  <rect x="28" y="64" width="64" height="124" rx="10" fill="#C9A54C"/>
+  <rect x="148" y="64" width="64" height="124" rx="10" fill="#C9A54C"/>
+  <rect x="74" y="34" width="92" height="176" rx="15" fill="#5E1631"/>
+  <rect x="81" y="41" width="78" height="162" rx="11" fill="#C9A54C"/>
+  <rect x="116" y="41" width="8" height="162" fill="#5E1631"/>
+  <rect x="28" y="94" width="184" height="8" fill="#5E1631"/>
+  <circle cx="120" cy="98" r="15" fill="#5E1631"/>
+  <circle cx="120" cy="98" r="9" fill="#C9A54C"/>
+</svg>

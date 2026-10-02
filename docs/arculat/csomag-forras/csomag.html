@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<title>Cohors · Ordo VIII – név- és arculati csomag v0.1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&amp;family=Source+Sans+3:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<style>
+:root { --bibor: #5E1631; --arany: #C9A54C; --ink: #1C1C1C; --muted: #565656; --line: #E2DFD8; --soft: #F4F2EE; }
+@page { size: A4; margin: 18mm 18mm 20mm 18mm; }
+html { font-family: 'Source Sans 3', sans-serif; font-size: 10.5pt; line-height: 1.5; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; }
+h1 { font-family: Cinzel, serif; font-weight: 600; font-size: 22pt; letter-spacing: 0.05em; color: var(--bibor); margin: 0 0 2mm; break-before: page; break-after: avoid; }
+h1 + .lead { margin-top: 0; }
+.kicker { font-family: Cinzel, serif; font-size: 8.5pt; letter-spacing: 0.24em; color: var(--muted); margin: 0 0 1mm; break-before: page; break-after: avoid; }
+.kicker + h1 { break-before: avoid; }
+.lead { font-size: 12pt; line-height: 1.45; color: #333; margin: 0 0 6mm; }
+h2 { font-family: Cinzel, serif; font-weight: 600; font-size: 14pt; letter-spacing: 0.04em; color: var(--bibor); margin: 7mm 0 2.5mm; break-after: avoid; }
+h3 { font-size: 11.5pt; font-weight: 600; margin: 5mm 0 1.5mm; break-after: avoid; }
+p { margin: 0 0 2.5mm; }
+ul { margin: 0 0 3mm; padding-left: 5mm; }
+li { margin: 0 0 1.2mm; }
+i, em { font-style: italic; }
+.small { font-size: 9pt; color: var(--muted); }
+.toc { list-style: none; padding: 0; margin: 4mm 0 0; counter-reset: toc; }
+.toc li { counter-increment: toc; display: grid; grid-template-columns: 9mm 1fr; padding: 2mm 0; border-bottom: 1px solid var(--line); margin: 0; }
+.toc li::before { content: counter(toc, upper-roman) "."; font-family: Cinzel, serif; font-weight: 600; color: var(--bibor); }
+.toc span { color: var(--muted); }
+table { width: 100%; border-collapse: collapse; font-size: 9.5pt; line-height: 1.4; margin: 1mm 0 4mm; }
+th { text-align: left; font-size: 8pt; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 0 2.5mm 1.8mm 0; border-bottom: 1.5px solid var(--bibor); vertical-align: bottom; }
+td { padding: 1.8mm 2.5mm 1.8mm 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.n { font-family: Cinzel, serif; font-weight: 600; color: var(--bibor); font-size: 10pt; }
+td.l { color: var(--muted); }
+tr { break-inside: avoid; }
+.cmp td:first-child { color: var(--muted); width: 30mm; }
+.cmp td.n { font-size: 9.5pt; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6mm; }
+.box { background: var(--soft); border-radius: 2.5mm; padding: 3.5mm 4mm; break-inside: avoid; }
+.box h3 { margin-top: 0; }
+.box ul { margin-bottom: 0; }
+.pro h3 { color: #2F5D3A; }
+.con h3 { color: #8A3B12; }
+.entry { break-inside: avoid; border-top: 1px solid var(--line); padding: 3mm 0 2mm; }
+.entry .nm { font-family: Cinzel, serif; font-weight: 600; font-size: 13pt; color: var(--bibor); line-height: 1.2; }
+.entry .say { font-family: 'Source Sans 3', sans-serif; font-size: 9.5pt; font-weight: 400; color: var(--muted); margin-left: 2mm; letter-spacing: 0; }
+.entry .gl { font-size: 8.5pt; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin: 0.6mm 0 1.6mm; }
+.entry p:last-child { margin-bottom: 0; }
+.hid { background: var(--soft); border-radius: 2mm; padding: 2mm 3mm; margin: 1.5mm 0 0; }
+.hid b:first-child { color: var(--bibor); }
+.cols2 { column-count: 2; column-gap: 7mm; }
+.cols2 .entry { display: inline-block; width: 100%; }
+.swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5mm; margin: 2mm 0 5mm; }
+.sw { border-radius: 2.5mm; overflow: hidden; border: 1px solid var(--line); break-inside: avoid; }
+.sw .c { height: 20mm; }
+.sw .t { padding: 2.5mm 3mm; font-size: 9pt; }
+.sw .t b { display: block; font-size: 10pt; }
+.typo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5mm; margin: 2mm 0 4mm; }
+.typo .box div:first-child { font-size: 20pt; line-height: 1.2; margin-bottom: 1.5mm; }
+.logo { display: grid; grid-template-columns: 80mm minmax(0, 1fr); gap: 6mm; margin: 3mm 0 3mm; break-inside: avoid; }
+.tile { background: var(--bibor); border-radius: 3mm; height: 80mm; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3mm; color: var(--arany); }
+.tile svg { width: 40mm; height: 40mm; }
+.tile .wm { font-family: Cinzel, serif; font-weight: 600; font-size: 19pt; letter-spacing: 0.16em; padding-left: 0.16em; line-height: 1; }
+.tile .tg { font-family: Cinzel, serif; font-size: 6.2pt; letter-spacing: 0.22em; }
+.side { display: flex; flex-direction: column; gap: 4mm; }
+.mono { border: 1px solid var(--line); border-radius: 3mm; height: 46mm; display: flex; align-items: center; justify-content: center; gap: 4mm; }
+.mono svg { width: 28mm; height: 28mm; }
+.mono .wm { font-family: Cinzel, serif; font-weight: 600; font-size: 15pt; letter-spacing: 0.14em; color: #141414; line-height: 1; }
+.mono .tg { font-family: Cinzel, serif; font-size: 6pt; letter-spacing: 0.22em; color: var(--bibor); margin-top: 1.5mm; }
+.icons { display: flex; align-items: flex-end; gap: 5mm; height: 30mm; }
+.ic { display: flex; flex-direction: column; align-items: center; gap: 1.2mm; font-size: 7.5pt; color: var(--muted); }
+.ic div { background: var(--bibor); display: flex; align-items: center; justify-content: center; }
+.ic div.w { background: #FFFFFF; border: 1px solid #CFCCC4; box-sizing: border-box; }
+.i22 { width: 22mm; height: 22mm; border-radius: 5mm; } .i22 svg { width: 17mm; height: 17mm; }
+.i13 { width: 13mm; height: 13mm; border-radius: 3mm; } .i13 svg { width: 10.5mm; height: 10.5mm; }
+.i8 { width: 8mm; height: 8mm; border-radius: 1.8mm; } .i8 svg { width: 7mm; height: 7mm; }
+.logotxt { break-inside: avoid; margin-bottom: 6mm; }
+.lg { break-inside: avoid; }
+.keep { break-inside: avoid; }
+.compact { font-size: 9pt; }
+.compact td { padding-top: 0.8mm; padding-bottom: 0.8mm; }
+.compact td.n { font-size: 9pt; }
+.logotxt h3 { margin-top: 0; font-family: Cinzel, serif; font-size: 12pt; color: var(--bibor); }
+.seal { display: grid; grid-template-columns: 92mm minmax(0, 1fr); gap: 6mm; align-items: center; break-inside: avoid; margin: 3mm 0; }
+.seal svg { width: 92mm; height: 92mm; }
+.levels { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2.5mm; margin: 2mm 0 4mm; }
+.levels div { background: var(--soft); border-radius: 2mm; padding: 2.5mm 3mm; font-size: 9pt; color: #3A3A3A; }
+.levels b { display: block; font-family: Cinzel, serif; font-weight: 600; font-size: 10.5pt; color: var(--bibor); }
+.feature { break-inside: avoid; margin: 0 0 5mm; }
+.big { font-family: Cinzel, serif; font-weight: 700; font-size: 30pt; color: var(--bibor); line-height: 1; }
+.featrow { display: grid; grid-template-columns: 26mm minmax(0, 1fr); gap: 5mm; align-items: start; break-inside: avoid; border-top: 1px solid var(--line); padding: 4mm 0 2mm; }
+.refs { column-count: 2; column-gap: 7mm; font-size: 9pt; line-height: 1.4; }
+.refs h3 { break-after: avoid; margin-top: 3mm; }
+.refs p { margin: 0 0 1.3mm; break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <symbol id="m-scuta" viewBox="0 0 240 240">
+      <rect x="28" y="64" width="64" height="124" rx="10" style="fill: var(--s)"/>
+      <rect x="148" y="64" width="64" height="124" rx="10" style="fill: var(--s)"/>
+      <rect x="74" y="34" width="92" height="176" rx="15" style="fill: var(--g)"/>
+      <rect x="81" y="41" width="78" height="162" rx="11" style="fill: var(--m)"/>
+      <rect x="116" y="41" width="8" height="162" style="fill: var(--g)"/>
+      <rect x="28" y="94" width="184" height="8" style="fill: var(--g)"/>
+      <circle cx="120" cy="98" r="15" style="fill: var(--g)"/>
+      <circle cx="120" cy="98" r="9" style="fill: var(--m)"/>
+    </symbol>
+    <symbol id="m-scuta-s" viewBox="0 0 240 240">
+      <rect x="28" y="64" width="64" height="124" rx="10" style="fill: var(--s)"/>
+      <rect x="148" y="64" width="64" height="124" rx="10" style="fill: var(--s)"/>
+      <rect x="72" y="32" width="96" height="180" rx="16" style="fill: var(--g)"/>
+      <rect x="81" y="41" width="78" height="162" rx="11" style="fill: var(--m)"/>
+      <rect x="113" y="41" width="14" height="162" style="fill: var(--g)"/>
+      <rect x="28" y="91" width="184" height="14" style="fill: var(--g)"/>
+    </symbol>
+    <symbol id="m-signum" viewBox="0 0 240 240">
+      <path d="M120 8 L131 28 L120 40 L109 28 Z" style="fill: var(--a)"/>
+      <rect x="116" y="36" width="8" height="196" style="fill: var(--a)"/>
+      <rect x="56" y="52" width="128" height="9" rx="4.5" style="fill: var(--a)"/>
+      <path d="M70 66 H170 V128 L157.5 118 L145 128 L132.5 118 L120 128 L107.5 118 L95 128 L82.5 118 L70 128 Z" style="fill: var(--a)"/>
+      <rect x="80" y="76" width="80" height="34" style="fill: var(--g)"/>
+      <rect x="83" y="79" width="74" height="28" style="fill: var(--a)"/>
+      <circle cx="120" cy="152" r="12" style="fill: var(--b)"/>
+      <circle cx="120" cy="180" r="12" style="fill: var(--b)"/>
+      <circle cx="120" cy="208" r="12" style="fill: var(--b)"/>
+      <circle cx="120" cy="152" r="5" style="fill: var(--g)"/>
+      <circle cx="120" cy="180" r="5" style="fill: var(--g)"/>
+      <circle cx="120" cy="208" r="5" style="fill: var(--g)"/>
+    </symbol>
+    <symbol id="m-signum-s" viewBox="0 0 240 240">
+      <rect x="112" y="20" width="16" height="212" style="fill: var(--a)"/>
+      <rect x="52" y="48" width="136" height="16" rx="8" style="fill: var(--a)"/>
+      <path d="M70 70 H170 V128 L145 116 L120 128 L95 116 L70 128 Z" style="fill: var(--a)"/>
+      <circle cx="120" cy="158" r="17" style="fill: var(--a)"/>
+      <circle cx="120" cy="196" r="17" style="fill: var(--a)"/>
+    </symbol>
+    <symbol id="m-lanc" viewBox="0 0 240 240">
+      <circle cx="120" cy="148" r="56" fill="none" stroke-width="12" style="stroke: var(--b)"/>
+      <circle cx="120" cy="92" r="56" fill="none" stroke-width="24" style="stroke: var(--g)"/>
+      <circle cx="120" cy="92" r="56" fill="none" stroke-width="12" style="stroke: var(--a)"/>
+      <path d="M156 105.1 A56 56 0 0 1 175.15 138.28" fill="none" stroke-width="24" style="stroke: var(--g)"/>
+      <path d="M156 105.1 A56 56 0 0 1 175.15 138.28" fill="none" stroke-width="12" style="stroke: var(--b)"/>
+    </symbol>
+    <symbol id="m-lanc-s" viewBox="0 0 240 240">
+      <circle cx="120" cy="148" r="56" fill="none" stroke-width="24" style="stroke: var(--a)"/>
+      <circle cx="120" cy="92" r="56" fill="none" stroke-width="24" style="stroke: var(--a)"/>
+    </symbol>
+    <symbol id="m-hajnal" viewBox="0 0 240 240">
+      <polygon points="156.74,31.31 208.69,83.26 208.69,156.74 156.74,208.69 83.26,208.69 31.31,156.74 31.31,83.26 83.26,31.31" fill="none" stroke-width="10" stroke-linejoin="round" style="stroke: var(--a)"/>
+      <rect x="116" y="50" width="8" height="26" style="fill: var(--b)"/>
+      <path d="M88 112 A32 32 0 0 1 152 112 Z" style="fill: var(--b)"/>
+      <rect x="46" y="112" width="148" height="8" style="fill: var(--a)"/>
+      <rect x="92" y="132" width="56" height="6" rx="3" style="fill: var(--a)"/>
+      <rect x="99" y="147" width="42" height="6" rx="3" style="fill: var(--a)"/>
+      <rect x="105" y="162" width="30" height="6" rx="3" style="fill: var(--a)"/>
+      <rect x="110" y="177" width="20" height="6" rx="3" style="fill: var(--a)"/>
+      <rect x="114" y="192" width="12" height="6" rx="3" style="fill: var(--a)"/>
+    </symbol>
+    <symbol id="m-hajnal-s" viewBox="0 0 240 240">
+      <polygon points="156.74,31.31 208.69,83.26 208.69,156.74 156.74,208.69 83.26,208.69 31.31,156.74 31.31,83.26 83.26,31.31" fill="none" stroke-width="22" stroke-linejoin="round" style="stroke: var(--a)"/>
+      <path d="M80 118 A40 40 0 0 1 160 118 Z" style="fill: var(--a)"/>
+      <rect x="50" y="118" width="140" height="20" style="fill: var(--a)"/>
+      <rect x="100" y="156" width="40" height="18" rx="9" style="fill: var(--a)"/>
+    </symbol>
+    <symbol id="m-fonal" viewBox="0 0 240 240">
+      <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke-width="32" style="stroke: var(--a)"/>
+      <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke-width="20" style="stroke: var(--g)"/>
+      <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke-width="6" style="stroke: var(--k)"/>
+      <line x1="107.5" y1="110" x2="132.5" y2="130" stroke-width="42" style="stroke: var(--g)"/>
+      <line x1="96.6" y1="101.25" x2="143.4" y2="138.75" stroke-width="32" style="stroke: var(--a)"/>
+      <line x1="96.6" y1="101.25" x2="143.4" y2="138.75" stroke-width="20" style="stroke: var(--g)"/>
+      <line x1="96.6" y1="101.25" x2="143.4" y2="138.75" stroke-width="6" style="stroke: var(--k)"/>
+    </symbol>
+    <symbol id="m-fonal-s" viewBox="0 0 240 240">
+      <path d="M120 120 C180 72 180 26 120 26 C60 26 60 72 120 120 C180 168 180 214 120 214 C60 214 60 168 120 120 Z" fill="none" stroke-width="30" style="stroke: var(--a)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ TARTALOM ============ -->
+<div class="kicker" style="break-before: auto">NÉV- ÉS ARCULATI CSOMAG · V0.1</div>
+<h1 style="break-before: avoid">Tartalom</h1>
+<p class="lead">A mozgalom és az app nevének két változata, a Cohors és az Ordo VIII, azzal együtt, amit a beszélgetések során kidolgoztunk.</p>
+<ol class="toc">
+  <li><div>Bevezető <span>· mi ez a csomag, hogyan olvasd, eddigi döntések</span></div></li>
+  <li><div>A két nagy opció <span>· honnan ered, mit jelent, miért lehet jó, mire figyeljünk</span></div></li>
+  <li><div>Közös alapok <span>· színek, betűk, a mindkét változatban közös nevek</span></div></li>
+  <li><div>Cohors: logók <span>· Tres scuta, Signum, jelvény</span></div></li>
+  <li><div>Cohors: névtér és a nevek magyarázata</div></li>
+  <li><div>Ordo VIII: a számok <span>· VIII, 153, 364</span></div></li>
+  <li><div>Ordo VIII: logók <span>· Láncszem, Hajnal, Hármas fonál, jelvény</span></div></li>
+  <li><div>Ordo VIII: névtér és a nevek magyarázata</div></li>
+  <li><div>Amit tudatosan kerültünk</div></li>
+  <li><div>Hivatkozások</div></li>
+</ol>
+
+<!-- ============ I. BEVEZETŐ ============ -->
+<div class="kicker">I.</div>
+<h1>Bevezető</h1>
+<p class="lead">A mozgalom kis, háromfős csapatokban teljesít valódi, hétköznapi vállalásokat, egy interjúval felvett jellemprofil alapján. Ehhez keresünk nevet és arculatot: egy alapnevet a mozgalomnak és az appnak, és alatta egy névteret a szintekre, szerepekre és funkciókra.</p>
+
+<h2>Hogyan olvasd</h2>
+<ul>
+  <li><b>Latin (néhol héber) nevek, magyar fordítással.</b> A felületen a név mellett mindig kis fordítás áll, például <i>Exercitium · napi kihívás</i>. A nevek mellett zárójelben a magyaros kiejtés szerepel.</li>
+  <li><b>Rejtett rétegek.</b> A nevekben finom hitbeli utalások rejtőznek. Ezek nem titkos tudást jelentenek, hanem <i>kinyilvánított titkot</i> (Kol 1,26): aki ismeri, felismeri; aki nem, annak is érthető és teljes a név. A szürke dobozok mutatják ezeket a rétegeket.</li>
+  <li><b>Vázlat, nem végleges terv.</b> A logók első vázlatok, a bibliai helyek tartalmi összefoglalók. Nyomtatás előtt egy választott magyar fordítással (pl. RÚF, SZIT) érdemes egyeztetni őket.</li>
+</ul>
+
+<h2>Az eddigi döntések</h2>
+<table class="compact">
+  <tr><th style="width: 38mm">Kérdés</th><th>Döntés</th></tr>
+  <tr><td class="l">Mit nevezünk el?</td><td>Egy közös név a mozgalomnak és az appnak, alatta egy névtérrel.</td></tr>
+  <tr><td class="l">Kinek szól?</td><td>Elsősorban keresztény közösségeknek, férfiaknak és nőknek egyaránt; másodsorban szélesebb közönségnek.</td></tr>
+  <tr><td class="l">Nyelv</td><td>Nemzetközi, latin alapú, a felületen latin név + kis fordítás.</td></tr>
+  <tr><td class="l">Hit</td><td>Finom, rejtett utalásként.</td></tr>
+  <tr><td class="l">Értékek</td><td>Kitartás, fegyelem, jellemformálás.</td></tr>
+  <tr><td class="l">Hármasság</td><td>Fontos: a háromfős csapat neve mindkét változatban <b>Triplex</b>.</td></tr>
+  <tr><td class="l">Hangvétel</td><td>Fegyelmezett, de lehet benne erő. Nemtől független.</td></tr>
+  <tr><td class="l">Logó</td><td>Egy egyszerű jel (app-ikon, web) és rá épülő jelvény (póló, felvarró, közösségi média).</td></tr>
+  <tr><td class="l">Színek</td><td>Bíbor és arany, valamint egy fekete-fehér + bíbor változat.</td></tr>
+</table>
+
+<h2>Elvetett nevek</h2>
+<table class="compact">
+  <tr><th style="width: 38mm">Név</th><th>Miért esett ki</th></tr>
+  <tr><td class="n">Manipular</td><td>Magyarul a manipulációra hallik rá, ami a profilban épp egy torzult vonás (Diplomácia ↔ Manipuláció).</td></tr>
+  <tr><td class="n">Testudo</td><td>A jelenlegi profil- és edzésnév; alapnévnek nem szükséges, lecserélhető.</td></tr>
+  <tr><td class="n">Triple Aces</td><td>A hármasság jó, de a három ász pókerkéz: szerencsejáték-áthallás.</td></tr>
+  <tr><td class="n">Triarii</td><td>Szép kép a kitartásra (a légió veterán harmadik sora), de nehéz kimondani és nagyon férfias.</td></tr>
+  <tr><td class="n">Triplex · Groma · Signum · Fidelis · Turma</td><td>Nem lettek alapnevek. A Triplex a csapat neve lett, a Signum logókoncepció maradt.</td></tr>
+</table>
+
+<!-- ============ II. A KÉT NAGY OPCIÓ ============ -->
+<div class="kicker">II.</div>
+<h1>A két nagy opció</h1>
+<p class="lead">Mindkét változat ugyanazt a mozgalmat nevezi meg, de más hangsúllyal. A Cohors a csapatot és a fegyelmet teszi előre, az Ordo VIII a közösségi életrendet és a belső átalakulást.</p>
+
+<h2>Cohors</h2>
+<p><b>Honnan ered?</b> A latin <i>cohors</i> eredetileg bekerített udvart jelentett (rokona a <i>hortus</i>, „kert”), aztán az udvarban összegyűlt embereket, végül a római hadsereg egyik egységét. A Kr. e. 2. század végére ez lett a légió fő harcoló egysége: nagyjából 480 katona, hat centuriában. A szó máig él: belőle lett az angol <i>court</i> (udvar, udvartartás) és <i>cohort</i> (csoport, évfolyam).</p>
+<p><b>Mit mond?</b> Együtt menetelők csapata, közös rendben. Egy egység, amely azért erős, mert a tagjai egymásért állnak. A jelmondata a Préd 4,12 latin szövege: <i>Funiculus triplex difficile rumpitur</i>, „a hármas fonál nem szakad el egyhamar”.</p>
+<div class="two">
+  <div class="box pro">
+    <h3>Miért lehet jó?</h3>
+    <ul>
+      <li><b>Azonnal érthető kép:</b> kis egység, közös rend, egymásért állás. A szó sok nyelvben él, nemzetközileg is felismerhető.</li>
+      <li><b>Pontosan illik a meglévő játékhoz:</b> római sereg, tábor, hadjárat, Künoszkephalai, testudo, hajnali csata. Nem kell új világot építeni.</li>
+      <li><b>Kész hierarchiát ad:</b> a római hadsereg rangjai és szerepei önmagukban játékrendszert alkotnak (Tiro → Evocatus, Signifer, Tesserarius).</li>
+      <li><b>Fegyelmezett, de nem agresszív:</b> alakzat, pajzs és jelvény, nem fegyver. Nemtől független.</li>
+      <li><b>Régi keresztény kép:</b> a hívő mint „Krisztus Jézus jó katonája” (2Tim 2,3), és Isten fegyverzete (Ef 6,10–17).</li>
+      <li><b>Rövid és egyszerű:</b> egy szó, könnyű kimondani, jól mutat felvarrón és hashtagben.</li>
+    </ul>
+  </div>
+  <div class="box con">
+    <h3>Mire figyeljünk?</h3>
+    <ul>
+      <li><b>Általános szó:</b> a <i>cohort</i> a techvilágban és a gyülekezeti tanítványképző programokban is gyakori. Nehezebb levédeni, a keresőben elveszhet.</li>
+      <li><b>Katonás hangulat:</b> valakinek túl harcias vagy túl férfias lehet.</li>
+      <li><b>Halványabb hitbeli réteg:</b> a rejtett utalások főleg a jelmondatban és az egyes nevekben vannak, az alapnévben nem.</li>
+      <li><b>Történeti apróság:</b> Künoszkephalai idején (Kr. e. 197) még manipulusok harcoltak, a kohorsz később lett a fő egység. Ez kínos is lehet, de be is lehet építeni a történetbe: kis egységekből összeforrt egész.</li>
+    </ul>
+  </div>
+</div>
+<p style="margin-top: 3mm"><b>Akkor jó választás,</b> ha a mozgalom elsősorban a csapatélményre, a játékra és a fegyelemre épít, és fontos, hogy a név elsőre, magyarázat nélkül is érthető legyen.</p>
+
+<h2 style="break-before: page">Ordo VIII</h2>
+<p><b>Honnan ered?</b> A latin <i>ordo</i> jelentése sor, rend, rang. Rokona az <i>ordiri</i> ige, amely eredetileg a szövőszéken a láncfonalak felvetését jelentette: a szálak sorba rendezését, amelyből a szövet készül. A római hadseregben az <i>ordo</i> a csatasor (<i>ordinem servare</i>: tartani a sort) és a centuriók rangja volt. Az egyházban a szerzetesrendek és a liturgikus rend neve, a qumráni közösség szabályzatának héber neve (<i>serekh</i>) pedig ugyanígy egyszerre jelent közösségi szabályt és harci alakzatot.</p>
+<p><b>Mit mond a VIII?</b> A nyolcadik napot: a hét napja után a feltámadás és az új teremtés napját. Rejtetten a qumráni Közösségi szabály 8. hasábját (1QS VIII), ahol a közösség programverse áll („a pusztában készítsétek az Úr útját”, Iz 40,3), és a nyolc boldogságot (Mt 5,3–10). Részletesen a VI. fejezetben.</p>
+<div class="two">
+  <div class="box pro">
+    <h3>Miért lehet jó?</h3>
+    <ul>
+      <li><b>Egyedi és márkás:</b> név és római szám együtt, jól megjegyezhető, könnyebben védhető és kereshető.</li>
+      <li><b>A név hordozza a tartalmat:</b> a nyolcadik nap (új kezdet), a 8 boldogság és a 8 rossz gondolat pontosan az app érett és torzult jellempárjainak logikája.</li>
+      <li><b>Fegyelem és életrend egyszerre:</b> nemcsak harc, hanem napi ritmus és szabály. Kevésbé katonás, nők és férfiak számára egyaránt vonzó.</li>
+      <li><b>Beépített felfedezés:</b> a név kérdést vet fel („Miért nyolc?”), a rejtett rétegek pedig a szintekkel nyílnak meg (Arcanum).</li>
+      <li><b>Erős ószövetségi és ősegyházi gyökér:</b> Qumrán, Dániel „értelmesei”, a katekumenátus. Ez illik a kért ószövetségi irányhoz.</li>
+      <li><b>A római keret megmarad:</b> az ordo a csatasor is, a tábor és a csata nevei maradnak, így a meglévő játék továbbra is illeszkedik.</li>
+    </ul>
+  </div>
+  <div class="box con">
+    <h3>Mire figyeljünk?</h3>
+    <ul>
+      <li><b>Magyarázat nélkül rejtélyes:</b> aki nem ismeri a hátteret, elsőre nem érti. Rövid bevezető szöveg kell hozzá.</li>
+      <li><b>Ezoterikus áthallás:</b> az „Ordo + szám” formát ezoterikus rendek is használják. A kinyilvánított titok keretével és átlátható magyarázattal tudatosan távol kell tartani tőle.</li>
+      <li><b>Kimondás:</b> „ordó nyolc”, „Ordo Eight” vagy „Ordo Octo”: nyelvenként más. Írásban (#OrdoVIII) a szám kevésbé olvasható.</li>
+      <li><b>Idegenebb nevek:</b> a névtér héber elemei (Yahad, Mevaqqer, Maskil) szokatlanabbak a latinnál.</li>
+    </ul>
+  </div>
+</div>
+<p style="margin-top: 3mm"><b>Akkor jó választás,</b> ha a mozgalom a lelki és jellembeli mélységre, a közösségi életrendre épít, és vállalható, hogy a nevet el kell magyarázni, sőt a magyarázat maga is része az élménynek.</p>
+
+<div class="keep">
+<h2>Összevetés</h2>
+<table class="cmp">
+  <tr><th></th><th>Cohors</th><th>Ordo VIII</th></tr>
+  <tr><td>Világ</td><td>római hadsereg</td><td>qumráni közösség és ősegyház, római kerettel</td></tr>
+  <tr><td>Hangulat</td><td>közvetlen, fegyelmezett, csapatos</td><td>mély, titokzatos, rendi</td></tr>
+  <tr><td>Elsőre érthető?</td><td>igen</td><td>magyarázatot kíván</td></tr>
+  <tr><td>Hitbeli réteg</td><td>a jelmondatban és egyes nevekben</td><td>az alapnévben is, szintenként feltárulva</td></tr>
+  <tr><td>Helyi közösség</td><td class="n">Centuria</td><td class="n">Yahad</td></tr>
+  <tr><td>Csapat</td><td class="n">Triplex</td><td class="n">Triplex</td></tr>
+  <tr><td>Szintek</td><td class="n">Tiro → Evocatus</td><td class="n">Accedens → Maskil</td></tr>
+  <tr><td>Csapatszerepek</td><td class="n">Signifer · Tesserarius · Cornicen</td><td class="n">Lector · Mevaqqer · Custos</td></tr>
+  <tr><td>Jelmondat</td><td><i>Funiculus triplex difficile rumpitur</i></td><td><i>In deserto parate viam</i></td></tr>
+  <tr><td>Logók</td><td>Tres scuta, Signum</td><td>Láncszem, Hajnal, Hármas fonál</td></tr>
+</table>
+</div>
+
+<!-- ============ III. KÖZÖS ALAPOK ============ -->
+<div class="kicker">III.</div>
+<h1>Közös alapok</h1>
+<p class="lead">A színek, a betűk és néhány név mindkét változatban ugyanaz, így a végső döntés után is megmaradnak.</p>
+
+<h2>Színek</h2>
+<div class="swatches">
+  <div class="sw"><div class="c" style="background: #5E1631"></div><div class="t"><b>Bíbor · #5E1631</b>A római méltóság színe. A liturgia színei közül a felkészülés (lila) és a vértanúk (vörös) között áll.</div></div>
+  <div class="sw"><div class="c" style="background: #C9A54C"></div><div class="t"><b>Arany · #C9A54C</b>A hadijelvények és kitüntetések féme: a hűség és a megbecsülés jele.</div></div>
+  <div class="sw"><div class="c" style="background: linear-gradient(90deg, #141414 0 50%, #FFFFFF 50% 100%)"></div><div class="t"><b>Fekete-fehér + bíbor</b>Egy- vagy kétszínű nyomtatáshoz: felvarró, póló, pecsét, fénymásolat.</div></div>
+</div>
+
+<h2>Betűk</h2>
+<div class="typo">
+  <div class="box"><div style="font-family: Cinzel, serif; font-weight: 600; letter-spacing: 0.1em; font-size: 15pt; padding: 1.5mm 0 1mm">COHORS · ORDO VIII</div><b>Cinzel</b> – nagybetűs antikva az első századi római kőfeliratok mintájára. A nevekhez, jelmondatokhoz és címekhez.</div>
+  <div class="box"><div>Kis vállalások, közös út.</div><b>Source Sans 3</b> – nyugodt, jól olvasható kenyérbetű a szövegekhez és a felülethez, teljes magyar ékezetkészlettel.</div>
+</div>
+
+<h2>Mindkét változatban közös nevek</h2>
+<div class="entry">
+  <div class="nm">Triplex <span class="say">[tripleksz]</span></div>
+  <div class="gl">„hármas” · a háromfős csapat</div>
+  <p>A latin <i>triplex</i> háromszorosat, három részből állót jelent. Ez a coop csapat neve: hárman vállalnak, hárman ellenőrzik egymást, és hárman viszik előre a közös hadjáratot.</p>
+  <div class="hid"><b>Rejtett rétegek.</b> <i>Funiculus triplex difficile rumpitur</i>, „a hármas fonál nem szakad el egyhamar” (Préd 4,12, Vulgata). Előtte a szöveg arról szól, hogy jobb kettőnek lenni, mint egynek, mert ha az egyik elesik, a társa felsegíti (Préd 4,9–12). A népszerű keresztény értelmezés a harmadik szálat Istennek tekinti, aki a kapcsolatot összetartja. A <i>triplex acies</i> pedig a római manipuláris légió hármas csatarendje volt (hastati, principes, triarii). Ez a hadrend győzte le a makedón phalanxot Künoszkephalainál, Kr. e. 197-ben, a játék kerettörténetének csatájában.</div>
+</div>
+<div class="entry">
+  <div class="nm">Imago <span class="say">[imágó]</span></div>
+  <div class="gl">„kép, képmás” · a profil, a hat területes radar</div>
+  <p>A rómaiaknál az <i>imago</i> az ősök viaszmaszkja és a hadijelvényen hordozott császárkép volt (vivője az <i>imaginifer</i>). Itt a profil: a kép, amelyet az interjú a jellemedről mutat, két nézőpontból, a sajátodból és a társadéból.</p>
+  <div class="hid"><b>Rejtett réteg.</b> <i>Imago Dei</i>: „Isten képmására teremtette” (Ter 1,27). A profil célja, hogy a kép egyre jobban hasonlítson az eredetijére.</div>
+</div>
+<div class="entry">
+  <div class="nm">Votum <span class="say">[vótum]</span></div>
+  <div class="gl">„fogadalom” · a játékos saját vállalása</div>
+  <p>A <i>votum</i> a rómaiaknál ünnepélyes ígéret volt, amelyet teljesítés után „be kellett váltani”. A fogadalmi feliratok gyakori zárása: V·S·L·M, <i>votum solvit libens merito</i>, „fogadalmát szívesen és méltán teljesítette”. Itt a játékos saját, konkrét vállalása, amelyet a társai is ismernek.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Teljesítem fogadalmaimat az Úrnak” (Zsolt 116,14). A szerzetesi fogadalmak neve is <i>vota</i>.</div>
+</div>
+<div class="entry">
+  <div class="nm">Exercitium <span class="say">[exercícium]</span></div>
+  <div class="gl">„gyakorlat” · a napi kihívás</div>
+  <p>Az <i>exercere</i> (gyakorolni, edzeni) igéből jön, amelyből a hadsereg latin neve, az <i>exercitus</i> is: a hadsereg szó szerint a „begyakorlottak” közössége. A napi kihívás a napi gyakorlat.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Gyakorold magad az istenfélelemben” (1Tim 4,7; Vulg. <i>exerce teipsum ad pietatem</i>). Loyolai Szent Ignác <i>Lelkigyakorlatai</i> (Exercitia spiritualia, 1548) a lelki élet rendszeres, napi „edzésének” klasszikusa.</div>
+</div>
+<div class="entry">
+  <div class="nm">Mandatum <span class="say">[mandátum]</span></div>
+  <div class="gl">„megbízatás, parancs” · a heti kihívás</div>
+  <p>A parancsnoktól kapott megbízatás. A heti kihívás az egész hétre szóló feladat, amelyet a csapat együtt kap.</p>
+  <div class="hid"><b>Rejtett réteg.</b> <i>Mandatum novum do vobis</i>: „Új parancsot adok nektek: szeressétek egymást” (Jn 13,34). Erről kapta nevét a nagycsütörtöki lábmosás szertartása, és angolul maga a nagycsütörtök is (Maundy Thursday).</div>
+</div>
+<div class="entry">
+  <div class="nm">Proelium <span class="say">[prélium]</span></div>
+  <div class="gl">„ütközet” · mérföldkő- és zárócsata</div>
+  <p>A közös esemény, ahol a hetek gyűjtése számít: a csapat eligazítás, manőverek és kiértékelés során vívja meg a csatát.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „A nemes harcot megharcoltam, a futást befejeztem, a hitet megtartottam” (2Tim 4,7). A valódi küzdelem belül zajlik (Ef 6,12). A két változat saját rétegét lásd a névtereknél.</div>
+</div>
+<div class="entry">
+  <div class="nm">Castra <span class="say">[kasztra]</span></div>
+  <div class="gl">„tábor” · a központi képernyő</div>
+  <p>A római sereg minden este szabályos, négyszögletes tábort épített, a közepén a parancsnoksággal (<i>principia</i>). Az app központi képernyője a tábor, ahol a csapat állapota, a raktár és a feladatok láthatók. A szó az angol <i>-chester</i> és <i>-caster</i> végű helynevekben él tovább (Manchester, Lancaster).</p>
+</div>
+<div class="entry">
+  <div class="nm">Ante · Retro · Latus · Sursum <span class="say">[ante · retró · latusz · szurszum]</span></div>
+  <div class="gl">előre · hátra · oldalra · felfelé · a négy irány</div>
+  <p>A kihívások négy iránya: <b>Ante</b> (előre: elindít, vállal, áttör), <b>Retro</b> (hátra: megtart, véd, kitart), <b>Latus</b> (oldalra: új nézőpont, kapcsolat, kerülőút), <b>Sursum</b> (felfelé: Istenhez igazodás, elhívás, mások felemelése).</p>
+  <div class="hid"><b>Rejtett réteg.</b> <i>Sursum corda</i>, „Emeljük fel szívünket!”: a szentmise prefációs párbeszéde, amelyet már Cyprianus is idéz a 3. században. A négy irány együtt egy kereszt négy szárát rajzolja ki.</div>
+</div>
+
+<!-- ============ IV. COHORS LOGÓK ============ -->
+<div class="kicker">IV.</div>
+<h1>Cohors: logók</h1>
+<p class="lead">Két jel és egy jelvény. Mindegyik működik bíbor-arany színben, fekete-fehér + bíbor változatban és app-ikonként is. A legkisebb méretre egyszerűsített rajz kell.</p>
+
+<div class="lg">
+<div class="logo">
+  <div class="tile">
+    <svg viewBox="0 0 240 240" style="--s: var(--arany); --m: var(--arany); --g: var(--bibor)"><use href="#m-scuta" width="240" height="240"/></svg>
+    <div class="wm">COHORS</div>
+    <div class="tg">FUNICULUS TRIPLEX DIFFICILE RUMPITUR</div>
+  </div>
+  <div class="side">
+    <div class="mono">
+      <svg viewBox="0 0 240 240" style="--s: #141414; --m: var(--bibor); --g: #FFFFFF"><use href="#m-scuta" width="240" height="240"/></svg>
+      <div><div class="wm">COHORS</div><div class="tg">FUNICULUS TRIPLEX</div></div>
+    </div>
+    <div class="icons">
+      <div class="ic"><div class="i22"><svg viewBox="0 0 240 240" style="--s: var(--arany); --m: var(--arany); --g: var(--bibor)"><use href="#m-scuta" width="240" height="240"/></svg></div>app-ikon</div>
+      <div class="ic"><div class="i13"><svg viewBox="0 0 240 240" style="--s: var(--arany); --m: var(--arany); --g: var(--bibor)"><use href="#m-scuta-s" width="240" height="240"/></svg></div>kicsi</div>
+      <div class="ic"><div class="i8"><svg viewBox="0 0 240 240" style="--s: var(--arany); --m: var(--arany); --g: var(--bibor)"><use href="#m-scuta-s" width="240" height="240"/></svg></div>favicon</div>
+      <div class="ic"><div class="i8 w"><svg viewBox="0 0 240 240" style="--s: #141414; --m: #141414; --g: #FFFFFF"><use href="#m-scuta-s" width="240" height="240"/></svg></div>1 szín</div>
+    </div>
+  </div>
+</div>
+<div class="logotxt">
+  <h3>Tres scuta – három pajzs</h3>
+  <p>Három összezárt római pajzs (<i>scutum</i>), ahogy a testudo-alakzatban egymást védik: a trió. A középső pajzs függőleges gerince és a mindhárom pajzson átfutó sáv rejtett keresztet rajzol, a metszéspontban a pajzs dudorával (<i>umbo</i>).</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Vegyétek fel mindenkor a hit pajzsát” (Ef 6,16; Vulg. <i>scutum fidei</i>). Pál itt a nagy, ajtó alakú pajzsot említi (görögül <i>thüreosz</i>), amely épp a római légiós scutum.</div>
+</div>
+</div>
+
+<div class="lg">
+<div class="logo">
+  <div class="tile">
+    <svg viewBox="0 0 240 240" style="--a: var(--arany); --b: var(--arany); --g: var(--bibor)"><use href="#m-signum" width="240" height="240"/></svg>
+    <div class="wm">COHORS</div>
+    <div class="tg">FUNICULUS TRIPLEX DIFFICILE RUMPITUR</div>
+  </div>
+  <div class="side">
+    <div class="mono">
+      <svg viewBox="0 0 240 240" style="--a: #141414; --b: var(--bibor); --g: #FFFFFF"><use href="#m-signum" width="240" height="240"/></svg>
+      <div><div class="wm">COHORS</div><div class="tg">FUNICULUS TRIPLEX</div></div>
+    </div>
+    <div class="icons">
+      <div class="ic"><div class="i22"><svg viewBox="0 0 240 240" style="--a: var(--arany); --b: var(--arany); --g: var(--bibor)"><use href="#m-signum" width="240" height="240"/></svg></div>app-ikon</div>
+      <div class="ic"><div class="i13"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-signum-s" width="240" height="240"/></svg></div>kicsi</div>
+      <div class="ic"><div class="i8"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-signum-s" width="240" height="240"/></svg></div>favicon</div>
+      <div class="ic"><div class="i8 w"><svg viewBox="0 0 240 240" style="--a: #141414"><use href="#m-signum-s" width="240" height="240"/></svg></div>1 szín</div>
+    </div>
+  </div>
+</div>
+<div class="logotxt">
+  <h3>Signum – hadijelvény</h3>
+  <p>A centuria hadijelvénye: rúd, keresztrúd, zászló (<i>vexillum</i>), alatta a rúdon díszkorongok (<i>phalerae</i>). A jelvény köré gyűlik az egység: a közös irány és a hovatartozás jele. A rúd és a keresztrúd rejtett kereszt, a három korong a trió.</p>
+  <div class="hid"><b>Rejtett réteg.</b> Konstantin látomása a milviusi csata előtt, 312-ben: „E jelben győzni fogsz” (<i>In hoc signo vinces</i>; Euszebiosz: Konstantin élete I,28). A keresztet ezután hadijelvényként, <i>labarum</i>ként vitték a sereg előtt.</div>
+</div>
+</div>
+
+<div class="seal">
+  <svg viewBox="0 0 720 720" role="img" aria-label="Cohors jelvény">
+    <circle cx="360" cy="360" r="300" fill="#5E1631" stroke="#C9A54C" stroke-width="5"/>
+    <circle cx="360" cy="360" r="262" fill="none" stroke="#C9A54C" stroke-width="3"/>
+    <circle cx="360" cy="360" r="206" fill="none" stroke="#C9A54C" stroke-width="2"/>
+    <g fill="#C9A54C" style="font-family: Cinzel, serif; font-size: 24px; font-weight: 600; text-anchor: middle">
+      <text x="360" y="136" transform="rotate(-109.6 360 360)">F</text><text x="360" y="136" transform="rotate(-103.2 360 360)">U</text><text x="360" y="136" transform="rotate(-96.8 360 360)">N</text><text x="360" y="136" transform="rotate(-92 360 360)">I</text><text x="360" y="136" transform="rotate(-87.2 360 360)">C</text><text x="360" y="136" transform="rotate(-80.8 360 360)">U</text><text x="360" y="136" transform="rotate(-74.4 360 360)">L</text><text x="360" y="136" transform="rotate(-68 360 360)">U</text><text x="360" y="136" transform="rotate(-61.6 360 360)">S</text><text x="360" y="136" transform="rotate(-53.12 360 360)">·</text><text x="360" y="136" transform="rotate(-44.64 360 360)">T</text><text x="360" y="136" transform="rotate(-38.24 360 360)">R</text><text x="360" y="136" transform="rotate(-33.44 360 360)">I</text><text x="360" y="136" transform="rotate(-28.64 360 360)">P</text><text x="360" y="136" transform="rotate(-22.24 360 360)">L</text><text x="360" y="136" transform="rotate(-15.84 360 360)">E</text><text x="360" y="136" transform="rotate(-9.44 360 360)">X</text><text x="360" y="136" transform="rotate(-0.96 360 360)">·</text><text x="360" y="136" transform="rotate(7.52 360 360)">D</text><text x="360" y="136" transform="rotate(12.32 360 360)">I</text><text x="360" y="136" transform="rotate(17.12 360 360)">F</text><text x="360" y="136" transform="rotate(23.52 360 360)">F</text><text x="360" y="136" transform="rotate(28.32 360 360)">I</text><text x="360" y="136" transform="rotate(33.12 360 360)">C</text><text x="360" y="136" transform="rotate(37.92 360 360)">I</text><text x="360" y="136" transform="rotate(42.72 360 360)">L</text><text x="360" y="136" transform="rotate(49.12 360 360)">E</text><text x="360" y="136" transform="rotate(57.6 360 360)">·</text><text x="360" y="136" transform="rotate(66.08 360 360)">R</text><text x="360" y="136" transform="rotate(72.48 360 360)">U</text><text x="360" y="136" transform="rotate(79.84 360 360)">M</text><text x="360" y="136" transform="rotate(87.2 360 360)">P</text><text x="360" y="136" transform="rotate(92 360 360)">I</text><text x="360" y="136" transform="rotate(96.8 360 360)">T</text><text x="360" y="136" transform="rotate(103.2 360 360)">U</text><text x="360" y="136" transform="rotate(109.6 360 360)">R</text>
+    </g>
+    <g fill="#C9A54C" style="font-family: Cinzel, serif; font-size: 27px; font-weight: 700; text-anchor: middle">
+      <text x="360" y="603" transform="rotate(15.5 360 360)">C</text><text x="360" y="603" transform="rotate(9.3 360 360)">O</text><text x="360" y="603" transform="rotate(3.1 360 360)">H</text><text x="360" y="603" transform="rotate(-3.1 360 360)">O</text><text x="360" y="603" transform="rotate(-9.3 360 360)">R</text><text x="360" y="603" transform="rotate(-15.5 360 360)">S</text>
+    </g>
+    <circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(32 360 360)"/><circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(-32 360 360)"/><circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(51 360 360)"/><circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(-51 360 360)"/>
+    <svg x="210" y="210" width="300" height="300" viewBox="0 0 240 240" style="--s: #C9A54C; --m: #C9A54C; --g: #5E1631"><use href="#m-scuta" width="240" height="240"/></svg>
+  </svg>
+  <div class="logotxt" style="margin: 0">
+    <h3>Jelvény</h3>
+    <p>Kör alakú jelvény pólóra, felvarróra és közösségi profilképre. Körirata a Préd 4,12 latin szövege: <i>FUNICULUS · TRIPLEX · DIFFICILE · RUMPITUR</i>, „a hármas fonál nem szakad el egyhamar”. Alul a név, középen a három pajzs.</p>
+    <p>A jelmondat egyszerre szól a háromfős csapatról és arról, aki rejtetten a harmadik szál.</p>
+  </div>
+</div>
+
+<!-- ============ V. COHORS NÉVTÉR ============ -->
+<div class="kicker">V.</div>
+<h1>Cohors: névtér</h1>
+<p class="lead">A római hadsereg kész rendje: egységek, rangok és szerepek, amelyek együtt adják a játék szerkezetét.</p>
+<table>
+  <tr><th style="width: 30mm">Réteg</th><th style="width: 36mm">Név</th><th>Jelentés · az appban</th><th style="width: 50mm">Rejtett réteg</th></tr>
+  <tr><td class="l">Mozgalom és app</td><td class="n">Cohors</td><td>római egység: együtt menetelők csapata</td><td>jelmondat: Préd 4,12</td></tr>
+  <tr><td class="l">Helyi közösség</td><td class="n">Centuria</td><td>a kohorsz alegysége: egy közösség triói</td><td>az evangéliumok centuriói</td></tr>
+  <tr><td class="l">Csapat</td><td class="n">Triplex</td><td>hármas: a háromfős coop csapat</td><td>Préd 4,12 · <i>triplex acies</i></td></tr>
+  <tr><td class="l">Belépés</td><td class="n">Probatio</td><td>az újonc vizsgája: az interjú</td><td><i>sacramentum</i></td></tr>
+  <tr><td class="l">Profil</td><td class="n">Imago</td><td>kép: a hat területes radar</td><td><i>imago Dei</i> (Ter 1,27)</td></tr>
+  <tr><td class="l">Vállalás</td><td class="n">Votum</td><td>fogadalom: a saját vállalás</td><td>Zsolt 116,14</td></tr>
+  <tr><td class="l">Napi kihívás</td><td class="n">Exercitium</td><td>gyakorlat</td><td>1Tim 4,7 · Szent Ignác</td></tr>
+  <tr><td class="l">Heti kihívás</td><td class="n">Mandatum</td><td>megbízatás</td><td><i>mandatum novum</i> (Jn 13,34)</td></tr>
+  <tr><td class="l">Hadjárat</td><td class="n">Expeditio</td><td>a héthetes kampány</td><td>–</td></tr>
+  <tr><td class="l">Csata</td><td class="n">Proelium</td><td>mérföldkő- és zárócsata</td><td>2Tim 4,7</td></tr>
+  <tr><td class="l">Kártyás edzés</td><td class="n">Prima Lux</td><td>első fény: a hajnali csata</td><td>Ter 1,3 · Mk 1,35</td></tr>
+  <tr><td class="l">Tábor</td><td class="n">Castra</td><td>a központi képernyő</td><td>–</td></tr>
+  <tr><td class="l">Kitüntetés</td><td class="n">Phalerae</td><td>díszkorongok: a badge-ek</td><td>–</td></tr>
+  <tr><td class="l">Irányok</td><td class="n">Ante · Retro · Latus · Sursum</td><td>előre · hátra · oldalra · felfelé</td><td><i>Sursum corda</i></td></tr>
+</table>
+<h3>Szintek · egyéni előrehaladás</h3>
+<div class="levels">
+  <div><b>Tiro</b>újonc</div><div><b>Miles</b>katona</div><div><b>Immunis</b>kiképzett szakember</div><div><b>Veteranus</b>veterán</div><div><b>Evocatus</b>visszatérő veterán · mentor</div>
+</div>
+<div class="two">
+  <div><h3 style="margin-top: 0">Szerepek a Triplexben · hetente forog</h3><p><b>Signifer</b> · zászlóvivő: viszi a heti irányt, őrzi a közös kasszát<br><b>Tesserarius</b> · a napi jelszó őre: verifikál<br><b>Cornicen</b> · kürtös: hív és emlékeztet</p></div>
+  <div><h3 style="margin-top: 0">Szerepek a Centuriában</h3><p><b>Centurio</b> · a Centuria vezetője<br><b>Optio</b> · a helyettese<br><b>Explorator</b> · felderítő: új kihívást javasol</p></div>
+</div>
+
+<h2 style="break-before: page">A nevek magyarázata</h2>
+<p class="small">A mindkét változatban közös neveket (Triplex, Imago, Votum, Exercitium, Mandatum, Proelium, Castra, irányok) a III. fejezet magyarázza.</p>
+<div class="entry">
+  <div class="nm">Cohors <span class="say">[kohorsz]</span></div>
+  <div class="gl">mozgalom és app</div>
+  <p>Eredetileg bekerített udvar (rokona a <i>hortus</i>, „kert”), majd az udvarban összegyűlt emberek, végül a légió egysége: nagyjából 480 katona hat centuriában. Belőle lett az angol <i>court</i> és <i>cohort</i>. A név azt mondja: együtt menetelők csapata, közös rendben.</p>
+  <div class="hid"><b>Rejtett réteg.</b> A jelmondat: <i>Funiculus triplex difficile rumpitur</i> (Préd 4,12).</div>
+</div>
+<div class="entry">
+  <div class="nm">Centuria <span class="say">[centúria]</span></div>
+  <div class="gl">helyi közösség</div>
+  <p>A kohorsz alegysége: névleg száz, valójában nyolcvan katona egy centurio vezetésével. Itt egy gyülekezet vagy közösség triói együtt.</p>
+</div>
+<div class="entry">
+  <div class="nm">Probatio <span class="say">[probáció]</span></div>
+  <div class="gl">belépés · az interjú</div>
+  <p>A római újoncot besorozás előtt megvizsgálták: testi alkalmasság, jellem, előélet. Vegetius részletesen leírja, kit érdemes felvenni. Csak a vizsga után tehette le a katonai esküt, a <i>sacramentum</i>ot. Itt a belépő interjú.</p>
+  <div class="hid"><b>Rejtett réteg.</b> A katonai eskü szavából, a <i>sacramentum</i>ból lett a keresztény szentség latin neve.</div>
+</div>
+<div class="entry">
+  <div class="nm">Expeditio <span class="say">[expedíció]</span></div>
+  <div class="gl">hadjárat · a héthetes kampány</div>
+  <p>Az <i>expedire</i> ige szó szerint azt jelenti: „kiszabadítja a lábát” (<i>ex</i> + <i>pes</i>). Útra készen állni, akadálytalanul elindulni.</p>
+</div>
+<div class="entry">
+  <div class="nm">Prima Lux <span class="say">[príma lux]</span></div>
+  <div class="gl">„első fény” · a kártyás hajnali csata</div>
+  <p>A hajnal, amikor a csapat a kártyás edzést tartja.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Legyen világosság!” (Ter 1,3): a teremtés első szava. Jézus „kora hajnalban, még sötétben felkelt, kiment egy puszta helyre, és ott imádkozott” (Mk 1,35).</div>
+</div>
+<div class="entry">
+  <div class="nm">Phalerae <span class="say">[faleré]</span></div>
+  <div class="gl">kitüntetés · a badge-ek</div>
+  <p>Domború fémkorongok, amelyeket a kitüntetett katona a mellvértje fölött, szíjakon viselt. Itt a teljesítményekért járó jelvények.</p>
+</div>
+<h3>Szintek</h3>
+<div class="entry">
+  <div class="nm">Tiro <span class="say">[tíró]</span></div>
+  <div class="gl">újonc</div>
+  <p>A kiképzés alatt álló új katona. Itt az, aki most kezdi az első hadjáratát.</p>
+</div>
+<div class="entry">
+  <div class="nm">Miles <span class="say">[mílesz]</span></div>
+  <div class="gl">katona</div>
+  <p>A teljes jogú közkatona. Itt az, aki már végigvitt egy hadjáratot.</p>
+  <div class="hid"><b>Rejtett réteg.</b> <i>Miles Christi</i>: „Viseld el a szenvedést, mint Krisztus Jézus jó katonája” (2Tim 2,3).</div>
+</div>
+<div class="entry">
+  <div class="nm">Immunis <span class="say">[immúnisz]</span></div>
+  <div class="gl">kiképzett szakember</div>
+  <p>Az a katona, akit különleges tudása (ács, orvos, írnok, mérnök) miatt mentesítettek a tábori robotmunka alól. Itt az, aki egy területen már szakértővé vált.</p>
+</div>
+<div class="entry">
+  <div class="nm">Veteranus <span class="say">[veteránusz]</span></div>
+  <div class="gl">veterán</div>
+  <p>A leszolgált, tapasztalt katona. Itt az, aki több hadjáraton van túl.</p>
+</div>
+<div class="entry">
+  <div class="nm">Evocatus <span class="say">[evokátusz]</span></div>
+  <div class="gl">visszatérő veterán · mentor</div>
+  <p>A leszolgált veterán, akit visszahívtak, vagy aki önként visszatért, és tapasztalatát az újoncoknak adta tovább. Itt a mentor.</p>
+</div>
+<h3>Szerepek</h3>
+<div class="entry">
+  <div class="nm">Signifer <span class="say">[szignifer]</span></div>
+  <div class="gl">zászlóvivő · a Triplexben hetente forog</div>
+  <p>A centuria jelvényének vivője. Ő kezelte a katonák megtakarításait is (Vegetius II,20). Itt egy hétig ő viszi a csapat irányát, és ő őrzi a közös pontokat.</p>
+</div>
+<div class="entry">
+  <div class="nm">Tesserarius <span class="say">[tesszeráriusz]</span></div>
+  <div class="gl">a jelszó őre · verifikátor</div>
+  <p>Minden este átvette a <i>tesserát</i>, a napi jelszót tartalmazó táblácskát, továbbadta, és felelt az őrségért (Polübiosz VI,34–35). Itt ő igazolja a társak teljesítéseit.</p>
+</div>
+<div class="entry">
+  <div class="nm">Cornicen <span class="say">[kornicen]</span></div>
+  <div class="gl">kürtös · hív és emlékeztet</div>
+  <p>A <i>cornu</i>, a nagy, kanyarított kürt fújója, aki jeleket adott menetben és csatában. Itt ő hívja és emlékezteti a többieket.</p>
+</div>
+<div class="entry">
+  <div class="nm">Centurio <span class="say">[centúrió]</span></div>
+  <div class="gl">a Centuria vezetője</div>
+  <p>A centuria parancsnoka, a római hadsereg gerince.</p>
+  <div class="hid"><b>Rejtett réteg.</b> Az evangéliumok centuriói: a kafarnaumi százados, akinek hitét Jézus megdicsérte (Mt 8,5–13); a kereszt alatt álló, aki kimondta: „Ez az ember valóban Isten Fia volt” (Mk 15,39); és Kornéliusz, az első pogány megtért (ApCsel 10).</div>
+</div>
+<div class="entry">
+  <div class="nm">Optio <span class="say">[opció]</span></div>
+  <div class="gl">a centurio helyettese</div>
+  <p>Neve az <i>optare</i>, „választani” igéből jön: a centurio maga választotta ki.</p>
+</div>
+<div class="entry">
+  <div class="nm">Explorator <span class="say">[explorátor]</span></div>
+  <div class="gl">felderítő · új kihívást javasol</div>
+  <p>Az előreküldött felderítő, aki megnézi az utat és a terepet. Itt az, aki új kihívásokat keres és javasol a katalógusba.</p>
+  <div class="hid"><b>Rejtett réteg.</b> Józsué két felderítője Jerikó előtt (Józs 2,1; Vulg. <i>exploratores</i>).</div>
+</div>
+
+<!-- ============ VI. ORDO VIII: A SZÁMOK ============ -->
+<div class="kicker">VI.</div>
+<h1>Ordo VIII: a számok</h1>
+<p class="lead">Az Ordo VIII-ban három szám hordoz jelentést. A VIII a névben áll, a 153 és a 364 rejtetten, a logóban és a játékban.</p>
+
+<div class="featrow">
+  <div class="big">VIII</div>
+  <div>
+    <h3 style="margin-top: 0">A nyolcadik nap</h3>
+    <p>A hét napja után a nyolcadik a feltámadás és az új teremtés napja. Az ősegyház ezért nevezte a vasárnapot „nyolcadik napnak” (Barnabás-levél 15,9; Jusztinosz: Párbeszéd Trifónnal 41, 138). Nyolcan menekültek meg a bárkában (1Pt 3,20), és Péter ezt a keresztség előképének nevezi (1Pt 3,21). Ezért nyolcszögletűek az ókeresztény keresztelőkápolnák: a Szent Ambrusnak tulajdonított milánói felirat szerint a nyolcszög a feltámadás és az új élet jele.</p>
+    <h3>1QS VIII: a Közösségi szabály 8. hasábja</h3>
+    <p>A Holt-tengeri tekercsek közt talált Közösségi szabály (1QS) 8. hasábja írja le a közösség tanácsát: „tizenkét férfi és három pap”. Itt áll a közösség programverse is: „a pusztában készítsétek az Úr útját, egyengessétek a sivatagban Istenünk ösvényét” (Iz 40,3). Ezért vonult ki a qumráni közösség a pusztába. Az egyengetés pontosan az, amit a jellemformálás tesz: a görbét egyenesre igazítja.</p>
+    <h3>Nyolc boldogság, nyolc rossz gondolat</h3>
+    <p>A Hegyi beszéd nyolc boldogsága (Mt 5,3–10) áll szemben a sivatagi atyák nyolc rossz gondolatával (Evagriosz Pontikosz). Ez az app érett és torzult jellempárjainak ősi mintája. Részletesen a VIII. fejezetben, a <i>Beatitudines · Logismoi</i> címszónál.</p>
+  </div>
+</div>
+
+<div class="featrow">
+  <div class="big">153</div>
+  <div>
+    <h3 style="margin-top: 0">A halfogás</h3>
+    <p>A feltámadt Jézus hajnalban jelenik meg a Tibériás-tó partján (Jn 21,4). A tanítványok az ő szavára újra kivetik a hálót, és 153 nagy halat fognak; „bár ennyi volt, a háló nem szakadt el” (Jn 21,11).</p>
+    <ul>
+      <li><b>Minden nép:</b> Jeromos (Ezékiel-kommentár, 47. fejezet) szerint az ókori halászok 153 halfajtát ismertek, vagyis a háló minden fajtát, minden népet összegyűjt.</li>
+      <li><b>Ágoston</b> (János-traktátusok 122): 153 = 1 + 2 + … + 17, és a 17 = 10 (a törvény) + 7 (a Lélek ajándékai).</li>
+      <li><b>„Hármas” szám:</b> 1³ + 5³ + 3³ = 1 + 125 + 27 = 153.</li>
+      <li><b>A hal formája:</b> Arkhimédész a √3 közelítésére a 265/153 arányt használta. A szakrális geometriai hagyomány ezért köti a 153-at a <i>vesica piscis</i>hez, két egymás középpontján átmenő kör metszetéhez, amely a hal (ichthys) formája.</li>
+    </ul>
+    <p><b>Hol jelenik meg:</b> a Láncszem-logó két gyűrűjének metszetében, a Hajnal-logó tó fölötti napfelkeltéjében és a <i>Rete</i> (háló) közös célban, amely 153 teljesítésnél telik meg.</p>
+  </div>
+</div>
+
+<div class="featrow">
+  <div class="big">364</div>
+  <div>
+    <h3 style="margin-top: 0">A qumráni év és a pakli</h3>
+    <p>A qumráni közösség 364 napos napnaptárt használt (Hénoch könyve 72–82, Jubileumok könyve 6,32). Ez pontosan 52 hét, négy 91 napos évszakkal, így minden ünnep minden évben ugyanarra a napra esett.</p>
+    <p>A francia kártyában 52 lap van, 4 színben, színenként 13 lappal. Az értékek összege 4 × (1 + 2 + … + 13) = 4 × 91 = <b>364</b>. A hajnali csata paklija tehát rejtetten egy qumráni év: 52 hét, négy évszak, 13 hetes negyedévek.</p>
+  </div>
+</div>
+
+<!-- ============ VII. ORDO VIII LOGÓK ============ -->
+<div class="kicker">VII.</div>
+<h1>Ordo VIII: logók</h1>
+<p class="lead">Három jel és egy jelvény, ugyanabban a rendszerben: bíbor-arany, fekete-fehér + bíbor és app-ikon. A legkisebb méretre egyszerűsített rajz kell.</p>
+
+<div class="lg">
+<div class="logo">
+  <div class="tile">
+    <svg viewBox="0 0 240 240" style="--a: var(--arany); --b: var(--arany); --g: var(--bibor)"><use href="#m-lanc" width="240" height="240"/></svg>
+    <div class="wm">ORDO VIII</div>
+    <div class="tg">IN DESERTO PARATE VIAM</div>
+  </div>
+  <div class="side">
+    <div class="mono">
+      <svg viewBox="0 0 240 240" style="--a: #141414; --b: var(--bibor); --g: #FFFFFF"><use href="#m-lanc" width="240" height="240"/></svg>
+      <div><div class="wm">ORDO VIII</div><div class="tg">PARATE VIAM</div></div>
+    </div>
+    <div class="icons">
+      <div class="ic"><div class="i22"><svg viewBox="0 0 240 240" style="--a: var(--arany); --b: var(--arany); --g: var(--bibor)"><use href="#m-lanc" width="240" height="240"/></svg></div>app-ikon</div>
+      <div class="ic"><div class="i13"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-lanc-s" width="240" height="240"/></svg></div>kicsi</div>
+      <div class="ic"><div class="i8"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-lanc-s" width="240" height="240"/></svg></div>favicon</div>
+      <div class="ic"><div class="i8 w"><svg viewBox="0 0 240 240" style="--a: #141414"><use href="#m-lanc-s" width="240" height="240"/></svg></div>1 szín</div>
+    </div>
+  </div>
+</div>
+<div class="logotxt">
+  <h3>Láncszem – a 8-as és a hal</h3>
+  <p>Két összefonódó gyűrű: a VIII-as szám, és egy lánc két szeme, vagyis a kötelék. Az egyik metszéspontban az egyik, a másikban a másik gyűrű kerül felülre: egyik sem uralja a másikat.</p>
+  <div class="hid"><b>Rejtett réteg.</b> Mindkét kör a másik középpontján halad át, így a metszetük a <i>vesica piscis</i>, a hal (ichthys) formája, a 153 rejtett jele. Az üldözött keresztények a halat titkos felismerőjelként használták.</div>
+</div>
+</div>
+
+<div class="lg">
+<div class="logo">
+  <div class="tile">
+    <svg viewBox="0 0 240 240" style="--a: var(--arany); --b: var(--arany)"><use href="#m-hajnal" width="240" height="240"/></svg>
+    <div class="wm">ORDO VIII</div>
+    <div class="tg">IN DESERTO PARATE VIAM</div>
+  </div>
+  <div class="side">
+    <div class="mono">
+      <svg viewBox="0 0 240 240" style="--a: #141414; --b: var(--bibor)"><use href="#m-hajnal" width="240" height="240"/></svg>
+      <div><div class="wm">ORDO VIII</div><div class="tg">ANTE LUCEM</div></div>
+    </div>
+    <div class="icons">
+      <div class="ic"><div class="i22"><svg viewBox="0 0 240 240" style="--a: var(--arany); --b: var(--arany)"><use href="#m-hajnal" width="240" height="240"/></svg></div>app-ikon</div>
+      <div class="ic"><div class="i13"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-hajnal-s" width="240" height="240"/></svg></div>kicsi</div>
+      <div class="ic"><div class="i8"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-hajnal-s" width="240" height="240"/></svg></div>favicon</div>
+      <div class="ic"><div class="i8 w"><svg viewBox="0 0 240 240" style="--a: #141414"><use href="#m-hajnal-s" width="240" height="240"/></svg></div>1 szín</div>
+    </div>
+  </div>
+</div>
+<div class="logotxt">
+  <h3>Hajnal – a nyolcszögben</h3>
+  <p>Nyolcszög, a nyolcadik nap és az ókeresztény keresztelőkápolnák formája. Benne napfelkelte a víz fölött, alatta a fény tükröződése.</p>
+  <div class="hid"><b>Rejtett réteg.</b> A Jn 21 hajnala a tó partján, a 153 hal reggele, és az esszénusok napfelkelte előtti imája (<i>ante lucem</i>). A felfelé mutató sugár, a horizont és a víz tükröződése együtt keresztet rajzol.</div>
+</div>
+</div>
+
+<div class="lg">
+<div class="logo">
+  <div class="tile">
+    <svg viewBox="0 0 240 240" style="--a: var(--arany); --g: var(--bibor); --k: #F0E1AE"><use href="#m-fonal" width="240" height="240"/></svg>
+    <div class="wm">ORDO VIII</div>
+    <div class="tg">FUNICULUS TRIPLEX</div>
+  </div>
+  <div class="side">
+    <div class="mono">
+      <svg viewBox="0 0 240 240" style="--a: #141414; --g: #FFFFFF; --k: var(--bibor)"><use href="#m-fonal" width="240" height="240"/></svg>
+      <div><div class="wm">ORDO VIII</div><div class="tg">FUNICULUS TRIPLEX</div></div>
+    </div>
+    <div class="icons">
+      <div class="ic"><div class="i22"><svg viewBox="0 0 240 240" style="--a: var(--arany); --g: var(--bibor); --k: #F0E1AE"><use href="#m-fonal" width="240" height="240"/></svg></div>app-ikon</div>
+      <div class="ic"><div class="i13"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-fonal-s" width="240" height="240"/></svg></div>kicsi</div>
+      <div class="ic"><div class="i8"><svg viewBox="0 0 240 240" style="--a: var(--arany)"><use href="#m-fonal-s" width="240" height="240"/></svg></div>favicon</div>
+      <div class="ic"><div class="i8 w"><svg viewBox="0 0 240 240" style="--a: #141414"><use href="#m-fonal-s" width="240" height="240"/></svg></div>1 szín</div>
+    </div>
+  </div>
+</div>
+<div class="logotxt">
+  <h3>Hármas fonál – a font 8-as</h3>
+  <p>Három szálból font 8-as: a Triplex és a VIII egyetlen jelben. A szál középen önmagát keresztezi, egyszer alul, egyszer felül.</p>
+  <div class="hid"><b>Rejtett réteg.</b> A középső szál más színű. A Préd 4,12 népszerű keresztény értelmezése szerint a harmadik szál Isten, aki a többit összetartja. Az <i>ordo</i> rokona, az <i>ordiri</i> is a szövés kezdetét, a szálak felvetését jelenti.</div>
+</div>
+</div>
+
+<div class="seal">
+  <svg viewBox="0 0 720 720" role="img" aria-label="Ordo VIII jelvény">
+    <polygon points="481.69,66.21 653.79,238.31 653.79,481.69 481.69,653.79 238.31,653.79 66.21,481.69 66.21,238.31 238.31,66.21" fill="#5E1631" stroke="#C9A54C" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="481.69" cy="66.21" r="8" fill="#C9A54C"/><circle cx="653.79" cy="238.31" r="8" fill="#C9A54C"/><circle cx="653.79" cy="481.69" r="8" fill="#C9A54C"/><circle cx="481.69" cy="653.79" r="8" fill="#C9A54C"/><circle cx="238.31" cy="653.79" r="8" fill="#C9A54C"/><circle cx="66.21" cy="481.69" r="8" fill="#C9A54C"/><circle cx="66.21" cy="238.31" r="8" fill="#C9A54C"/><circle cx="238.31" cy="66.21" r="8" fill="#C9A54C"/>
+    <circle cx="360" cy="360" r="262" fill="none" stroke="#C9A54C" stroke-width="3"/>
+    <circle cx="360" cy="360" r="206" fill="none" stroke="#C9A54C" stroke-width="2"/>
+    <g fill="#C9A54C" style="font-family: Cinzel, serif; font-size: 24px; font-weight: 600; text-anchor: middle">
+      <text x="360" y="136" transform="rotate(-72.8 360 360)">I</text><text x="360" y="136" transform="rotate(-68 360 360)">N</text><text x="360" y="136" transform="rotate(-59.52 360 360)">·</text><text x="360" y="136" transform="rotate(-51.04 360 360)">D</text><text x="360" y="136" transform="rotate(-44.64 360 360)">E</text><text x="360" y="136" transform="rotate(-38.24 360 360)">S</text><text x="360" y="136" transform="rotate(-31.84 360 360)">E</text><text x="360" y="136" transform="rotate(-25.44 360 360)">R</text><text x="360" y="136" transform="rotate(-19.04 360 360)">T</text><text x="360" y="136" transform="rotate(-12.64 360 360)">O</text><text x="360" y="136" transform="rotate(-4.16 360 360)">·</text><text x="360" y="136" transform="rotate(4.32 360 360)">P</text><text x="360" y="136" transform="rotate(10.72 360 360)">A</text><text x="360" y="136" transform="rotate(17.12 360 360)">R</text><text x="360" y="136" transform="rotate(23.52 360 360)">A</text><text x="360" y="136" transform="rotate(29.92 360 360)">T</text><text x="360" y="136" transform="rotate(36.32 360 360)">E</text><text x="360" y="136" transform="rotate(44.8 360 360)">·</text><text x="360" y="136" transform="rotate(53.28 360 360)">V</text><text x="360" y="136" transform="rotate(58.08 360 360)">I</text><text x="360" y="136" transform="rotate(62.88 360 360)">A</text><text x="360" y="136" transform="rotate(70.24 360 360)">M</text>
+    </g>
+    <g fill="#C9A54C" style="font-family: Cinzel, serif; font-size: 27px; font-weight: 700; text-anchor: middle">
+      <text x="360" y="603" transform="rotate(21.7 360 360)">O</text><text x="360" y="603" transform="rotate(15.5 360 360)">R</text><text x="360" y="603" transform="rotate(9.3 360 360)">D</text><text x="360" y="603" transform="rotate(3.1 360 360)">O</text><text x="360" y="603" transform="rotate(-4.65 360 360)">·</text><text x="360" y="603" transform="rotate(-12.4 360 360)">V</text><text x="360" y="603" transform="rotate(-17.05 360 360)">I</text><text x="360" y="603" transform="rotate(-20.15 360 360)">I</text><text x="360" y="603" transform="rotate(-23.25 360 360)">I</text>
+    </g>
+    <circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(48 360 360)"/><circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(-48 360 360)"/><circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(76 360 360)"/><circle cx="360" cy="594" r="4.5" fill="#C9A54C" transform="rotate(-76 360 360)"/>
+    <svg x="204" y="204" width="312" height="312" viewBox="0 0 240 240" style="--a: #C9A54C; --b: #C9A54C; --g: #5E1631"><use href="#m-lanc" width="240" height="240"/></svg>
+  </svg>
+  <div class="logotxt" style="margin: 0">
+    <h3>Jelvény</h3>
+    <p>Nyolcszögletű jelvény. Körirata <i>IN · DESERTO · PARATE · VIAM</i>, „a pusztában készítsétek az utat” (Iz 40,3). A nyolc csúcspont a nyolc boldogság, középen a Láncszem.</p>
+    <div class="hid"><b>Rejtett réteg.</b> A szórend szándékos: a héber szöveget és a qumráni olvasatot (1QS VIII) követi, ahol a „pusztában” az útkészítéshez tartozik. A Vulgata és az evangéliumok a görög fordítást követik, ott a kiáltó hang szól a pusztában (<i>vox clamantis in deserto</i>, Mk 1,3).</div>
+  </div>
+</div>
+
+<!-- ============ VIII. ORDO VIII NÉVTÉR ============ -->
+<div class="kicker">VIII.</div>
+<h1>Ordo VIII: névtér</h1>
+<p class="lead">A qumráni közösségi szabály és az ősegyházi beavatás világa, római kerettel. A rejtett rétegek a szintekkel együtt nyílnak meg (Arcanum).</p>
+<table>
+  <tr><th style="width: 28mm">Réteg</th><th style="width: 38mm">Név</th><th>Jelentés · az appban</th><th style="width: 52mm">Rejtett réteg (Arcanum)</th></tr>
+  <tr><td class="l">Mozgalom és app</td><td class="n">Ordo VIII</td><td>a nyolcadik nap rendje</td><td>feltámadás · 1QS VIII · 8 boldogság</td></tr>
+  <tr><td class="l">Helyi közösség</td><td class="n">Yahad</td><td>„együtt”: egy közösség triói</td><td>Qumrán önelnevezése · Zsolt 133,1</td></tr>
+  <tr><td class="l">Közös döntés</td><td class="n">Rabbim</td><td>„a Sokak”: a tagok szavazása (2/3)</td><td>1QS VI</td></tr>
+  <tr><td class="l">Csapat</td><td class="n">Triplex</td><td>hármas fonál</td><td>Préd 4,12 · a középső szál</td></tr>
+  <tr><td class="l">Belépés</td><td class="n">Scrutinium</td><td>vizsgálat: az interjú</td><td>katekumen-vizsgák · Zsolt 139,23</td></tr>
+  <tr><td class="l">Profil</td><td class="n">Imago</td><td>kép: a hat területes radar</td><td><i>imago Dei</i></td></tr>
+  <tr><td class="l">Érett / torzult</td><td class="n">Beatitudines · Logismoi</td><td>a jellempárok tanítása</td><td>Mt 5,3–10 · Evagriosz</td></tr>
+  <tr><td class="l">Vállalás</td><td class="n">Votum</td><td>fogadalom</td><td>Zsolt 116,14</td></tr>
+  <tr><td class="l">Napi kihívás</td><td class="n">Exercitium</td><td>gyakorlat</td><td>1Tim 4,7 · Szent Ignác</td></tr>
+  <tr><td class="l">Heti kihívás</td><td class="n">Mandatum</td><td>megbízatás</td><td>Jn 13,34</td></tr>
+  <tr><td class="l">Hadjárat</td><td class="n">Iter</td><td>út: a héthetes kampány</td><td>Iz 40,3 · ApCsel 9,2</td></tr>
+  <tr><td class="l">Új kezdet</td><td class="n">Octava</td><td>a 8. hét: ünnep, kiértékelés</td><td>a nyolcadik nap</td></tr>
+  <tr><td class="l">Csata</td><td class="n">Proelium</td><td>ütközet</td><td>1QM · 1Tessz 5,5</td></tr>
+  <tr><td class="l">Kártyás edzés</td><td class="n">Ante Lucem</td><td>hajnal előtt: a hajnali csata</td><td>esszénus hajnali ima · 364</td></tr>
+  <tr><td class="l">Tábor</td><td class="n">Castra</td><td>a központi képernyő</td><td>a Damaszkuszi irat „táborai”</td></tr>
+  <tr><td class="l">Közös cél</td><td class="n">Rete</td><td>háló: a közösség teljesítései</td><td>153 hal (Jn 21,11)</td></tr>
+  <tr><td class="l">Kitüntetés</td><td class="n">Lapides</td><td>kövek: a badge-ek</td><td>Jel 2,17 · 1Pt 2,5 · Józs 4</td></tr>
+  <tr><td class="l">Rejtett tartalom</td><td class="n">Arcanum</td><td>szintenként feloldódó réteg</td><td><i>disciplina arcani</i></td></tr>
+  <tr><td class="l">Irányok</td><td class="n">Ante · Retro · Latus · Sursum</td><td>előre · hátra · oldalra · felfelé</td><td><i>Sursum corda</i></td></tr>
+</table>
+<h3>Szintek · fokozatos beavatás</h3>
+<div class="levels">
+  <div><b>Accedens</b>közeledő</div><div><b>Catechumenus</b>tanuló</div><div><b>Competens</b>felkészülő</div><div><b>Fidelis</b>hűséges</div><div><b>Maskil</b>bölcs tanító · mentor</div>
+</div>
+<div class="two">
+  <div><h3 style="margin-top: 0">Szerepek a Triplexben · hetente forog</h3><p><b>Lector</b> · felolvasó: hozza a heti irányt<br><b>Mevaqqer</b> · felvigyázó: verifikál<br><b>Custos</b> · őr: hív, emlékeztet, hajnalban ébreszt</p></div>
+  <div><h3 style="margin-top: 0">Szerepek a Yahadban</h3><p><b>Maskil</b> · tanító: a Yahad vezetője és mentora<br><b>Rabbim</b> · a Sokak: a közös döntések fóruma</p></div>
+</div>
+
+<h2>A nevek magyarázata</h2>
+<p class="small">A mindkét változatban közös neveket (Triplex, Imago, Votum, Exercitium, Mandatum, Proelium, Castra, irányok) a III. fejezet magyarázza, itt csak az Ordo VIII saját rétege szerepel.</p>
+<div class="entry">
+  <div class="nm">Ordo VIII <span class="say">[ordó nyolc · latinul ordo octo]</span></div>
+  <div class="gl">mozgalom és app · a nyolcadik nap rendje</div>
+  <p>Az <i>ordo</i> sor, rend, rang; rokona az <i>ordiri</i>, a szövés kezdete, a láncfonalak felvetése. A VIII a nyolcadik nap. Együtt: a rend, amely egy új kezdet felé visz.</p>
+  <div class="hid"><b>Rejtett rétegek.</b> A feltámadás napja (Barnabás-levél 15,9), a keresztelőkápolnák nyolcszöge, a Közösségi szabály 8. hasábja (1QS VIII) és a nyolc boldogság. Részletesen a VI. fejezetben.</div>
+</div>
+<div class="entry">
+  <div class="nm">Yahad <span class="say">[jahad]</span></div>
+  <div class="gl">héber: „együtt, egység” · helyi közösség</div>
+  <p>A qumráni közösség így nevezte önmagát, szabályzata a <i>Serekh ha-Yahad</i>, „a Közösség szabálya”. Itt egy gyülekezet vagy közösség triói együtt.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Mily jó és mily gyönyörűséges, ha a testvérek egyetértésben élnek!” (Zsolt 133,1). A héber szövegben épp ez a szó áll: <i>gam jahad</i>, „együtt”.</div>
+</div>
+<div class="entry">
+  <div class="nm">Rabbim <span class="say">[rabbím]</span></div>
+  <div class="gl">héber: „a Sokak” · a közös döntések fóruma</div>
+  <p>Qumránban a teljes jogú tagok gyűlése, amely a felvételről és a közösség ügyeiről döntött (1QS VI). Itt a közös pontok és a történeti döntések szavazása (2/3-os többség).</p>
+</div>
+<div class="entry">
+  <div class="nm">Scrutinium <span class="say">[szkrutínium]</span></div>
+  <div class="gl">„vizsgálat” · a belépő interjú</div>
+  <p>Az ősegyházban a keresztségre készülőket nagyböjtben több alkalommal megvizsgálták, és imádkoztak értük (<i>scrutinia</i>). A felnőttek keresztségének mai rendjében is három ilyen alkalom van. Itt a belépő interjú.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Vizsgálj meg, Istenem, ismerd meg szívemet!” (Zsolt 139,23).</div>
+</div>
+<div class="entry">
+  <div class="nm">Beatitudines · Logismoi <span class="say">[beatitúdinesz · logiszmoi]</span></div>
+  <div class="gl">boldogságok · gondolatok · a jellempárok tanítása</div>
+  <p><b>A nyolc boldogság</b> (Mt 5,3–10): a lelki szegények, a sírók, a szelídek, akik éhezik és szomjazzák az igazságot, az irgalmasok, a tiszta szívűek, a békességszerzők, és akiket üldöznek az igazságért.</p>
+  <p><b>A nyolc rossz gondolat</b> (<i>logismoi</i>, Evagriosz Pontikosz, 4. század): falánkság, paráznaság, kapzsiság, szomorúság, harag, akédia (lelki restség), hiúság és gőg. Cassianus vitte nyugatra, Nagy Szent Gergely vonta össze a hét főbűnné.</p>
+  <div class="hid"><b>Kapcsolat az appal.</b> A profil 30 érett és torzult jellempárja ugyanezt a logikát követi: az érett működés és annak torzulása. Az Ordo VIII-ban ez a tanítás Arcanumként, a szintekkel együtt nyílik meg.</div>
+</div>
+<div class="entry">
+  <div class="nm">Iter <span class="say">[iter]</span></div>
+  <div class="gl">„út, menet” · a héthetes hadjárat</div>
+  <p>A római sereg napi menete. Itt a hét hét útja a hadjárat végéig.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „A pusztában készítsétek az Úr útját” (Iz 40,3; 1QS VIII). Az első keresztényeket „az Út” követőinek nevezték (ApCsel 9,2).</div>
+</div>
+<div class="entry">
+  <div class="nm">Octava <span class="say">[oktáva]</span></div>
+  <div class="gl">„a nyolcadik” · ünnep, kiértékelés, új kezdet</div>
+  <p>A liturgiában a nagy ünnepek (húsvét, karácsony) nyolc napig tartó ünneplése. Itt a héthetes hadjárat utáni nyolcadik hét: ünnep, visszatekintés és újrakezdés, ha a játékmechanika is ezt követi.</p>
+</div>
+<div class="entry">
+  <div class="nm">Proelium · Ordo-réteg <span class="say">[prélium]</span></div>
+  <div class="gl">a világosság fiainak harca</div>
+  <p>A qumráni Háborús tekercs (1QM) a világosság fiainak és a sötétség fiainak végidei harcát írja le, hét fordulóban: háromban a világosság, háromban a sötétség erősebb, a hetedikben Isten keze dönt (1QM I,13–14).</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Ti mindnyájan a világosság fiai vagytok” (1Tessz 5,5).</div>
+</div>
+<div class="entry">
+  <div class="nm">Ante Lucem <span class="say">[ante lúcem]</span></div>
+  <div class="gl">„hajnal előtt” · a kártyás hajnali csata</div>
+  <p>Josephus Flavius (A zsidó háború 2,128) szerint az esszénusok napfelkelte előtt egyetlen világi szót sem szóltak, csak az ősi imákat mondták. Itt a hajnali kártyás edzés neve.</p>
+  <div class="hid"><b>Rejtett rétegek.</b> Jézus „kora hajnalban, még sötétben” imádkozott egy puszta helyen (Mk 1,35); „már hajnal előtt fölkelek, és segítségért kiáltok” (Zsolt 119,147). A pakli összértéke 364, vagyis a qumráni év (VI. fejezet).</div>
+</div>
+<div class="entry">
+  <div class="nm">Castra · Ordo-réteg <span class="say">[kasztra]</span></div>
+  <div class="gl">a központi képernyő</div>
+  <p>A Damaszkuszi irat a városokban élő esszénus közösségeket „táboroknak” (<i>mahanot</i>) nevezi, a pusztai vándorlás táborainak mintájára.</p>
+</div>
+<div class="entry">
+  <div class="nm">Rete <span class="say">[réte]</span></div>
+  <div class="gl">„háló” · a közösség közös célja</div>
+  <p>A közösség teljesítései egy közös hálóba gyűlnek, amely 153 teljesítésnél telik meg.</p>
+  <div class="hid"><b>Rejtett réteg.</b> A 153 hal, és „bár ennyi volt, a háló nem szakadt el” (Jn 21,11), akárcsak a hármas fonál. „A mennyek országa hasonló a tengerbe vetett hálóhoz” (Mt 13,47).</div>
+</div>
+<div class="entry">
+  <div class="nm">Lapides <span class="say">[lapidesz]</span></div>
+  <div class="gl">„kövek” · a badge-ek</div>
+  <p>A teljesítményekért járó jelvények kövek formájában.</p>
+  <div class="hid"><b>Rejtett rétegek.</b> Józsué tizenkét emlékköve a Jordán partján (Józs 4,1–9): kő a megtett útra. „Ti is mint élő kövek épüljetek fel lelki házzá” (1Pt 2,5). „A győztesnek fehér kövecskét adok, és a kövecskén új név lesz, amelyet senki sem ismer, csak aki kapja” (Jel 2,17). Ez az utolsó kő lehet a hadjárat záró jutalma.</div>
+</div>
+<div class="entry">
+  <div class="nm">Arcanum <span class="say">[arkánum]</span></div>
+  <div class="gl">„titok” · szintenként feloldódó rejtett tartalom</div>
+  <p>Az ősegyház a keresztség előtt állóknak fokozatosan, lépésről lépésre tárta fel a szentségek, a hitvallás és a Miatyánk tanítását. Jeruzsálemi Szent Cirill például arra kéri hallgatóit, hogy ne adják tovább a hallottakat a még be nem avatottaknak (Procatechesis 12). A gyakorlatot a 17. századi teológia nevezte el <i>disciplina arcani</i>nak. Itt minden szint feloldja a nevek egy-egy rejtett rétegét: ennek a füzetnek a szürke dobozait.</p>
+</div>
+<div class="entry">
+  <div class="nm">Accedens <span class="say">[akcedensz]</span></div>
+  <div class="gl">1. szint · „közeledő”</div>
+  <p>Az <i>accedere</i> (odalépni, közeledni) igéből: aki most ismerkedik a közösséggel. Leíró szó, nem ősegyházi műszó.</p>
+</div>
+<div class="entry">
+  <div class="nm">Catechumenus <span class="say">[katekumenusz]</span></div>
+  <div class="gl">2. szint · „tanuló”</div>
+  <p>A görög <i>katékhein</i>, „szóban tanítani, visszhangoztatni” igéből: az ősegyházban a keresztségre készülők rendje. Itt az, aki már tanulja a rendet.</p>
+</div>
+<div class="entry">
+  <div class="nm">Competens <span class="say">[kompetensz]</span></div>
+  <div class="gl">3. szint · „felkészülő”</div>
+  <p>Szó szerint „együtt kérő”: Szent Ágoston idején így nevezték azokat, akik nagyböjtben a húsvéti keresztségre jelentkeztek. Itt az, aki a következő lépésre készül.</p>
+</div>
+<div class="entry">
+  <div class="nm">Fidelis <span class="say">[fidélisz]</span></div>
+  <div class="gl">4. szint · „hűséges”</div>
+  <p>Az ősegyházban és az egyházjogban a megkereszteltek neve (<i>christifideles</i>). Egyben a római <i>fides</i>: a vállalás megtartása. Itt az, aki már hűségesen végigvitte az utat.</p>
+</div>
+<div class="entry">
+  <div class="nm">Maskil <span class="say">[maszkil]</span></div>
+  <div class="gl">5. szint és közösségi szerep · „bölcs, tanító”</div>
+  <p>Qumránban a közösség tanítója, akinek a Közösségi szabály több része szól („a Maszkil számára”, 1QS III,13; IX,12–21). Számos zsoltár címe is <i>maszkil</i> (pl. Zsolt 32, 42). Itt a mentor és a Yahad vezetője.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Az értelmesek (<i>maszkilim</i>) fénylenek majd, mint a fényes égbolt, és akik sokakat igazságra vezettek, mint a csillagok, örökké” (Dán 12,3).</div>
+</div>
+<div class="entry">
+  <div class="nm">Lector <span class="say">[lektor]</span></div>
+  <div class="gl">felolvasó · a Triplexben hetente forog</div>
+  <p>Az ősegyház egyik legrégebbi szolgálata. Itt ő hozza és mondja ki a csapatnak a heti irányt.</p>
+  <div class="hid"><b>Rejtett réteg.</b> Ezsdrás és a léviták érthetően felolvasták a törvényt, és megmagyarázták az értelmét (Neh 8,8). Jézus a názáreti zsinagógában felállt, hogy felolvasson (Lk 4,16).</div>
+</div>
+<div class="entry">
+  <div class="nm">Mevaqqer <span class="say">[mevakker]</span></div>
+  <div class="gl">héber: „felvigyázó” · verifikátor</div>
+  <p>A Damaszkuszi irat és a Közösségi szabály tisztviselője, aki megvizsgálta a belépőket, és számon tartotta a tagok tetteit. A kutatók gyakran az újszövetségi <i>episzkoposz</i> (felvigyázó) előképének tartják. Itt ő igazolja a társak teljesítéseit.</p>
+</div>
+<div class="entry">
+  <div class="nm">Custos <span class="say">[kusztosz]</span></div>
+  <div class="gl">„őr” · hív, emlékeztet, hajnalban ébreszt</div>
+  <p>Az őrálló, aki virraszt, és szól, ha jön a reggel. Itt ő hívja és ébreszti a csapatot.</p>
+  <div class="hid"><b>Rejtett réteg.</b> „Őrálló, mennyi még az éjből?” (Iz 21,11; Vulg. <i>custos, quid de nocte?</i>). Az őrálló feladata, hogy figyelmeztesse a népet (Ez 33,7).</div>
+</div>
+
+<!-- ============ IX. AMIT KERÜLTÜNK ============ -->
+<div class="kicker">IX.</div>
+<h1>Amit tudatosan kerültünk</h1>
+<p class="lead">A rejtett rétegek kerete a kinyilvánított titok: nem elit tudás, hanem olyan mélység, amelyet bárki megtalálhat. Ezért több, egyébként csábító irányt kihagytunk.</p>
+<table>
+  <tr><th style="width: 46mm">Kerülendő</th><th>Miért</th></tr>
+  <tr><td class="n">Gnózis</td><td>Elit titoktudás, amelyet az egyház eretnekségként utasított el. Kizárná azokat, akiket meg akarunk szólítani.</td></tr>
+  <tr><td class="n">Audiens · Electus</td><td>A manicheusok kétlépcsős hierarchiájának kifejezései („hallgatók” és „választottak”). Helyettük Accedens és Competens.</td></tr>
+  <tr><td class="n">Illuminatus</td><td>Az ősegyházban a megkereszteltet „megvilágosítottnak” is nevezték (Zsid 6,4), de ma összeesküvés-elméletek hallanak rá.</td></tr>
+  <tr><td class="n">Templomos, rózsakeresztes, szabadkőműves utalások</td><td>Okkult és összeesküvés-áthallás. Ide tartozik a 33-as szám (a szabadkőművesség 33. fokozata).</td></tr>
+  <tr><td class="n">Kabbalisztikus szefirák</td><td>Ezoterikus rendszer. A 49 napos Ómer-számlálás (Lev 23,15–16) viszont bibliai, és illik a héthetes hadjárathoz.</td></tr>
+  <tr><td class="n">144 · 300</td><td>A Jehova Tanúi 144 000-e, illetve a „300” című film spártai machismója.</td></tr>
+  <tr><td class="n">Legio</td><td>Római, de „Légió a nevem, mert sokan vagyunk” (Mk 5,9): a gerázai megszállott démonainak neve.</td></tr>
+  <tr><td class="n">Sator-négyzet</td><td>Római katonai helyszíneken is előkerült, és egy értelmezés szerint rejtett Paternostert tartalmaz, de eredete vitatott. Nem választottuk.</td></tr>
+</table>
+
+<!-- ============ X. HIVATKOZÁSOK ============ -->
+<div class="kicker">X.</div>
+<h1>Hivatkozások</h1>
+<p class="lead">A füzetben említett bibliai helyek és források, könyvenként. A bibliai idézetek tartalmi összefoglalók.</p>
+<div class="refs">
+  <h3>Ószövetség</h3>
+  <p><b>Ter 1,3</b> – „Legyen világosság!” · Prima Lux</p>
+  <p><b>Ter 1,27</b> – Isten képmására · Imago</p>
+  <p><b>Lev 23,15–16</b> – hét teljes hét, az Ómer-számlálás · a héthetes hadjárat</p>
+  <p><b>Józs 2,1</b> – a jerikói felderítők · Explorator</p>
+  <p><b>Józs 4,1–9</b> – a tizenkét emlékkő · Lapides</p>
+  <p><b>Neh 8,8</b> – a törvény felolvasása és magyarázata · Lector</p>
+  <p><b>Zsolt 32; 42</b> – maszkil a zsoltárok címében · Maskil</p>
+  <p><b>Zsolt 116,14</b> – fogadalmak teljesítése · Votum</p>
+  <p><b>Zsolt 119,147</b> – hajnal előtt kelek · Ante Lucem</p>
+  <p><b>Zsolt 133,1</b> – testvérek együtt (<i>jahad</i>) · Yahad</p>
+  <p><b>Zsolt 139,23</b> – „Vizsgálj meg, Istenem” · Scrutinium</p>
+  <p><b>Préd 4,9–12</b> – a hármas fonál · Triplex, Cohors jelmondata</p>
+  <p><b>Iz 21,11</b> – „Őrálló, mennyi még az éjből?” · Custos</p>
+  <p><b>Iz 40,3</b> – a pusztában készítsétek az utat · Iter, Ordo VIII jelmondata</p>
+  <p><b>Ez 33,7</b> – az őrálló · Custos</p>
+  <p><b>Dán 12,3</b> – az értelmesek fénylenek · Maskil</p>
+  <h3>Újszövetség</h3>
+  <p><b>Mt 5,3–10</b> – a nyolc boldogság · Ordo VIII, Beatitudines</p>
+  <p><b>Mt 8,5–13</b> – a kafarnaumi százados · Centurio</p>
+  <p><b>Mt 13,47</b> – a tengerbe vetett háló · Rete</p>
+  <p><b>Mk 1,3</b> – a kiáltó hang a pusztában · jelvény</p>
+  <p><b>Mk 1,35</b> – hajnali ima puszta helyen · Prima Lux, Ante Lucem</p>
+  <p><b>Mk 5,9</b> – „Légió a nevem” · kerülendő</p>
+  <p><b>Mk 15,39</b> – a százados hitvallása · Centurio</p>
+  <p><b>Lk 4,16</b> – Jézus felolvas · Lector</p>
+  <p><b>Jn 13,34</b> – az új parancs · Mandatum</p>
+  <p><b>Jn 21,1–14</b> – a 153 hal · 153, Rete, Hajnal-logó</p>
+  <p><b>ApCsel 9,2</b> – „az Út” követői · Iter</p>
+  <p><b>ApCsel 10</b> – Kornéliusz · Centurio</p>
+  <p><b>Ef 6,10–17</b> – Isten fegyverzete, a hit pajzsa · Tres scuta</p>
+  <p><b>Kol 1,26</b> – a kinyilvánított titok · a rejtett rétegek kerete</p>
+  <p><b>1Tessz 5,5</b> – a világosság fiai · Proelium</p>
+  <p><b>1Tim 4,7</b> – gyakorold magad · Exercitium</p>
+  <p><b>2Tim 2,3</b> – Krisztus jó katonája · Miles</p>
+  <p><b>2Tim 4,7</b> – a nemes harc · Proelium</p>
+  <p><b>Zsid 6,4</b> – a megvilágosítottak · kerülendő</p>
+  <p><b>1Pt 2,5</b> – élő kövek · Lapides</p>
+  <p><b>1Pt 3,20–21</b> – nyolc lélek a bárkában · VIII</p>
+  <p><b>Jel 2,17</b> – a fehér kő új névvel · Lapides</p>
+  <h3>Qumráni iratok</h3>
+  <p><b>1QS</b> – Közösségi szabály (Serekh ha-Yahad): III,13 és IX,12–21 Maskil · VI Rabbim, felvétel · VIII,1–4 a tanács · VIII,13–16 Iz 40,3</p>
+  <p><b>1QM</b> – Háborús tekercs: I,13–14 a hét forduló · Proelium</p>
+  <p><b>CD</b> – Damaszkuszi irat: a „táborok” és a Mevaqqer</p>
+  <p><b>Hénoch 72–82; Jubileumok 6,32</b> – a 364 napos naptár</p>
+  <h3>Ókori és egyházi szerzők</h3>
+  <p><b>Polübiosz</b> – Történeti könyvek VI,34–35 (a tessera) · XVIII (Künoszkephalai)</p>
+  <p><b>Vegetius</b> – Epitoma rei militaris I (az újoncok vizsgája) · II,20 (a signiferek)</p>
+  <p><b>Josephus Flavius</b> – A zsidó háború 2,119–161 (az esszénusok; 2,128 hajnali ima)</p>
+  <p><b>Barnabás-levél</b> 15,9 – a nyolcadik nap</p>
+  <p><b>Jusztinosz</b> – Párbeszéd Trifónnal 41, 138</p>
+  <p><b>Cyprianus</b> – Az Úr imádságáról 31 (<i>Sursum corda</i>)</p>
+  <p><b>Euszebiosz</b> – Konstantin élete I,28 (<i>In hoc signo</i>)</p>
+  <p><b>Evagriosz Pontikosz</b> – Praktikosz 6–14 (a nyolc logismos)</p>
+  <p><b>Jeruzsálemi Szent Cirill</b> – Procatechesis 12</p>
+  <p><b>Szent Ambrus</b> (tulajdonítva) – a milánói keresztelőkápolna felirata</p>
+  <p><b>Szent Jeromos</b> – Ezékiel-kommentár, 47. fejezet (153 halfajta)</p>
+  <p><b>Szent Ágoston</b> – János-traktátusok 122 (153 és 17)</p>
+  <p><b>Arkhimédész</b> – A kör méréséről (265/153 &lt; √3)</p>
+  <p><b>Loyolai Szent Ignác</b> – Lelkigyakorlatok (1548)</p>
+</div>
+
+</body>
+</html>

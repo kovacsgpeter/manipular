@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+  <title>Cohors – Signum</title>
+  <rect width="240" height="240" rx="40" fill="#5E1631"/>
+  <path d="M120 8 L131 28 L120 40 L109 28 Z" fill="#C9A54C"/>
+  <rect x="116" y="36" width="8" height="196" fill="#C9A54C"/>
+  <rect x="56" y="52" width="128" height="9" rx="4.5" fill="#C9A54C"/>
+  <path d="M70 66 H170 V128 L157.5 118 L145 128 L132.5 118 L120 128 L107.5 118 L95 128 L82.5 118 L70 128 Z" fill="#C9A54C"/>
+  <rect x="80" y="76" width="80" height="34" fill="#5E1631"/>
+  <rect x="83" y="79" width="74" height="28" fill="#C9A54C"/>
+  <circle cx="120" cy="152" r="12" fill="#C9A54C"/>
+  <circle cx="120" cy="180" r="12" fill="#C9A54C"/>
+  <circle cx="120" cy="208" r="12" fill="#C9A54C"/>
+  <circle cx="120" cy="152" r="5" fill="#5E1631"/>
+  <circle cx="120" cy="180" r="5" fill="#5E1631"/>
+  <circle cx="120" cy="208" r="5" fill="#5E1631"/>
+</svg>

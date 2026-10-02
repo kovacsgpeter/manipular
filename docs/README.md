@@ -7,6 +7,7 @@ Ebben a könyvtárban található a koncepcióalkotás minden jelenlegi eredmén
 - [Induló megvalósítási terv](02-indulo-terv.md)
 - [Tervezett funkciók](planned-feature-list.md)
 - [Kattintható felületek és szerkeszthető forrásaik](visualizations/README.md)
+- [Név és arculat: Cohors és Ordo VIII névtér, logóvázlatok](arculat/README.md)
 - Jellemprofil – Testudo (30 érett jellemvonás és torzult párja, önértékelés + verifikátor, 6 területes radar):
   - [Testudo felmérés és kérdésműhely (HTML)](jellemprofil/testudo.html)
   - [Testudo kitöltői változat, Kérdésműhely nélkül (HTML)](../interju/index.html) – ezt kapják a kitöltők (a landing oldal „Kezdjük el” gombja ide visz); a build generálja, ne kézzel szerkeszd
