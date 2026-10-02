@@ -1,4 +1,4 @@
-"""ORDO szóvédjegy: az első O nyolcszög, a második kis o – nyomdakész SVG-k (görbésítve).
+"""ORDO szóvédjegy: az első O arany nyolcszög, a többi betű egységes – nyomdakész SVG-k (görbésítve).
 
 Használat: python3 build_wordmark.py <Cinzel változó betűfájl (.ttf/.woff2)>
 Kell hozzá: pip install fonttools brotli
@@ -49,7 +49,7 @@ def word(text, oct_color, color, x=0.0, size=1.0):
     parts = []
     h = (O_Y1 - O_Y0) * size          # az O magassága (a túllógással együtt)
     for i, ch in enumerate(text):
-        if ch == "O":
+        if ch == "O" and i == 0:
             w = h
             parts.append(f'<path fill="{oct_color}" fill-rule="evenodd" d="{octagon_ring(x, h, STEM * 1.05 * size)}" transform="translate(0 {-O_Y0 * size:.1f})"/>')
             adv = w + (gs[cmap[ord("O")]].width - (O_X1 - O_X0)) * size
@@ -76,8 +76,11 @@ def write(name, text, oct_color, color, width_mm):
     (OUT / f"ordo-szovedjegy-{name}.svg").write_text(out, encoding="utf-8")
 
 
-# Csak az első O nyolcszög; a második a Cinzel kisbetűs o-ja (kiskapitális), a szöveg színében.
-write("2szin", "ORDo", ARANY, HOMOK, 80)
-write("2szin-viii", "ORDo VIII", ARANY, HOMOK, 100)
-write("1szin", "ORDo", HOMOK, HOMOK, 80)
+# Csak az első O nyolcszög (arany); a többi betű egységesen nagy (ORDO) vagy kiskapitális (Ordo).
+write("2szin", "ORDO", ARANY, HOMOK, 80)
+write("2szin-viii", "ORDO VIII", ARANY, HOMOK, 100)
+write("1szin", "ORDO", HOMOK, HOMOK, 80)
+write("kis-2szin", "Ordo", ARANY, HOMOK, 80)
+write("kis-2szin-viii", "Ordo VIII", ARANY, HOMOK, 100)
+write("kis-1szin", "Ordo", HOMOK, HOMOK, 80)
 print("kész")
