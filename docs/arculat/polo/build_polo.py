@@ -44,17 +44,30 @@ def mark(ring, fish):
   <path d="M176 92 A56 56 0 0 1 71.5 120 A56 56 0 0 1 176 148" fill="none" stroke="{fish}" stroke-width="12" stroke-linejoin="miter"/>'''
 
 
-def svg(name, ring, lens, with_text, width_mm=80):
-    # A jel befoglalója: x 58–182, y 30–210 (gyűrűk a vonalvastagsággal együtt).
-    body = mark(ring, lens)
-    w, top, h = 124, 30, 180
+def mark_v3(main, accent):
+    """V + III: a római nyolcas rendfokozat-jelzésként. Fent az arany V (csúcsával lefelé,
+    mint a vállapi csillagsáv), alatta három szár: a Triplex, a három társ."""
+    return f'''
+  <path d="M56 52 L120 104 L184 52" fill="none" stroke="{accent}" stroke-width="20" stroke-linejoin="miter"/>
+  <rect x="74" y="128" width="20" height="78" fill="{main}"/>
+  <rect x="110" y="128" width="20" height="78" fill="{main}"/>
+  <rect x="146" y="128" width="20" height="78" fill="{main}"/>'''
+
+
+def svg(name, ring, lens, with_text, width_mm=80, kind="lanc"):
+    if kind == "v3":
+        # A jel befoglalója: x 49,7–190,3, y 44,2–206 (a V hegyes illesztésével együtt).
+        body, w, top, h, bottom, tscale = mark_v3(ring, lens), 141, 44, 162, 206, 1.0
+    else:
+        # A jel befoglalója: x 58–182, y 30–210 (gyűrűk a vonalvastagsággal együtt).
+        body, w, top, h, bottom, tscale = mark(ring, lens), 124, 30, 180, 210, 1.25
     if with_text:
         d, tw, cap = text_path("ORDO VIII")
-        scale = w * 1.25 / tw          # a felirat 25%-kal szélesebb a jelnél
-        ty = 210 + 22 + cap * scale    # 22 egység térköz a jel alatt
+        scale = w * tscale / tw
+        ty = bottom + 22 + cap * scale    # 22 egység térköz a jel alatt
         tx = 120 - tw * scale / 2
         body += f'\n  <g fill="{ring}" transform="translate({tx:.2f} {ty:.2f}) scale({scale:.5f})">{d}</g>'
-        w, h = w * 1.25, ty - top
+        w, h = max(w, w * tscale), ty - top
     x0 = 120 - w / 2
     pad = 6
     vb = f"{x0 - pad:.2f} {top - pad:.2f} {w + 2 * pad:.2f} {h + 2 * pad:.2f}"
@@ -74,3 +87,9 @@ svg("2szin-jel", HOMOK, ARANY, False, width_mm=60)
 svg("1szin-felirattal", HOMOK, HOMOK, True)
 svg("1szin-jel", HOMOK, HOMOK, False, width_mm=60)
 print("kész")
+
+# V + III változat (pólóra javasolt): arany V, homok szárak és felirat; 1 színben minden homok
+svg("v3-2szin-felirattal", HOMOK, ARANY, True, kind="v3")
+svg("v3-2szin-jel", HOMOK, ARANY, False, width_mm=60, kind="v3")
+svg("v3-1szin-felirattal", HOMOK, HOMOK, True, kind="v3")
+svg("v3-1szin-jel", HOMOK, HOMOK, False, width_mm=60, kind="v3")
