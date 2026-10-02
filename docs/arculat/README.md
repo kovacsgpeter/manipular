@@ -108,3 +108,12 @@ A jelvények: a Cohorsé kör alakú, *FUNICULUS · TRIPLEX · DIFFICILE · RUMP
 ## Pólólogó (Ordo VIII, mellre)
 
 A [`polo/`](polo/) könyvtárban nyomdakész SVG-k vannak a 15M barna pólóra, a Láncszem jelből, kiemelt hal-metszettel: 2 színben (homok gyűrűk és felirat, arany hal az autós ichthys formájában: a két belső ív és a farokba futó folytatásuk) és 1 színben (minden homok, a halat a színváltások helyén futó rések rajzolják ki), felirattal (80 mm széles) és csak jellel (60 mm). A felirat görbésítve van, a rések festék nélküliek, így szitára és hímzésre is mehet. Próbanézet: [`polo-probanezet.png`](polo/polo-probanezet.png). Újragenerálás: `python3 docs/arculat/polo/build_polo.py <Cinzel betűfájl>`.
+
+## Póló- és pulóverkollekció
+
+Két terv, mindkettő a 15M barna pólóra és pulóverre (próbanézet: [`polo/kollekcio-probanezet.png`](polo/kollekcio-probanezet.png)):
+
+1. **Mellen** az ORDO szóvédjegy (arany nyolcszögletű O, nagybetűk), **ujjon** ék alakú rendfokozat-felvarró, **háton** a főtiszti feliratos VIII és alatta a *PARATE VIAM DOMINI* („Készítsétek az Úr útját”, Iz 40,3).
+2. Ugyanez, de **mellen** a 8-as gyűrűs jel kiemelt hallal.
+
+Nyomdakész fájlok a [`polo/kollekcio/`](polo/kollekcio/) alatt: a hátminta mind a 4 főtiszti fokozattal (`hat-viii-1…4.svg`, 280 mm széles) és a felvarró mind a 16 rendfokozattal (`felvarro-*.svg`, kb. 55 × 73 mm). Újragenerálás: `python3 docs/arculat/polo/build_kollekcio.py <Cinzel betűfájl>`.
