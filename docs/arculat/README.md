@@ -104,3 +104,7 @@ A jelvények: a Cohorsé kör alakú, *FUNICULUS · TRIPLEX · DIFFICILE · RUMP
 - Melyik logókoncepció megy tovább, és mit kell rajta finomítani?
 - Tükrözze-e a VIII a mechanikát (7 hét hadjárat + 1 ünnepi Octava-hét)?
 - Védjegy- és domainellenőrzés a győztes névre.
+
+## Pólólogó (Ordo VIII, mellre)
+
+A [`polo/`](polo/) könyvtárban nyomdakész SVG-k vannak a 15M barna pólóra, a Láncszem jelből, kiemelt hal-metszettel: 2 színben (homok gyűrűk és felirat, arany hal) és 1 színben (minden homok, a hal tömör kitöltés), felirattal (80 mm széles) és csak jellel (60 mm). A felirat görbésítve van, a rések festék nélküliek, így szitára és hímzésre is mehet. Próbanézet: [`polo-probanezet.png`](polo/polo-probanezet.png). Újragenerálás: `python3 docs/arculat/polo/build_polo.py <Cinzel betűfájl>`.
