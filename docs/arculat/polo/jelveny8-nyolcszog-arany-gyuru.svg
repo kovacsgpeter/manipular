@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="80mm" height="80mm">
+  <title>Ordo VIII – halas 8-as jelvény (nyolcszog, arany-gyuru)</title>
+  <polygon points="293.00,209.23 209.23,293.00 90.77,293.00 7.00,209.23 7.00,90.77 90.77,7.00 209.23,7.00 293.00,90.77" fill="#5E1631" stroke="#C9A54C" stroke-width="5" stroke-linejoin="round"/><polygon points="281.00,204.26 204.26,281.00 95.74,281.00 19.00,204.26 19.00,95.74 95.74,19.00 204.26,19.00 281.00,95.74" fill="none" stroke="#C9A54C" stroke-width="1.5" stroke-linejoin="round"/>
+  <g transform="translate(30 30)">
+    <path d="M175.79 152.88 A56 56 0 1 1 69.25 124.33" fill="none" stroke="#C9A54C" stroke-width="12"/>
+    <path d="M69.25 115.67 A56 56 0 1 1 175.79 87.12" fill="none" stroke="#C9A54C" stroke-width="12"/>
+    <path d="M176 92 A56 56 0 0 1 71.5 120 A56 56 0 0 1 176 148" fill="none" stroke="#F3E6C0" stroke-width="12" stroke-linejoin="miter"/>
+  </g>
+</svg>
